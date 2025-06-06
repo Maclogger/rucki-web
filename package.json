@@ -4,7 +4,8 @@
     "type": "module",
     "scripts": {
         "build": "vue-tsc && vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "release": "bash release.sh"
     },
     "devDependencies": {
         "@inertiajs/vue3": "^2.0.0",
