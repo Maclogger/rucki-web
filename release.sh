@@ -20,7 +20,7 @@ git rebase origin/master
 
 # 3. KROK: Spustenie produkčného buildu
 echo "🛠️  Spúšťam 'npm run build'... (môže to chvíľu trvať)"
-sail npm run build
+bash vendor/bin/sail npm run build
 
 # 4. KROK: Commitnutie zbuildených súborov (ak sa nejaké zmenili)
 # Skript skontroluje, či build vôbec vytvoril nejaké zmeny. Ak áno, vytvorí nový commit.
