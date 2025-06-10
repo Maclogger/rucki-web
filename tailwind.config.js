@@ -13,8 +13,15 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Poppins', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'white': "#F5F5F7",
+                'darkblue': "#233A5F",
+                'black': "#2A2A2A",
+                'gray': "#E5E5E5",
+                'github-green': "#79CF6B",
+            }
         },
     },
 

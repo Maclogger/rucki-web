@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * @property Carbon $date Dátum záznamu (primárny kľúč).
+ * @property int $contributions_count Počet príspevkov za daný deň.
+ * @property Carbon $created_at Čas vytvorenia záznamu.
+ * @property Carbon $updated_at Čas poslednej aktualizácie záznamu.
+ */
+class GitHubRecord extends Model
+{
+    protected $table = 'github_records';
+
+    protected $fillable = [
+        'date',
+        'contributions_count',
+    ];
+
+    protected $casts = [
+        'date' => 'date',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+}
