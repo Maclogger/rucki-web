@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\GitHubRecord;
+use App\Models\Setting;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
@@ -17,7 +18,9 @@ class GitHubRecordController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $data = $this->fetchGitHubRecords("Maclogger");
+        $nickname = Setting::find("nickaname")->value;
+
+        $data = $this->fetchGitHubRecords($nickname);
         Log::info("fetched");
         //Log::info($data);
 
