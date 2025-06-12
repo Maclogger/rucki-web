@@ -18,7 +18,7 @@ class GitHubRecordController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $nickname = Setting::find("nickaname")->value;
+        $nickname = Setting::find("nickname")->value;
 
         $data = $this->fetchGitHubRecords($nickname);
         Log::info("fetched");
