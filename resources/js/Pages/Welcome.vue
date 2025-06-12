@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
+import {Head, Link, useForm} from '@inertiajs/vue3';
 
 defineProps<{
     canLogin?: boolean;
@@ -8,8 +8,21 @@ defineProps<{
     phpVersion: string;
 }>();
 
+
+
+const form = useForm({
+
+});
+
+const submit = () => {
+    form.post("/fetch-github-contributions");
+};
+
+
 </script>
 
 <template>
-
+    <form @submit.prevent="submit">
+        <button>Spusti</button>
+    </form>
 </template>

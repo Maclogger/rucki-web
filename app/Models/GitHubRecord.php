@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * @property Carbon $date Dátum záznamu (primárny kľúč).
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class GitHubRecord extends Model
 {
-    protected $table = 'github_records';
+    protected $table = 'git_hub_records';
 
     protected $fillable = [
         'date',

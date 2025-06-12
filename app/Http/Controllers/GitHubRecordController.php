@@ -6,16 +6,55 @@ use App\Models\GitHubRecord;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Psr\Http\Message\ResponseInterface;
-use Psy\Util\Str;
 
 class GitHubRecordController extends Controller
 {
-    public function fetchGitHubRecords(String $nickname) : ?array
+    /**
+     * Handle the incoming request.
+     */
+    public function __invoke(Request $request)
+    {
+        $data = $this->fetchGitHubRecords("Maclogger");
+        Log::info("fetched");
+        //Log::info($data);
+
+        if ($data == null) return;
+
+
+        try {
+            DB::beginTransaction();
+
+            foreach ($data["contributions"] as $oneContributionData) {
+                Log::info($oneContributionData["date"]);
+                Log::info($oneContributionData["count"]);
+                //Log::info($oneContributionData["level"]); do not know what does it mean ... not important for me
+
+                $dayContribution = GitHubRecord::updateOrCreate(
+                    [
+                        "date" => $oneContributionData["date"],
+                        "contributions_count" => $oneContributionData["count"]
+                    ]
+                );
+
+                $dayContribution->save();
+            }
+            Log::info("Commit");
+            DB::commit();
+        } catch (\Throwable $e) {
+            Log::error($e);
+            Log::info("Rollback");
+            DB::rollBack();
+        }
+    }
+
+    public function fetchGitHubRecords(string $nickname): ?array
     {
         $client = new Client([
             'base_uri' => 'https://github-contributions-api.jogruber.de/v4/',
-            'timeout'  => 5.0,
+            'timeout' => 5.0,
         ]);
 
         try {
@@ -25,11 +64,13 @@ class GitHubRecordController extends Controller
                 ],
             ]);
 
+            Log::info("response: ");
+
             return $this->decodeJsonResponse($response);
         } catch (GuzzleException $e) {
             // Tu by si mal logovať chybu namiesto len echo.
             // Napr. pomocou Laravel logovacieho systému: Log::error($e->getMessage());
-            error_log("Chyba pri získavaní dát z API: " . $e->getMessage());
+            Log::error("Chyba pri získavaní dát z API: " . $e->getMessage());
             return null;
         }
     }

@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::get("/fetch-github-contributions", [GitHubRecordController::class, 'fetchGitHubRecords'])->name('fetchGitHubRecords');
+Route::post("/fetch-github-contributions", [GitHubRecordController::class, "__invoke"]);
 
 
 require __DIR__.'/auth.php';
