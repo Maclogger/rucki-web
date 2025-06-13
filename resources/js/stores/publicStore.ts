@@ -42,5 +42,15 @@ export const usePublicStore = defineStore("publicStore", {
             }
             return null;
         },
+
+        getFullName(): string {
+            if (!this.settingPairs) return "";
+
+            const titul = this.getSetting("titul");
+            const meno = this.getSetting("meno");
+            const priezvisko = this.getSetting("priezvisko");
+
+            return titul + " " + meno + " " + priezvisko;
+        }
     },
 });

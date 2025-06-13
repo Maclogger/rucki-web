@@ -7,14 +7,17 @@ import {storeToRefs} from "pinia";
 
 const gitHubStore = useGitHubStore();
 
-const { lastUpdate } = storeToRefs(gitHubStore); // <-- ZMENA TU
+const { lastUpdate } = storeToRefs(gitHubStore);
 
 </script>
 
 <template>
-    <p>Last update: {{ toNicelyFormattedDateAndTime(lastUpdate) }}</p>
-    <GitHubGraph/>
+    <div class="bg-black h-screen">
+        <p>Last update: {{ toNicelyFormattedDateAndTime(lastUpdate) }}</p>
+        <GitHubGraph/>
+    </div>
 </template>
+
 
 <style scoped>
 

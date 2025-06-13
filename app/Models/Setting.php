@@ -31,7 +31,7 @@ class Setting extends Model
 
     public static function createSettingPair(string $name, mixed $value): void
     {
-        $settingPair = Setting::updateOrCreate([
+        $settingPair = new Setting([
             'key' => $name,
             'value' => $value,
             'type_name' => Type::getTypeFromValue($value),

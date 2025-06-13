@@ -13,9 +13,11 @@ class SettingSeeder extends Seeder
      */
     public function run(): void
     {
+        Setting::truncate();
         Setting::createSettingPair('titul', "Bc.");
         Setting::createSettingPair('meno', "Marek");
         Setting::createSettingPair('priezvisko', "Rucki");
+        Setting::createSettingPair('rola', "Junior Developer");
         Setting::createSettingPair('nickname', "Maclogger");
         Setting::createSettingPair('dateAndTimeFormat', "dd.MM.yyyy HH:mm");
     }

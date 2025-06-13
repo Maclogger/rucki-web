@@ -95,13 +95,38 @@ onMounted(() => {
 
 </script>
 
+
+<!--
+        <form class="bg-gray" @submit.prevent="submit">
+            <button class="bg-github-green w-auto text-white m-2 p-4 rounded">
+                Fetch GitHub Data
+            </button>
+        </form>
+-->
 <template>
-    <form class="bg-gray" @submit.prevent="submit">
-        <button class="bg-github-green w-auto text-white m-2 p-4 rounded">
-            Fetch GitHub Data
-        </button>
-    </form>
+    <div class="h-screen bg-white flex">
+        <div class="w-6/12  h-full flex items-center justify-end">
+            <div class=" flex flex-col me-24">
+                <p class="text-5xl font-sans font-bold">{{ publicStore.getFullName() }}</p>
+                <p class="text-xl">{{ publicStore.getSetting("rola") }}</p>
+            </div>
+        </div>
+
+        <div class="w-6/12 h-full flex items-center justify-start">
+            <img
+                src="/images/profile_pic.png"
+                alt="profile picture"
+                class="rounded-full object-cover ms-24 profile-pic"/>
+        </div>
+    </div>
 
     <GitHubSection/>
 
 </template>
+
+<style scoped>
+    .profile-pic {
+        width: 25rem;
+        height: 25rem;
+    }
+</style>
