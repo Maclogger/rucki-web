@@ -11,8 +11,7 @@ const { gitHubRecords } = storeToRefs(gitHubStore);
 
 <template>
 
-    <div class="m-5">
-
+    <div class="m-5 bg-red-100 h-24 w-48">
     </div>
 
 
