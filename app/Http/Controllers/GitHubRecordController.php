@@ -6,6 +6,7 @@ use App\Models\GitHubRecord;
 use App\Models\Setting;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -13,6 +14,11 @@ use Psr\Http\Message\ResponseInterface;
 
 class GitHubRecordController extends Controller
 {
+    public static function getRecordsData() : Collection
+    {
+        return GitHubRecord::all();
+    }
+
     /**
      * Handle the incoming request.
      */
@@ -29,13 +35,14 @@ class GitHubRecordController extends Controller
 
         try {
             DB::beginTransaction();
+            GitHubRecord::truncate(); // deletes all the rows
 
             foreach ($data["contributions"] as $oneContributionData) {
                 Log::info($oneContributionData["date"]);
                 Log::info($oneContributionData["count"]);
-                //Log::info($oneContributionData["level"]); do not know what does it mean ... not important for me
+                //Log::info($oneContributionData["level"]); do not know what does it mean ... not important for me, was available in API
 
-                $dayContribution = GitHubRecord::updateOrCreate(
+                $dayContribution = new GitHubRecord(
                     [
                         "date" => $oneContributionData["date"],
                         "contributions_count" => $oneContributionData["count"]

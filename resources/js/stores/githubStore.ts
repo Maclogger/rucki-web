@@ -1,11 +1,5 @@
 import {defineStore} from 'pinia';
 
-export const useGitHubStore = defineStore("gitHubStore", {
-    state: () => ({
-        lastUpdate: null as Date | null,
-        gitHubRecords: [] as GitHubRecord[],
-    }),
-});
 
 interface GitHubRecord {
     date: Date
@@ -13,3 +7,26 @@ interface GitHubRecord {
     updated_at: Date,
     created_at: Date
 }
+
+interface GitHubStoreState {
+    lastUpdate: Date | null,
+    gitHubRecords: GitHubRecord[],
+}
+
+
+export const useGitHubStore = defineStore("gitHubStore", {
+
+    state: (): GitHubStoreState => {
+        return {
+            lastUpdate: null,
+            gitHubRecords: [],
+        };
+    },
+
+    actions: {
+       setState(newState: GitHubStoreState) {
+           this.$patch(newState);
+       }
+    }
+});
+
