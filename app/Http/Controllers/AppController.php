@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +12,7 @@ class AppController extends Controller
 {
     public function index() {
         $records = GitHubRecordController::getRecordsData();
+        $settingPairs = SettingController::getSettingPairs();
 
         return Inertia::render('InitialScreen', [
             'canLogin' => Route::has('login'),
@@ -18,6 +20,7 @@ class AppController extends Controller
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
             'initialGitHubRecords' => $records,
+            'settingPairs' => $settingPairs,
         ]);
     }
 }

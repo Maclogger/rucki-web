@@ -24,6 +24,7 @@
         "vue-tsc": "^2.0.24"
     },
     "dependencies": {
+        "date-fns": "^4.1.0",
         "pinia": "^3.0.3"
     }
 }

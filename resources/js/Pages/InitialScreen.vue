@@ -16,6 +16,13 @@ const props = defineProps<{
         updated_at: string,
         created_at: string
     }>;
+    settingPairs: Array<{
+        key: string,
+        value: any,
+        type: {
+            type_name: string
+        },
+    }>;
 }>();
 
 
@@ -28,11 +35,16 @@ const submit = () => {
 };
 
 function setPublicStoreState() {
+    console.log("Prišli zo serveru settingy: ");
+    console.log(props.settingPairs);
+
+
     const publicStoreState = {
         canLogin: props.canLogin,
         canRegister: props.canRegister,
         laravelVersion: props.laravelVersion,
         phpVersion: props.phpVersion,
+        settingPairs: props.settingPairs,
     };
 
     publicStore.setState(publicStoreState);

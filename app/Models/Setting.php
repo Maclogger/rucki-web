@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 class Setting extends Model
 {
     protected $primaryKey = 'key';
+    public $incrementing = false;
 
     protected $fillable = [
         'key',
@@ -30,7 +31,7 @@ class Setting extends Model
 
     public static function createSettingPair(string $name, mixed $value): void
     {
-        $settingPair = new Setting([
+        $settingPair = Setting::updateOrCreate([
             'key' => $name,
             'value' => $value,
             'type_name' => Type::getTypeFromValue($value),

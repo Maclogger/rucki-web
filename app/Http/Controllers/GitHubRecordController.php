@@ -27,7 +27,6 @@ class GitHubRecordController extends Controller
         $nickname = Setting::find("nickname")->value;
 
         $data = $this->fetchGitHubRecords($nickname);
-        Log::info("fetched");
         //Log::info($data);
 
         if ($data == null) return;
@@ -38,8 +37,8 @@ class GitHubRecordController extends Controller
             GitHubRecord::truncate(); // deletes all the rows
 
             foreach ($data["contributions"] as $oneContributionData) {
-                Log::info($oneContributionData["date"]);
-                Log::info($oneContributionData["count"]);
+/*                Log::info($oneContributionData["date"]);
+                Log::info($oneContributionData["count"]);*/
                 //Log::info($oneContributionData["level"]); do not know what does it mean ... not important for me, was available in API
 
                 $dayContribution = new GitHubRecord(
@@ -51,11 +50,11 @@ class GitHubRecordController extends Controller
 
                 $dayContribution->save();
             }
-            Log::info("Commit");
+/*            Log::info("Commit");*/
             DB::commit();
         } catch (\Throwable $e) {
-            Log::error($e);
-            Log::info("Rollback");
+/*            Log::error($e);
+            Log::info("Rollback");*/
             DB::rollBack();
         }
     }
@@ -74,12 +73,9 @@ class GitHubRecordController extends Controller
                 ],
             ]);
 
-            Log::info("response: ");
 
             return $this->decodeJsonResponse($response);
         } catch (GuzzleException $e) {
-            // Tu by si mal logovať chybu namiesto len echo.
-            // Napr. pomocou Laravel logovacieho systému: Log::error($e->getMessage());
             Log::error("Chyba pri získavaní dát z API: " . $e->getMessage());
             return null;
         }

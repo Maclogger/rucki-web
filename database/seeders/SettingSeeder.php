@@ -17,5 +17,6 @@ class SettingSeeder extends Seeder
         Setting::createSettingPair('meno', "Marek");
         Setting::createSettingPair('priezvisko', "Rucki");
         Setting::createSettingPair('nickname', "Maclogger");
+        Setting::createSettingPair('dateAndTimeFormat', "dd.MM.yyyy HH:mm");
     }
 }
