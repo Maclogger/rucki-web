@@ -54,30 +54,17 @@ function findLatestUpdateDate(
     return latestUpdateDate;
 }
 
-function setGitHubRecordsState() {
-    /*
-        props.initialGitHubRecords.forEach((value, index) => {
-            console.log("Date: " + props.initialGitHubRecords[index].date);
-            console.log("Contributions: " + props.initialGitHubRecords[index].contributions_count);
-            console.log("Created At: " + props.initialGitHubRecords[index].created_at);
-            console.log("Updated At: " + props.initialGitHubRecords[index].updated_at);
-        });
-
-    */
-
-    props.initialGitHubRecords.forEach((value, index) => {
-        console.log("Date: " + value.date);
-        console.log("Contributions: " + value.contributions_count);
-        console.log("Created At: " + value.created_at);
-        console.log("Updated At: " + value.updated_at);
-    });
-
-    const gitHubRecords = props.initialGitHubRecords.map(record => ({
+function getGitHubRecordsWithDateTypes() {
+    return props.initialGitHubRecords.map(record => ({
         ...record,
         date: new Date(record.date),
-        updated_at: new Date(record.updated_at), // Použi updated_at
+        updated_at: new Date(record.updated_at),
         created_at: new Date(record.created_at)
     }));
+}
+
+function setGitHubRecordsState() {
+    const gitHubRecords = getGitHubRecordsWithDateTypes();
 
     const latestUpdateDate = findLatestUpdateDate(gitHubRecords);
 
@@ -102,7 +89,6 @@ onMounted(() => {
             Fetch GitHub Data
         </button>
     </form>
-
 
     <GitHubSection/>
 
