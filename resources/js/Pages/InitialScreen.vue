@@ -117,15 +117,9 @@ onMounted(() => {
             <img
                 src="/images/profile_pic.png"
                 alt="profile picture"
-                class="rounded-full object-cover w-64 h-64 md:w-96 md:h-96" /> </div>
+                class="rounded-full object-cover w-64 h-64 md:w-96 md:h-96"/>
+        </div>
     </div>
 
     <GitHubSection/>
 </template>>
-
-<style scoped>
-    .profile-pic {
-        width: 25rem;
-        height: 25rem;
-    }
-</style>
