@@ -7,6 +7,8 @@ interface GitHubRecord {
     updated_at: Date,
     created_at: Date,
     day_of_the_week: number,
+    week_of_the_year: number,
+    year_level: number,
 }
 
 interface GitHubStoreState {

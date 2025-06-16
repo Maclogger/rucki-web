@@ -16,6 +16,8 @@ const props = defineProps<{
         updated_at: string,
         created_at: string,
         day_of_the_week: number,
+        week_of_the_year: number,
+        year_level: number,
     }>;
     settingPairs: Array<{
         key: string,

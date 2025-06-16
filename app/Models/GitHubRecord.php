@@ -28,9 +28,30 @@ class GitHubRecord extends Model
 
     protected $appends = [
         'day_of_the_week',
+        'week_of_the_year',
+        'year_level',
     ];
 
-    public function getDayOfTheWeekAttribute(): int {
+    public function getDayOfTheWeekAttribute(): int
+    {
         return $this->date->dayOfWeek;
+    }
+
+    public function getWeekOfTheYearAttribute(): int
+    {
+        return $this->date->weekOfYear;
+    }
+
+    public function getYearLevelAttribute(): float
+    {
+        $currentYear = $this->date->year;
+
+        $maxContributionsInYear = self::whereYear('date', $currentYear)->max('contributions_count');
+
+        if ($maxContributionsInYear === null || $maxContributionsInYear === 0) {
+            return 0.0;
+        }
+
+        return $this->contributions_count / $maxContributionsInYear;
     }
 }
