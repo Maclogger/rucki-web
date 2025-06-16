@@ -24,13 +24,12 @@ class GitHubRecordController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $nickname = Setting::find("nickname")->value;
+        $nickname = Setting::findByKey("nickname");
 
         $data = $this->fetchGitHubRecords($nickname);
         //Log::info($data);
 
         if ($data == null) return;
-
 
         try {
             DB::beginTransaction();
@@ -41,6 +40,7 @@ class GitHubRecordController extends Controller
                 Log::info($oneContributionData["count"]);*/
                 //Log::info($oneContributionData["level"]); do not know what does it mean ... not important for me, was available in API
 
+
                 $dayContribution = new GitHubRecord(
                     [
                         "date" => $oneContributionData["date"],
@@ -48,7 +48,9 @@ class GitHubRecordController extends Controller
                     ]
                 );
 
-                $dayContribution->save();
+                if ($dayContribution->contributions_count > 0) {
+                    $dayContribution->save();
+                }
             }
 /*            Log::info("Commit");*/
             DB::commit();
@@ -106,3 +108,4 @@ class GitHubRecordController extends Controller
         }
     }
 }
+

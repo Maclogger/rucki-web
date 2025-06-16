@@ -25,4 +25,12 @@ class GitHubRecord extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    protected $appends = [
+        'day_of_the_week',
+    ];
+
+    public function getDayOfTheWeekAttribute(): int {
+        return $this->date->dayOfWeek;
+    }
 }

@@ -14,7 +14,8 @@ const props = defineProps<{
         date: string,
         contributions_count: number,
         updated_at: string,
-        created_at: string
+        created_at: string,
+        day_of_the_week: number,
     }>;
     settingPairs: Array<{
         key: string,
@@ -71,7 +72,7 @@ function getGitHubRecordsWithDateTypes() {
         ...record,
         date: new Date(record.date),
         updated_at: new Date(record.updated_at),
-        created_at: new Date(record.created_at)
+        created_at: new Date(record.created_at),
     }));
 }
 
@@ -96,14 +97,12 @@ onMounted(() => {
 </script>
 
 
-<!--
-        <form class="bg-gray" @submit.prevent="submit">
-            <button class="bg-github-green w-auto text-white m-2 p-4 rounded">
-                Fetch GitHub Data
-            </button>
-        </form>
--->
 <template>
+    <form class="bg-gray" @submit.prevent="submit">
+        <button class="bg-github-green w-auto text-white m-2 p-4 rounded">
+            Fetch GitHub Data
+        </button>
+    </form>
     <div class="min-h-screen bg-white flex flex-col items-center justify-center py-8 md:flex-row md:justify-center">
 
         <div class="w-full md:w-6/12 h-auto md:h-full flex items-center justify-center md:justify-end text-center md:text-right">

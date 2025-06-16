@@ -39,4 +39,9 @@ class Setting extends Model
 
         $settingPair->save();
     }
+
+    public static function findByKey(string $key): mixed
+    {
+        return Setting::find($key)->value;
+    }
 }

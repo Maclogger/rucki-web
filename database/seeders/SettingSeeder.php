@@ -20,5 +20,6 @@ class SettingSeeder extends Seeder
         Setting::createSettingPair('rola', "Junior Developer");
         Setting::createSettingPair('nickname', "Maclogger");
         Setting::createSettingPair('dateAndTimeFormat', "dd.MM.yyyy HH:mm");
+        Setting::createSettingPair('gitHubYearFrom', 2017);
     }
 }
