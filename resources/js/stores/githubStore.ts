@@ -1,28 +1,33 @@
 import {defineStore} from 'pinia';
 
 
-interface GitHubRecord {
+export interface GitHubRecord {
     date: Date
     contributions_count: number,
     updated_at: Date,
     created_at: Date,
-    day_of_the_week: number,
-    week_of_the_year: number,
-    year_level: number,
+    day_of_the_week: number, // row
+    week_of_the_year: number, // column
+    year_level: number, // highlight thickness ~ <0, 1>
 }
 
-interface GitHubStoreState {
-    lastUpdate: Date | null,
-    gitHubRecords: GitHubRecord[],
+export interface GitHubYearChart {
+    year: number, // year to select
+    week_count: number, // how many columns there will be in chart
+    git_hub_records: GitHubRecord[],
+}
+
+export interface GitHubStoreState {
+    last_update: Date | null,
+    git_hub_year_chart: Map<number, GitHubYearChart>, // key is the year
 }
 
 
 export const useGitHubStore = defineStore("gitHubStore", {
-
     state: (): GitHubStoreState => {
         return {
-            lastUpdate: null,
-            gitHubRecords: [],
+            last_update: null,
+            git_hub_year_chart: new Map<number, GitHubYearChart>()
         };
     },
 

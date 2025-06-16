@@ -1,11 +1,11 @@
 import {defineStore} from 'pinia';
 
 interface PublicStoreState {
-    canLogin: boolean;
-    canRegister: boolean;
-    laravelVersion: string | null;
-    phpVersion: string | null;
-    settingPairs: SettingPair[];
+    can_login: boolean;
+    can_register: boolean;
+    laravel_version: string | null;
+    php_version: string | null;
+    setting_pairs: SettingPair[];
 }
 
 interface SettingPair {
@@ -21,11 +21,11 @@ interface Type {
 export const usePublicStore = defineStore("publicStore", {
     state: (): PublicStoreState => {
         return {
-            canLogin: false,
-            canRegister: false,
-            laravelVersion: null,
-            phpVersion: null,
-            settingPairs: []
+            can_login: false,
+            can_register: false,
+            laravel_version: null,
+            php_version: null,
+            setting_pairs: []
         };
     },
 
@@ -35,7 +35,7 @@ export const usePublicStore = defineStore("publicStore", {
         },
 
         getSetting(settingKey: string): any | null {
-            for (const value of this.settingPairs) {
+            for (const value of this.setting_pairs) {
                 if (value.key == settingKey) {
                     return value.value;
                 }
@@ -44,7 +44,7 @@ export const usePublicStore = defineStore("publicStore", {
         },
 
         getFullName(): string {
-            if (!this.settingPairs) return "";
+            if (!this.setting_pairs) return "";
 
             const titul = this.getSetting("titul");
             const meno = this.getSetting("meno");

@@ -1,30 +1,42 @@
 <script setup lang="ts">
 
-import {useGitHubStore} from "@/stores/githubStore";
+/*import {useGitHubStore, GitHubRecord} from "@/stores/githubStore";
 import {storeToRefs} from "pinia";
 import GitHubTile from "@/Pages/PublicDomain/GitHub/GitHubTile.vue";
 import {computed} from "vue";
+import {get} from "axios";
 
 const gitHubStore = useGitHubStore();
 
-const {gitHubRecords} = storeToRefs(gitHubStore);
+const {git_hub_records} = storeToRefs(gitHubStore);
 
-const contributionsMap = computed(() => {
-    const map = new Map<string, number>();
+const recordMap = computed(() => {
+    const map = new Map<string, GitHubRecord>();
     gitHubRecords.value.forEach(record => {
         const key = `${record.day_of_the_week}-${record.week_of_the_year}`;
-        map.set(key, record.contributions_count);
+        map.set(key, record);
     });
     return map;
 });
 
+
+const getGitHubRecord = (day: number, week: number):  => {
+    const key = `${day}-${week}`;
+    return recordMap.value.get(key);
+};
+
 const getContributionCount = (day: number, week: number): number => {
     const key = `${day}-${week}`;
-    return contributionsMap.value.get(key) || 0;
+    return recordMap.value.get(key) || 0;
+};
+
+const getYearLevel = (day: number, week: number): number => {
+    const key = `${day}-${week}`;
+    return recordMap.value.get(key) || 0;
 };
 
 const numRows = 8;
-const numCols = 54;
+const numCols = 54;*/
 
 </script>
 
@@ -32,19 +44,14 @@ const numCols = 54;
     <div class="h-full">
         <div class="p-2">
             <div class="flex flex-col gap-1">
-                <!-- Riadky reprezentujú dni v týždni (napr. 1-7) + jeden pre záhlavie alebo iné -->
-                <!-- Predpokladajme, že r = deň v týždni (1-7), r=0 pre label riadok -->
                 <div v-for="dayIndex in numRows" :key="`row-${dayIndex}`" class="flex gap-1">
-                    <!-- Stĺpce reprezentujú týždne v roku (napr. 1-54) + jeden pre záhlavie -->
-                    <!-- Predpokladajme, že s = týždeň v roku (1-54) -->
                     <div v-for="weekIndex in numCols" :key="`col-${dayIndex}-${weekIndex}`">
-                        <!-- Odovzdávame konkrétny deň a týždeň, aby GitHubTile vedel, kde je -->
-                        <!-- A hlavne odovzdávame contributionCount priamo! -->
-                        <GitHubTile
+<!--                        <GitHubTile
                             :day="dayIndex"
                             :week="weekIndex"
                             :contributionCount="getContributionCount(dayIndex, weekIndex)"
-                        />
+                            :year_level="get"
+                        />-->
                     </div>
                 </div>
             </div>

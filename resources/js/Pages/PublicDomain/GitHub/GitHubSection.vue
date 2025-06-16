@@ -7,7 +7,7 @@ import {storeToRefs} from "pinia";
 
 const gitHubStore = useGitHubStore();
 
-const { lastUpdate } = storeToRefs(gitHubStore);
+const { last_update } = storeToRefs(gitHubStore);
 
 </script>
 

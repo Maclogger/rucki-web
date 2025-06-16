@@ -14,9 +14,9 @@ use Psr\Http\Message\ResponseInterface;
 
 class GitHubRecordController extends Controller
 {
-    public static function getRecordsData() : Collection
+    public static function getRecordsData(int $year) : Collection
     {
-        return GitHubRecord::all();
+        return GitHubRecord::whereYear('date', $year)->get();
     }
 
     /**
