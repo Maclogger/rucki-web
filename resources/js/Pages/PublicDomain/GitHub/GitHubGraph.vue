@@ -1,13 +1,16 @@
 <script setup lang="ts">
 
-/*import {useGitHubStore, GitHubRecord} from "@/stores/githubStore";
+import {useGitHubStore, GitHubRecord} from "@/stores/githubStore";
 import {storeToRefs} from "pinia";
 import GitHubTile from "@/Pages/PublicDomain/GitHub/GitHubTile.vue";
 import {computed} from "vue";
-import {get} from "axios";
 
 const gitHubStore = useGitHubStore();
 
+
+const {} = storeToRefs(gitHubStore)
+
+/*
 const {git_hub_records} = storeToRefs(gitHubStore);
 
 const recordMap = computed(() => {
@@ -34,9 +37,8 @@ const getYearLevel = (day: number, week: number): number => {
     const key = `${day}-${week}`;
     return recordMap.value.get(key) || 0;
 };
+*/
 
-const numRows = 8;
-const numCols = 54;*/
 
 </script>
 
@@ -44,16 +46,18 @@ const numCols = 54;*/
     <div class="h-full">
         <div class="p-2">
             <div class="flex flex-col gap-1">
+<!--
                 <div v-for="dayIndex in numRows" :key="`row-${dayIndex}`" class="flex gap-1">
                     <div v-for="weekIndex in numCols" :key="`col-${dayIndex}-${weekIndex}`">
-<!--                        <GitHubTile
+                        <GitHubTile
                             :day="dayIndex"
                             :week="weekIndex"
                             :contributionCount="getContributionCount(dayIndex, weekIndex)"
                             :year_level="get"
-                        />-->
+                        />
                     </div>
                 </div>
+-->
             </div>
         </div>
     </div>

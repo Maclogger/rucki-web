@@ -13,7 +13,7 @@ const { last_update } = storeToRefs(gitHubStore);
 
 <template>
     <div class="bg-black h-screen">
-        <p>Last update: {{ toNicelyFormattedDateAndTime(lastUpdate) }}</p>
+        <p>Last update: {{ toNicelyFormattedDateAndTime(last_update) }}</p>
         <GitHubGraph/>
     </div>
 </template>

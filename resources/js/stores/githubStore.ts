@@ -19,6 +19,7 @@ export interface GitHubYearChart {
 
 export interface GitHubStoreState {
     last_update: Date | null,
+    currently_displayed_year: number, // which year is currently selected to display the graph
     git_hub_year_chart: Map<number, GitHubYearChart>, // key is the year
 }
 
@@ -27,6 +28,7 @@ export const useGitHubStore = defineStore("gitHubStore", {
     state: (): GitHubStoreState => {
         return {
             last_update: null,
+            currently_displayed_year: 2025,
             git_hub_year_chart: new Map<number, GitHubYearChart>()
         };
     },
