@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia';
 
-interface PublicStoreState {
+export interface PublicStoreState {
     can_login: boolean;
     can_register: boolean;
     laravel_version: string | null;
@@ -8,13 +8,13 @@ interface PublicStoreState {
     setting_pairs: SettingPair[];
 }
 
-interface SettingPair {
+export interface SettingPair {
     key: string,
     value: any,
     type: Type,
 }
 
-interface Type {
+export interface Type {
     type_name: string
 }
 

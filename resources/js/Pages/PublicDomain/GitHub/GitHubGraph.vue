@@ -1,44 +1,41 @@
 <script setup lang="ts">
 
-import {useGitHubStore, GitHubRecord} from "@/stores/githubStore";
+import {useGitHubStore} from "@/stores/githubStore";
 import {storeToRefs} from "pinia";
 import GitHubTile from "@/Pages/PublicDomain/GitHub/GitHubTile.vue";
-import {computed} from "vue";
+
+import type { GitHubYearChart, GitHubRecord } from "@/stores/githubStore";
 
 const gitHubStore = useGitHubStore();
 
 
 const {} = storeToRefs(gitHubStore)
 
-/*
-const {git_hub_records} = storeToRefs(gitHubStore);
-
-const recordMap = computed(() => {
-    const map = new Map<string, GitHubRecord>();
-    gitHubRecords.value.forEach(record => {
-        const key = `${record.day_of_the_week}-${record.week_of_the_year}`;
-        map.set(key, record);
-    });
-    return map;
-});
+const {currently_displayed_year, git_hub_year_chart} = storeToRefs(gitHubStore);
 
 
-const getGitHubRecord = (day: number, week: number):  => {
-    const key = `${day}-${week}`;
-    return recordMap.value.get(key);
-};
+const getCurrentYearData = () : GitHubYearChart | null => {
+    const currentYear = currently_displayed_year.value;
+    const currentYearData = git_hub_year_chart.value.get(currentYear);
+    if (currentYearData == undefined) {
+        console.log("Current GitHubYearChart is NULL!!!");
+        return null;
+    }
+    return currentYearData;
+}
 
-const getContributionCount = (day: number, week: number): number => {
-    const key = `${day}-${week}`;
-    return recordMap.value.get(key) || 0;
-};
+const getGitHubRecord = (weekOfTheYear: number, dayOfTheWeek: number) : GitHubRecord | null => {
+    const currentYearData = getCurrentYearData();
+    if (!currentYearData) return null;
 
-const getYearLevel = (day: number, week: number): number => {
-    const key = `${day}-${week}`;
-    return recordMap.value.get(key) || 0;
-};
-*/
+    for (let gitHubRecord of currentYearData.git_hub_records) {
+        if (gitHubRecord.week_of_the_year == weekOfTheYear && gitHubRecord.day_of_the_week == dayOfTheWeek) {
+            return gitHubRecord;
+        }
+    }
 
+    return null;
+}
 
 </script>
 
@@ -46,18 +43,15 @@ const getYearLevel = (day: number, week: number): number => {
     <div class="h-full">
         <div class="p-2">
             <div class="flex flex-col gap-1">
-<!--
-                <div v-for="dayIndex in numRows" :key="`row-${dayIndex}`" class="flex gap-1">
-                    <div v-for="weekIndex in numCols" :key="`col-${dayIndex}-${weekIndex}`">
+                <div v-for="dayIndex in 7" :key="`row-${dayIndex}`" class="flex gap-1">
+                    <div v-for="weekIndex in getCurrentYearData()?.week_count" :key="`col-${dayIndex}-${weekIndex}`">
                         <GitHubTile
                             :day="dayIndex"
                             :week="weekIndex"
-                            :contributionCount="getContributionCount(dayIndex, weekIndex)"
-                            :year_level="get"
+                            :gitHubRecord="getGitHubRecord(weekIndex, dayIndex)"
                         />
                     </div>
                 </div>
--->
             </div>
         </div>
     </div>
