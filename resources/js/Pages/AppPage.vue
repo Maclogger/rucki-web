@@ -118,8 +118,12 @@ onMounted(() => {
 </script>
 
 <template>
-    <InitialScreen/>
-    <GitHubSection/>
+    <div class="min-h-screen flex justify-center items-center bg-gray-900">
+        <div class="w-full max-w-screen aspect-[16/9] bg-white ">
+            <InitialScreen/>
+            <GitHubSection/>
+        </div>
+    </div>
 </template>
 
 <style scoped>

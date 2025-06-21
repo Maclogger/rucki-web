@@ -12,13 +12,19 @@ const { last_update } = storeToRefs(gitHubStore);
 </script>
 
 <template>
-    <div class="bg-black h-screen">
-        <p>Last update: {{ toNicelyFormattedDateAndTime(last_update) }}</p>
-        <GitHubGraph/>
+    <div class="bg-my-black h-screen">
+
+
+
+
     </div>
 </template>
 
 
+<!--
+<p>Last update: {{ toNicelyFormattedDateAndTime(last_update) }}</p>
+<GitHubGraph/>
+-->
 <style scoped>
 
 </style>
