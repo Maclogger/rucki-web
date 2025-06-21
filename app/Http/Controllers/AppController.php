@@ -15,7 +15,7 @@ class AppController extends Controller
     {
         $settingPairs = SettingController::getSettingPairs();
 
-        return Inertia::render('InitialScreen', [
+        return Inertia::render('AppPage', [
             'can_login' => Route::has('login'),
             'can_register' => Route::has('register'),
             'laravel_version' => Application::VERSION,
