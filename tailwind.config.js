@@ -1,5 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
+import plugin from "tailwindcss";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -16,14 +17,16 @@ export default {
                 sans: ['Poppins', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                'white': "#F5F5F7",
-                'darkblue': "#233A5F",
-                'black': "#2A2A2A",
-                'gray': "#E5E5E5",
-                'github-green': "#79CF6B",
+                'my-white': "#F5F5F7",
+                'my-darkblue': "#233A5F",
+                'my-black': "#2A2A2A",
+                'my-gray': "#E5E5E5",
+                'my-github-green': "#79CF6B",
             }
         },
     },
 
-    plugins: [forms],
+    plugins: [
+        forms,
+    ],
 };
