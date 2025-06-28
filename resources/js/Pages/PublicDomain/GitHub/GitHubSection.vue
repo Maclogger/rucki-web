@@ -4,6 +4,8 @@ import {useGitHubStore} from "@/stores/githubStore";
 import {storeToRefs} from "pinia";
 import {usePublicStore} from "@/stores/publicStore";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import GitHubGraph from "@/Pages/PublicDomain/GitHub/GitHubGraph.vue";
+import {toNicelyFormattedDateAndTime} from "@/utils/dateHelper";
 
 const gitHubStore = useGitHubStore();
 const publicStore = usePublicStore();
@@ -33,18 +35,16 @@ const redirect = (url: string) => {
                         }}
                     </p>
                     <p class="">Pozrite si moju tvorbu priamo na GitHube</p>
-                    <Button class="mt-12">
+                    <Button class="mt-12" @click="redirect('https://github.com/Maclogger')">
                         <font-awesome-icon :icon="['fas', 'square-up-right']"/>
                         https://github.com/Maclogger
                     </Button>
-                    <!--
-                                        <Button label="Pozrieť na GitHub" @click="redirect('https://github.com/Maclogger')" />
-                    -->
                 </div>
                 <font-awesome-icon class="my-23 w-full h-full" :icon="['fab', 'github']"/>
             </div>
             <div class="md:w-3/5 bg-blue-100 ">
-
+                <p>Last update: {{ toNicelyFormattedDateAndTime(last_update) }}</p>
+                <GitHubGraph/>
             </div>
         </div>
 
@@ -52,20 +52,7 @@ const redirect = (url: string) => {
     </div>
 </template>
 
-
-<!--
-<p>Last update: {{ toNicelyFormattedDateAndTime(last_update) }}</p>
-<GitHubGraph/>
--->
 <style scoped>
 
-.background-github {
-    position: absolute;
-    bottom: -4rem;
-    height: 32rem;
-    width: 32rem;
-    left: 50%;
-    transform: translate(-50%, 0)
-}
 
 </style>
