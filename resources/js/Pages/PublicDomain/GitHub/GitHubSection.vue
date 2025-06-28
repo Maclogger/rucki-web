@@ -19,36 +19,33 @@ const redirect = (url: string) => {
 </script>
 
 <template>
-    <div class="bg-my-black h-screen">
+    <div class=" h-screen">
         <div class="h-full flex">
-            <div class="md:w-2/5 h-full relative overflow-hidden">
-                <font-awesome-icon class="text-my-white background-github" :icon="['fab', 'github']"/>
-                <div class="flex flex-col mx-36">
+            <div class="md:w-2/5
+                        flex flex-col 2xl:mx-48 xl:mx-28 md:mx-16 mt-36 justify-between overflow-hidden
+                ">
+                <div id="top-part" class="flex flex-col">
                     <p class="md:text-start
-                    text-3xl sm:text-4xl lg:text-5xl
-                    font-semibold text-my-white mt-24">
+                                text-3xl sm:text-4xl lg:text-4xl
+                                font-semibold ">
                         {{
                             publicStore.getFullName()
                         }}
                     </p>
-                    <p class="text-my-white">Pozrite si moju tvorbu priamo na GitHube</p>
-                    <button @click="redirect('https://github.com/Maclogger')"
-                            class="bg-my-white p-3 flex
-                        rounded-lg duration-300
-                        hover:bg-my-github-green
-                        hover:text-my-white"
-
-                    >
+                    <p class="">Pozrite si moju tvorbu priamo na GitHube</p>
+                    <Button class="mt-12">
+                        <font-awesome-icon :icon="['fas', 'square-up-right']"/>
                         https://github.com/Maclogger
-                        <font-awesome-icon :icon="['fab', 'github']"/>
-                    </button>
+                    </Button>
+                    <!--
+                                        <Button label="Pozrieť na GitHub" @click="redirect('https://github.com/Maclogger')" />
+                    -->
                 </div>
+                <font-awesome-icon class="my-23 w-full h-full" :icon="['fab', 'github']"/>
             </div>
-            <div class="md:w-3/5 bg-blue-100 h-full">
+            <div class="md:w-3/5 bg-blue-100 ">
 
             </div>
-
-
         </div>
 
 

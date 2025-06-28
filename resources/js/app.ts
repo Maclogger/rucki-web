@@ -1,15 +1,19 @@
 import '../css/app.css';
 import './bootstrap';
 
-import { createInertiaApp } from '@inertiajs/vue3';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { createApp, DefineComponent, h } from 'vue';
-import { ZiggyVue } from '../../vendor/tightenco/ziggy';
+import {createInertiaApp} from '@inertiajs/vue3';
+import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers';
+import {createApp, DefineComponent, h} from 'vue';
+import {ZiggyVue} from '../../vendor/tightenco/ziggy';
 
-import './plugins/fontawesome.js';
+import './plugins/fontawesome';
 
 
-import { createPinia } from 'pinia';
+import PrimeVue from 'primevue/config';
+import {myPreset} from './plugins/primevue';
+
+import {createPinia} from 'pinia';
+
 const pinia = createPinia();
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -21,12 +25,34 @@ await createInertiaApp({
             `./Pages/${name}.vue`,
             import.meta.glob<DefineComponent>('./Pages/**/*.vue'),
         ),
-    setup({ el, App, props, plugin }) {
-        createApp({ render: () => h(App, props) })
+    setup({el, App, props, plugin}) {
+        const app = createApp({render: () => h(App, props)})
             .use(plugin)
             .use(ZiggyVue)
             .use(pinia)
-            .mount(el);
+            .use(PrimeVue, {
+                theme: {
+                    preset: myPreset,
+                    options: {
+                        prefix: 'p',
+                        darkModeSelector: 'none',
+                    },
+                },
+            })
+            /*
+                        .use(PrimeVue, {
+                            theme: {
+                                preset: Lara,
+                                options: {
+                                    prefix: 'p',
+                                    darkModeSelector: 'none',
+                                    cssLayer: true
+                                }
+                            }
+                        })
+            */
+            .mount(el)
+        ;
     },
     progress: {
         color: '#4B5563',
