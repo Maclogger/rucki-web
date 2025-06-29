@@ -16,9 +16,9 @@ const isSelected = () => {
 
 <template>
 
-    <Button :severity='isSelected() ? "success" : "primary"' class="">
+    <button class="btn" :class="isSelected() ? 'btn-primary' : 'btn-neutral'">
         {{props.year}}
-    </Button>
+    </button>
 
 </template>
 

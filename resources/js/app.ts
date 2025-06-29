@@ -8,10 +8,6 @@ import {ZiggyVue} from '../../vendor/tightenco/ziggy';
 
 import './plugins/fontawesome';
 
-
-import PrimeVue from 'primevue/config';
-import {myPreset} from './plugins/primevue';
-
 import {createPinia} from 'pinia';
 
 const pinia = createPinia();
@@ -30,30 +26,6 @@ await createInertiaApp({
             .use(plugin)
             .use(ZiggyVue)
             .use(pinia)
-            .use(PrimeVue, {
-                theme: {
-                    preset: myPreset,
-                    options: {
-                        prefix: 'p',
-                        darkModeSelector: 'system',
-/*
-                        darkModeSelector: 'none',
-*/
-                    },
-                },
-            })
-            /*
-                        .use(PrimeVue, {
-                            theme: {
-                                preset: Lara,
-                                options: {
-                                    prefix: 'p',
-                                    darkModeSelector: 'none',
-                                    cssLayer: true
-                                }
-                            }
-                        })
-            */
             .mount(el)
         ;
     },

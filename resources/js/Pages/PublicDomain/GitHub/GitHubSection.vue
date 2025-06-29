@@ -16,9 +16,9 @@ const redirect = (url: string) => {
 
 <template>
     <div class=" h-screen">
-        <div class="h-full flex bg-blue-100 pt-36">
-            <div class="md:w-2/5
-                        flex flex-col 2xl:mx-48 xl:mx-28 md:mx-16  justify-between overflow-hidden
+        <div class="h-full flex py-42 my-container mx-auto">
+            <div class="md:w-1/4
+                        flex flex-col justify-between overflow-hidden
                 ">
                 <div class="flex flex-col">
                     <p class="md:text-start
@@ -29,25 +29,44 @@ const redirect = (url: string) => {
                         }}
                     </p>
                     <p class="">Pozrite si moju tvorbu priamo na GitHube</p>
-                    <Button class="mt-4 w-fit" @click="redirect('https://github.com/Maclogger')">
+                    <button class="btn btn-primary mt-4 w-fit" @click="redirect('https://github.com/Maclogger')">
                         <font-awesome-icon class="text-2xl" :icon="['fas', 'square-up-right']"/>
                         https://github.com/Maclogger
-                    </Button>
+                    </button>
                 </div>
                 <font-awesome-icon class="my-23 text-my-black"    style="width: max-content; height:
                 max-content"
                                    :icon="['fab', 'github']"/>
             </div>
-            <div class="md:w-3/5 bg-my-white">
+            <div class="md:w-3/4 overflow-hidden ms-36">
                 <GitHubGraphComp/>
             </div>
         </div>
-
-
     </div>
 </template>
 
 <style scoped>
 
+.my-container {
+    width: 100%;
+    @media (width >= 40rem /* 640px */) {
+        max-width: 40rem /* 640px */;
+    }
+    @media (width >= 48rem /* 768px */) {
+        max-width: 48rem /* 768px */;
+    }
+    @media (width >= 64rem /* 1024px */) {
+        max-width: 64rem /* 1024px */;
+    }
+    @media (width >= 80rem /* 1280px */) {
+        max-width: 80rem /* 1280px */;
+    }
+    @media (width >= 96rem /* 1536px */) {
+        max-width: 96rem /* 1536px */;
+    }
+    @media (width >= 112rem /* 1792px */) {
+        max-width: 100rem /* 1792px */;
+    }
+}
 
 </style>
