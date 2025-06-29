@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import type { GitHubRecord } from "@/stores/githubStore";
-import { computed } from "vue";
+import type {GitHubRecord} from "@/stores/githubStore";
+import {computed} from "vue";
+import {useGitHubStore} from "@/stores/githubStore";
+import {toNicelyFormattedDateAndTime, getDateFromWeekAndDayISO} from "@/utils/dateHelper";
+
+const gitHubStore = useGitHubStore();
 
 const props = defineProps<{
     day: number,
@@ -8,11 +12,21 @@ const props = defineProps<{
     gitHubRecord: GitHubRecord | null,
 }>();
 
+const date = computed(() => {
+    return getDateFromWeekAndDayISO(gitHubStore.currently_displayed_year, props.week, props.day);
+});
+
 const getColor = computed(() => {
+    const isCurrentYear: boolean = date.value.getFullYear() === gitHubStore.currently_displayed_year;
+    if (!isCurrentYear) {
+        return "";
+    }
+
+
     const level = props.gitHubRecord?.year_level ?? 0;
 
     if (level === 0) {
-        return 'rgba(235,237,240,0.07)';
+        return '#ebedf0';
     } else if (level > 0 && level <= 0.25) {
         return '#9be9a8';
     } else if (level > 0.25 && level <= 0.5) {
@@ -23,6 +37,7 @@ const getColor = computed(() => {
         return '#216e39';
     }
 });
+
 
 </script>
 

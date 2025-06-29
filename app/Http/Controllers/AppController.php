@@ -25,25 +25,25 @@ class AppController extends Controller
         ]);
     }
 
-    private function getCurrentlyDisplayedYearInGitHubGraph(): int
+    private function getCurrentlySelectedYearInGitHubGraph(): int
     {
-        $currentlyDisplayedYearInGitHubGraph = Setting::findByKey('gitHubDefaultYearToSelect');
-        if ($currentlyDisplayedYearInGitHubGraph == null || $currentlyDisplayedYearInGitHubGraph == -1) {
-            $currentlyDisplayedYearInGitHubGraph = Carbon::now()->year;
+        $currentlySelectedYearInGitHubGraph = Setting::findByKey('gitHubDefaultYearToSelect');
+        if ($currentlySelectedYearInGitHubGraph == null || $currentlySelectedYearInGitHubGraph == -1) {
+            $currentlySelectedYearInGitHubGraph = Carbon::now()->year;
         }
-        return $currentlyDisplayedYearInGitHubGraph;
+        return $currentlySelectedYearInGitHubGraph;
     }
 
     private function getGitHubGraphData() : array
     {
-        $currentlyDisplayedYearInGitHubGraph = $this->getCurrentlyDisplayedYearInGitHubGraph();
-        $gitHubRecords = GitHubRecordController::getRecordsData($currentlyDisplayedYearInGitHubGraph);
+        $currentlySelectedYearInGitHubGraph = $this->getCurrentlySelectedYearInGitHubGraph();
+        $gitHubRecords = GitHubRecordController::getRecordsData($currentlySelectedYearInGitHubGraph);
         $gitHubYearFrom = Setting::findByKey("gitHubYearFrom");
 
         return [
-            'year' => $currentlyDisplayedYearInGitHubGraph,
+            'year' => $currentlySelectedYearInGitHubGraph,
             'initial_git_hub_records' => $gitHubRecords,
-            'week_count' => Carbon::createFromDate($currentlyDisplayedYearInGitHubGraph, 12, 28)->weekOfYear,
+            'week_count' => Carbon::createFromDate($currentlySelectedYearInGitHubGraph, 12, 28)->weekOfYear,
             'git_hub_year_from' => $gitHubYearFrom,
         ];
     }

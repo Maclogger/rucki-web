@@ -24,6 +24,12 @@ const getCurrentYearData = (): GitHubYearChart | null => {
     return currentYearData;
 }
 
+const getDate = (weekOfTheYear: number, dayOfTheWeek: number): GitHubRecord | null => {
+
+
+};
+
+
 const getGitHubRecord = (weekOfTheYear: number, dayOfTheWeek: number): GitHubRecord | null => {
     const currentYearData = getCurrentYearData();
     if (!currentYearData) return null;
@@ -33,6 +39,7 @@ const getGitHubRecord = (weekOfTheYear: number, dayOfTheWeek: number): GitHubRec
             return gitHubRecord;
         }
     }
+    new Date(2025, 0, 1).getDay()
 
     return null;
 }
