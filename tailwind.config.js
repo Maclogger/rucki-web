@@ -20,7 +20,7 @@ export default {
                 'my-darkblue': "#233A5F",
                 'my-black': "#2A2A2A",
                 'my-gray': "#E5E5E5",
-                'my-github-green': "#79CF6B",
+                'my-github-green': "#22C55E",
             }
         },
     },

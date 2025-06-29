@@ -38,11 +38,13 @@ class AppController extends Controller
     {
         $currentlyDisplayedYearInGitHubGraph = $this->getCurrentlyDisplayedYearInGitHubGraph();
         $gitHubRecords = GitHubRecordController::getRecordsData($currentlyDisplayedYearInGitHubGraph);
+        $gitHubYearFrom = Setting::findByKey("gitHubYearFrom");
 
         return [
             'year' => $currentlyDisplayedYearInGitHubGraph,
             'initial_git_hub_records' => $gitHubRecords,
             'week_count' => Carbon::createFromDate($currentlyDisplayedYearInGitHubGraph, 12, 28)->weekOfYear,
+            'git_hub_year_from' => $gitHubYearFrom,
         ];
     }
 }

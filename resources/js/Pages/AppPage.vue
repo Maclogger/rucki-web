@@ -33,8 +33,8 @@ const props = defineProps<{
             year_level: number,
         }>;
         week_count: number,
+        git_hub_year_from: number,
     }
-
 }>();
 
 
@@ -47,10 +47,6 @@ const submit = () => {
 };
 
 function setPublicStoreState() {
-    console.log("Prišli zo serveru settingy: ");
-    console.log(props.setting_pairs);
-
-
     const publicStoreState = {
         can_login: props.can_login,
         can_register: props.can_register,
@@ -104,9 +100,9 @@ function setGitHubRecordsState() {
     const gitHubStoreState = {
         last_update: latestUpdateDate,
         currently_displayed_year: props.git_hub_chart_data.year,
-        git_hub_year_chart: allYearsGitHubYearCharts
-    }
-
+        git_hub_year_chart: allYearsGitHubYearCharts,
+        git_hub_year_from: props.git_hub_chart_data.git_hub_year_from,
+    };
 
     gitHubStore.setState(gitHubStoreState);
 }

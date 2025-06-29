@@ -35,7 +35,7 @@ export const myPreset = definePreset(
                     focusBackground: '{zinc.700}',
                     color: '#ffffff',
                     focusColor: '#ffffff'
-                }
+                },
             },
             dark: {
                 primary: {
@@ -49,6 +49,20 @@ export const myPreset = definePreset(
                     focusBackground: 'rgba(250, 250, 250, .24)',
                     color: 'rgba(255,255,255,.87)',
                     focusColor: 'rgba(255,255,255,.87)'
+                }
+            }
+        },
+        components: {
+            button: {
+                colorScheme: {
+                    light: {
+                        root: {
+
+                        }
+                    },
+                    dark: {
+
+                    },
                 }
             }
         }

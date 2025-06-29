@@ -1,19 +1,13 @@
 <script setup lang="ts">
 
-import {useGitHubStore} from "@/stores/githubStore";
-import {storeToRefs} from "pinia";
 import {usePublicStore} from "@/stores/publicStore";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import GitHubGraph from "@/Pages/PublicDomain/GitHub/GitHubGraph.vue";
-import {toNicelyFormattedDateAndTime} from "@/utils/dateHelper";
+import GitHubGraphComp from "@/Pages/PublicDomain/GitHub/GitHubGraphComp.vue";
 
-const gitHubStore = useGitHubStore();
 const publicStore = usePublicStore();
 
-const {last_update} = storeToRefs(gitHubStore);
 
 const redirect = (url: string) => {
-    console.log("deje sa");
     window.location.replace(url);
 }
 
@@ -22,11 +16,11 @@ const redirect = (url: string) => {
 
 <template>
     <div class=" h-screen">
-        <div class="h-full flex">
+        <div class="h-full flex bg-blue-100 pt-36">
             <div class="md:w-2/5
-                        flex flex-col 2xl:mx-48 xl:mx-28 md:mx-16 mt-36 justify-between overflow-hidden
+                        flex flex-col 2xl:mx-48 xl:mx-28 md:mx-16  justify-between overflow-hidden
                 ">
-                <div id="top-part" class="flex flex-col">
+                <div class="flex flex-col">
                     <p class="md:text-start
                                 text-3xl sm:text-4xl lg:text-4xl
                                 font-semibold ">
@@ -35,16 +29,15 @@ const redirect = (url: string) => {
                         }}
                     </p>
                     <p class="">Pozrite si moju tvorbu priamo na GitHube</p>
-                    <Button class="mt-12" @click="redirect('https://github.com/Maclogger')">
-                        <font-awesome-icon :icon="['fas', 'square-up-right']"/>
+                    <Button class="mt-4 w-fit" @click="redirect('https://github.com/Maclogger')">
+                        <font-awesome-icon class="text-2xl" :icon="['fas', 'square-up-right']"/>
                         https://github.com/Maclogger
                     </Button>
                 </div>
                 <font-awesome-icon class="my-23 w-full h-full" :icon="['fab', 'github']"/>
             </div>
-            <div class="md:w-3/5 bg-blue-100 ">
-                <p>Last update: {{ toNicelyFormattedDateAndTime(last_update) }}</p>
-                <GitHubGraph/>
+            <div class="md:w-3/5 bg-my-white">
+                <GitHubGraphComp/>
             </div>
         </div>
 
