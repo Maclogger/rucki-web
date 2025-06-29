@@ -32,8 +32,6 @@
     --text-color: "#2A2A2A";
 }
 
-@tailwind base;
-@tailwind components;
 @tailwind utilities;
 
 
