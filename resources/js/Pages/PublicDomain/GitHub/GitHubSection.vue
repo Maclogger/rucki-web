@@ -34,7 +34,9 @@ const redirect = (url: string) => {
                         https://github.com/Maclogger
                     </Button>
                 </div>
-                <font-awesome-icon class="my-23 w-full h-full" :icon="['fab', 'github']"/>
+                <font-awesome-icon class="my-23 text-my-black"    style="width: max-content; height:
+                max-content"
+                                   :icon="['fab', 'github']"/>
             </div>
             <div class="md:w-3/5 bg-my-white">
                 <GitHubGraphComp/>

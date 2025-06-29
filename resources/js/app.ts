@@ -35,7 +35,10 @@ await createInertiaApp({
                     preset: myPreset,
                     options: {
                         prefix: 'p',
+                        darkModeSelector: 'system',
+/*
                         darkModeSelector: 'none',
+*/
                     },
                 },
             })
