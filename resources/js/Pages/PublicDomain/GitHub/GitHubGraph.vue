@@ -1,60 +1,54 @@
 <script setup lang="ts">
-
+import {computed} from "vue";
 import {useGitHubStore} from "@/stores/githubStore";
 import {storeToRefs} from "pinia";
 import GitHubTile from "@/Pages/PublicDomain/GitHub/GitHubTile.vue";
-
 import type {GitHubYearChart, GitHubRecord} from "@/stores/githubStore";
 
 const gitHubStore = useGitHubStore();
-
-
-const {} = storeToRefs(gitHubStore)
-
 const {currently_displayed_year, git_hub_year_chart} = storeToRefs(gitHubStore);
 
+// 1) Dáta pre aktuálny rok
+const currentYearData = computed<GitHubYearChart | null>(() => {
+    return (
+        git_hub_year_chart.value.get(currently_displayed_year.value) || null
+    );
+});
 
-const getCurrentYearData = (): GitHubYearChart | null => {
-    const currentYear = currently_displayed_year.value;
-    const currentYearData = git_hub_year_chart.value.get(currentYear);
-    if (currentYearData == undefined) {
-        console.log("Current GitHubYearChart is NULL!!!");
-        return null;
-    }
-    return currentYearData;
+// 2) Počet týždňov (fallback na 0)
+const weekCount = computed(() => currentYearData.value?.week_count ?? 0);
+
+// 3) Rýchly lookup mapou (kľúč = "week-day")
+const recordMap = computed(() => {
+    const map = new Map<string, GitHubRecord>();
+    currentYearData.value?.git_hub_records.forEach((rec) => {
+        map.set(`${rec.week_of_the_year}-${rec.day_of_the_week}`, rec);
+    });
+    return map;
+});
+
+// 4) Funkcia na získanie jedného záznamu alebo null
+function getRecord(week: number, day: number): GitHubRecord | null {
+    return recordMap.value.get(`${week}-${day}`) ?? null;
 }
-
-const getDate = (weekOfTheYear: number, dayOfTheWeek: number): GitHubRecord | null => {
-
-
-};
-
-
-const getGitHubRecord = (weekOfTheYear: number, dayOfTheWeek: number): GitHubRecord | null => {
-    const currentYearData = getCurrentYearData();
-    if (!currentYearData) return null;
-
-    for (let gitHubRecord of currentYearData.git_hub_records) {
-        if (gitHubRecord.week_of_the_year == weekOfTheYear && gitHubRecord.day_of_the_week == dayOfTheWeek) {
-            return gitHubRecord;
-        }
-    }
-    new Date(2025, 0, 1).getDay()
-
-    return null;
-}
-
 </script>
 
 <template>
     <div class="p-2">
         <div class="flex flex-col gap-1">
-            <div v-for="dayIndex in 7" :key="`row-${dayIndex}`" class="flex gap-1">
-                <div v-for="weekIndex in (getCurrentYearData()?.week_count + 1)" :key="`col-${dayIndex}-${weekIndex}`">
+            <div
+                v-for="day in 7"
+                :key="`row-${day}`"
+                class="flex gap-1"
+            >
+                <div
+                    v-for="week in weekCount + 1"
+                    :key="`col-${day}-${week}`"
+                >
                     <GitHubTile
-                        :day="dayIndex"
-                        :week="weekIndex"
-                        :gitHubRecord="getGitHubRecord(weekIndex, dayIndex)"
+                        :day="day"
+                        :week="week"
+                        :gitHubRecord="getRecord(week, day)"
                     />
                 </div>
             </div>
@@ -62,7 +56,6 @@ const getGitHubRecord = (weekOfTheYear: number, dayOfTheWeek: number): GitHubRec
     </div>
 </template>
 
-
 <style scoped>
-
+/* sem môžeš pridať scoped štýly */
 </style>
