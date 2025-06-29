@@ -50,7 +50,7 @@ const getGitHubRecord = (weekOfTheYear: number, dayOfTheWeek: number): GitHubRec
     <div class="p-2">
         <div class="flex flex-col gap-1">
             <div v-for="dayIndex in 7" :key="`row-${dayIndex}`" class="flex gap-1">
-                <div v-for="weekIndex in getCurrentYearData()?.week_count" :key="`col-${dayIndex}-${weekIndex}`">
+                <div v-for="weekIndex in (getCurrentYearData()?.week_count + 1)" :key="`col-${dayIndex}-${weekIndex}`">
                     <GitHubTile
                         :day="dayIndex"
                         :week="weekIndex"
