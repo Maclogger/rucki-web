@@ -24,18 +24,31 @@ const getColor = computed(() => {
 
 
     const level = props.gitHubRecord?.year_level ?? 0;
-
     if (level === 0) {
-        return '#ebedf0';
+        return '#000000';
+        //return '#424557';
     } else if (level > 0 && level <= 0.25) {
-        return '#9be9a8';
+        return '#f1b4de';
     } else if (level > 0.25 && level <= 0.5) {
-        return '#40c463';
+        return '#EE83C4';
     } else if (level > 0.5 && level <= 0.75) {
-        return '#30a14e';
+        return '#e95db7';
     } else {
-        return '#216e39';
+        return '#b7257b';
     }
+    /*
+        if (level === 0) {
+            return '#ebedf0';
+        } else if (level > 0 && level <= 0.25) {
+            return '#9be9a8';
+        } else if (level > 0.25 && level <= 0.5) {
+            return '#40c463';
+        } else if (level > 0.5 && level <= 0.75) {
+            return '#30a14e';
+        } else {
+            return '#216e39';
+        }
+    */
 });
 
 
