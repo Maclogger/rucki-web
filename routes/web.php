@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\GitHubController;
 use App\Http\Controllers\GitHubRecordController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -27,5 +28,6 @@ Route::middleware('auth')->group(function () {
 
 Route::post("/fetch-github-contributions", [GitHubRecordController::class, "__invoke"]);
 
+Route::get("/fetch-githubchartdata/{year}", [GitHubController::class, "getGitHubChartData"]);
 
 require __DIR__.'/auth.php';

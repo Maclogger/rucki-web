@@ -12,14 +12,19 @@ const isSelected = () => {
     return gitHubStore.currently_displayed_year === props.year;
 }
 
+const selectThisYear = () => {
+    if (!props.year) {
+        return;
+    }
+    gitHubStore.setNewSelectedYear(props.year);
+}
+
 </script>
 
 <template>
-
-    <button class="btn" :class="isSelected() ? 'btn-primary' : 'btn-neutral'">
+    <button @click="selectThisYear" class="btn" :class="isSelected() ? 'btn-primary' : 'btn-neutral'">
         {{props.year}}
     </button>
-
 </template>
 
 <style scoped>

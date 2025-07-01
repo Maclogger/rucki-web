@@ -36,6 +36,13 @@ class AppController extends Controller
 
     private function getGitHubGraphData() : array
     {
+        /*
+         *
+         * TODO: This needs to be redone. It works, but it's awful...
+         *  It should be more like the final structure to also possibly
+         *  support multiple years at the start
+         *
+         */
         $currentlySelectedYearInGitHubGraph = $this->getCurrentlySelectedYearInGitHubGraph();
         $gitHubRecords = GitHubRecordController::getRecordsData($currentlySelectedYearInGitHubGraph);
         $gitHubYearFrom = Setting::findByKey("gitHubYearFrom");

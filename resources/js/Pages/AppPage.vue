@@ -100,7 +100,7 @@ function setGitHubRecordsState() {
     const gitHubStoreState = {
         last_update: latestUpdateDate,
         currently_displayed_year: props.git_hub_chart_data.year,
-        git_hub_year_chart: allYearsGitHubYearCharts,
+        git_hub_year_charts: allYearsGitHubYearCharts,
         git_hub_year_from: Number(props.git_hub_chart_data.git_hub_year_from),
     };
 

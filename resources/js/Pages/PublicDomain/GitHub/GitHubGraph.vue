@@ -6,12 +6,12 @@ import GitHubTile from "@/Pages/PublicDomain/GitHub/GitHubTile.vue";
 import type {GitHubYearChart, GitHubRecord} from "@/stores/githubStore";
 
 const gitHubStore = useGitHubStore();
-const {currently_displayed_year, git_hub_year_chart} = storeToRefs(gitHubStore);
+const {currently_displayed_year, git_hub_year_charts} = storeToRefs(gitHubStore);
 
 // 1) Dáta pre aktuálny rok
 const currentYearData = computed<GitHubYearChart | null>(() => {
     return (
-        git_hub_year_chart.value.get(currently_displayed_year.value) || null
+        git_hub_year_charts.value.get(currently_displayed_year.value) || null
     );
 });
 
