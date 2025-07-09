@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type {GitHubRecord} from "@/stores/githubStore";
-import {computed} from "vue";
+import {computed, onMounted} from "vue";
 import {useGitHubStore} from "@/stores/githubStore";
 import {
     toNicelyFormattedDateAndTime,
@@ -23,16 +23,56 @@ const date = computed(() =>
     )
 );
 
+const colors = {
+    "dracula": [
+        {
+            'value': "#424557",
+        },
+        {
+            'value': "#f1b4de",
+        },
+        {
+            'value': "#EE83C4",
+        },
+        {
+            'value': "#e95db7",
+        },
+        {
+            'value': "#b7257b",
+        },
+    ],
+    "dark": [
+        {
+            'value': "rgba(86,86,177,0.23)",
+        },
+        {
+            'value': "#4e4ed6",
+        },
+        {
+            'value': "#6e6bea",
+        },
+        {
+            'value': "#8988eb",
+        },
+        {
+            'value': "#c4c3f6",
+        },
+    ],
+}
+
+const theme = "dark";
+
+
 const getColor = computed(() => {
     const isCurrentYear =
         date.value.getFullYear() === gitHubStore.currently_displayed_year;
     if (!isCurrentYear) return "";
     const level = props.gitHubRecord?.year_level ?? 0;
-    if (level === 0) return "#424557";
-    if (level <= 0.25) return "#f1b4de";
-    if (level <= 0.5) return "#EE83C4";
-    if (level <= 0.75) return "#e95db7";
-    return "#b7257b";
+    if (level === 0) return colors[theme][0].value;
+    if (level <= 0.25) return colors[theme][1].value;
+    if (level <= 0.5) return colors[theme][2].value;
+    if (level <= 0.75) return colors[theme][3].value;
+    return colors[theme][4].value;
 });
 
 const tooltipText = computed(() =>
@@ -42,17 +82,36 @@ const tooltipText = computed(() =>
         )}`
         : "No contributions"
 );
+
+import tippy from 'tippy.js';
+
+const getId = () => {
+    return "id-" + props.day + "-" + props.week;
+}
+
+onMounted(() => {
+    tippy('#id-' + props.day + "-" + props.week, {
+        content: tooltipText.value,
+        arrow: true,
+        animation: "fade",
+        theme: "tomato",
+    });
+});
+
 </script>
 
 <template>
     <div class="grid-container">
         <div
-            class="cell relative w-4 h-4 rounded-sm"
+            :id="getId()"
+            class="cell relative w-4 h-4 rounded-sm "
             :style="{ backgroundColor: getColor }"
-            :data-tooltip="tooltipText"
-        ></div>
+        >
+        </div>
     </div>
 </template>
 
 <style scoped>
+
+
 </style>

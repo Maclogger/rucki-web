@@ -5,7 +5,7 @@
 
 
 @plugin "daisyui" {
-    themes: light , dracula --default;
+    themes: light , dark --default;
     root: ":root";
     /*
     include: ;
@@ -33,5 +33,11 @@
 }
 
 @tailwind utilities;
+
+
+.tippy-box[data-theme~='tomato'] {
+    background-color: #FF7AC6;
+    color: white;
+}
 
 

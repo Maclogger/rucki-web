@@ -10,6 +10,8 @@ import './plugins/fontawesome';
 
 import {createPinia} from 'pinia';
 
+import 'tippy.js/dist/tippy.css';
+
 const pinia = createPinia();
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
