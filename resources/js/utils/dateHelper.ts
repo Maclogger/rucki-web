@@ -8,7 +8,7 @@ export const toNicelyFormattedDateAndTime = (date: Date | null): string => {
         return "Invalid Date";
     }
 
-    const formatString = publicStore.getSetting('dateAndTimeFormat');
+    const formatString = publicStore.getSetting('dateAndTimeFormat') || 'dd.MM.yyyy HH:MM';
 
     return format(date, formatString);
 }
@@ -20,7 +20,7 @@ export const toNicelyFormattedDate = (date: Date | null): string => {
         return "Invalid Date";
     }
 
-    const formatString = publicStore.getSetting('dateFormat');
+    const formatString = publicStore.getSetting('dateFormat') || 'dd.MM.yyyy';
 
     return format(date, formatString);
 }
