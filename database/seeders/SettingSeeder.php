@@ -20,6 +20,7 @@ class SettingSeeder extends Seeder
         Setting::createSettingPair('rola', "Junior Developer");
         Setting::createSettingPair('nickname', "Maclogger");
         Setting::createSettingPair('dateAndTimeFormat', "dd.MM.yyyy HH:mm");
+        Setting::createSettingPair('dateFormat', "dd.MM.yyyy");
         Setting::createSettingPair('gitHubYearFrom', 2017);
         Setting::createSettingPair('gitHubDefaultYearToSelect', 2025); // if value == -1 then current year will be used
     }

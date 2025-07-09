@@ -13,6 +13,19 @@ export const toNicelyFormattedDateAndTime = (date: Date | null): string => {
     return format(date, formatString);
 }
 
+export const toNicelyFormattedDate = (date: Date | null): string => {
+    const publicStore = usePublicStore();
+
+    if (!date) {
+        return "Invalid Date";
+    }
+
+    const formatString = publicStore.getSetting('dateFormat');
+
+    return format(date, formatString);
+}
+
+
 /**
  * Získa dátum začiatku prvého týždňa daného roka podľa ISO 8601.
  * Prvý týždeň je ten, ktorý obsahuje prvý štvrtok roka.

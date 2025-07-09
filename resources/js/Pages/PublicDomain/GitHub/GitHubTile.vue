@@ -3,7 +3,7 @@ import type {GitHubRecord} from "@/stores/githubStore";
 import {computed, onMounted} from "vue";
 import {useGitHubStore} from "@/stores/githubStore";
 import {
-    toNicelyFormattedDateAndTime,
+    toNicelyFormattedDate,
     getDateFromWeekAndDayISO,
 } from "@/utils/dateHelper";
 
@@ -75,15 +75,25 @@ const getColor = computed(() => {
     return colors[theme][4].value;
 });
 
-const tooltipText = computed(() =>
-    props.gitHubRecord
-        ? `${props.gitHubRecord.contributions_count} contributions on ${toNicelyFormattedDateAndTime(
-            props.gitHubRecord.date
-        )}`
-        : "No contributions"
-);
+function getTooltipText() {
+    if (!date.value) return "";
+    let output = toNicelyFormattedDate(date.value) + ": ";
+
+    const noContributions = !props.gitHubRecord || props.gitHubRecord.contributions_count <= 0;
+    if (noContributions) {
+        return output + "žiadne príspevky";
+    }
+
+    return output + vysklonuj(
+        props.gitHubRecord.contributions_count,
+        "príspevok",
+        "príspevky",
+        "príspevkov");
+
+}
 
 import tippy from 'tippy.js';
+import {vysklonuj} from "@/utils/sklonovac";
 
 const getId = () => {
     return "id-" + props.day + "-" + props.week;
@@ -91,7 +101,7 @@ const getId = () => {
 
 onMounted(() => {
     tippy('#id-' + props.day + "-" + props.week, {
-        content: tooltipText.value,
+        content: getTooltipText(),
         arrow: true,
         animation: "fade",
         theme: "tomato",
