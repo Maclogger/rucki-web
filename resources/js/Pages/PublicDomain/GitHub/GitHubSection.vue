@@ -16,8 +16,8 @@ const redirect = (url: string) => {
 
 <template>
     <div class=" h-screen">
-        <div class="h-full flex py-42 my-container mx-auto">
-            <div class="md:w-1/4
+        <div class="h-full flex flex-row py-42 xl:gap-20 lg:gap-10 md:gap-8 my-container mx-auto">
+            <div class="md:w-1/3
                         flex flex-col justify-between overflow-hidden
                 ">
                 <div class="flex flex-col">
@@ -38,7 +38,7 @@ const redirect = (url: string) => {
                 max-content"
                                    :icon="['fab', 'github']"/>
             </div>
-            <div class="md:w-3/4 overflow-hidden ms-36">
+            <div class="md:w-2/3">
                 <GitHubGraphComp/>
             </div>
         </div>
@@ -65,7 +65,7 @@ const redirect = (url: string) => {
         max-width: 96rem /* 1536px */;
     }
     @media (width >= 112rem /* 1792px */) {
-        max-width: 100rem /* 1792px */;
+        max-width: 104rem /* 1792px */;
     }
 }
 
