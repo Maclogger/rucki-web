@@ -24,16 +24,19 @@
     --font-sans: sans-serif;
     */
     --font-sans: "Funnel Sans";
-    --color-my-white: "#F5F5F7";
-    --color-my-darkblue: "#233A5F";
-    --color-my-black: "#2A2A2A";
-    --color-my-gray: "#E5E5E5";
-    --color-my-github-green: "#22C55E";
-    --color-primary: "#605DFF";
-    --text-color: "#2A2A2A";
+    --color-my-white: #F5F5F7;
+    --color-my-darkblue: #233A5F;
+    --color-my-black: #2A2A2A;
+    --color-my-gray: #E5E5E5;
+    --color-my-github-green: #22C55E;
+    --color-primary: #605DFF;
+    --color-primary-dark: #3737bf;
+    --color-primary-dark-transparent: rgba(86,86,177,0.23);
+    --color-primary-light: #8988eb;
+    --color-primary-light-ultra: #c4c3f6;
+    --text-color: #2A2A2A;
 }
 
-@tailwind utilities;
 
 
 .tippy-box[data-theme~='tomato'] {
@@ -61,3 +64,4 @@
 
 
 
+@tailwind utilities;

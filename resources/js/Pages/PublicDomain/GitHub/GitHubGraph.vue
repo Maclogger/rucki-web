@@ -34,7 +34,7 @@ function getRecord(week: number, day: number): GitHubRecord | null {
 </script>
 
 <template>
-    <div class="flex flex-col gap-1 overflow-y-auto py-2 mb-4">
+    <div class="flex flex-col gap-1 overflow-y-auto py-2 ">
         <div
             v-for="day in 7"
             :key="`row-${day}`"

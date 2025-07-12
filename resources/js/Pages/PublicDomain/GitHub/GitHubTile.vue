@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type {GitHubRecord} from "@/stores/githubStore";
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted} from "vue";
 import {useGitHubStore} from "@/stores/githubStore";
 import {
     toNicelyFormattedDate,
@@ -30,26 +30,26 @@ const date = computed(() => {
     }
 });
 
-const colors = {
+const colorClasses = {
     dracula: [
-        {value: "#424557"},
-        {value: "#f1b4de"},
-        {value: "#EE83C4"},
-        {value: "#e95db7"},
-        {value: "#b7257b"},
+        "bg-[#424557]",
+        "bg-[#f1b4de]",
+        "bg-[#EE83C4]",
+        "bg-[#e95db7]",
+        "bg-[#b7257b]",
     ],
     dark: [
-        {value: "rgba(86,86,177,0.23)"},
-        {value: "#4e4ed6"},
-        {value: "#6e6bea"},
-        {value: "#8988eb"},
-        {value: "#c4c3f6"},
+        "bg-primary-dark-transparent",
+        "bg-primary-dark",
+        "bg-primary",
+        "bg-primary-light",
+        "bg-primary-light-ultra",
     ],
 };
 
 const theme = "dark";
 
-const cellColor = computed(() => {
+const cellBgClass = computed(() => {
     if (!date.value) return "";
 
     const isCurrentYear = date.value.getFullYear() === gitHubStore.currently_displayed_year;
@@ -64,11 +64,11 @@ const cellColor = computed(() => {
     }
 
     const level = props.gitHubRecord?.year_level ?? 0;
-    if (level === 0) return colors[theme][0].value;
-    if (level <= 0.25) return colors[theme][1].value;
-    if (level <= 0.5) return colors[theme][2].value;
-    if (level <= 0.75) return colors[theme][3].value;
-    return colors[theme][4].value;
+    if (level === 0) return colorClasses[theme][0];
+    if (level <= 0.25) return colorClasses[theme][1];
+    if (level <= 0.5) return colorClasses[theme][2];
+    if (level <= 0.75) return colorClasses[theme][3];
+    return colorClasses[theme][4];
 });
 
 const tooltipText = computed(() => {
@@ -102,7 +102,7 @@ const cellId = computed(() => {
 onMounted(() => {
     const element = document.getElementById(cellId.value);
     if (element) {
-        tippy("#" + cellId.value, {
+        tippy(element, {
             content: tooltipText.value,
             arrow: true,
             animation: "fade",
@@ -119,9 +119,13 @@ onMounted(() => {
         <div
             :id="cellId"
             class="cell relative w-4 h-4 rounded-sm"
-            :style="{ backgroundColor: cellColor }"
+            :class="cellBgClass"
         ></div>
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+/* Scoped štýly sú v poriadku pre špecifické veci, ktoré nechceš riešiť Tailwindiem.
+   Pre farby pozadia by si sa mal snažiť použiť Tailwind triedy.
+*/
+</style>
