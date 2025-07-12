@@ -4,6 +4,7 @@ import {useGitHubStore} from "@/stores/githubStore";
 import {storeToRefs} from "pinia";
 import GitHubTile from "@/Pages/PublicDomain/GitHub/GitHubTile.vue";
 import type {GitHubYearChart, GitHubRecord} from "@/stores/githubStore";
+import GitHubLegendFakeTile from "@/Pages/PublicDomain/GitHub/GitHubLegendFakeTile.vue";
 
 const gitHubStore = useGitHubStore();
 const {currently_displayed_year, git_hub_year_charts} = storeToRefs(gitHubStore);
@@ -31,10 +32,26 @@ const recordMap = computed(() => {
 function getRecord(week: number, day: number): GitHubRecord | null {
     return recordMap.value.get(`${week}-${day}`) ?? null;
 }
+
+function getWeekLegendText(week: number) {
+    if (week == 1) {
+        return "Jan"
+    }
+    return ""; // TODO
+}
+
 </script>
 
 <template>
     <div class="flex flex-col gap-1 overflow-y-auto py-2 ">
+        <div class="flex gap-1">
+            <div
+                v-for="week in weekCount + 1"
+            >
+                <GitHubLegendFakeTile :text="getWeekLegendText(week)"/>
+            </div>
+        </div>
+
         <div
             v-for="day in 7"
             :key="`row-${day}`"

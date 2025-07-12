@@ -5,13 +5,14 @@ import GitHubLegendFakeTile from "@/Pages/PublicDomain/GitHub/GitHubLegendFakeTi
 
 <template>
     <div class="flex flex-col justify-between me-2 py-2  align-middle items-center">
-        <GitHubLegendFakeTile text=""/>
+        <GitHubLegendFakeTile/> <!-- First Row is Month Legend -->
+        <GitHubLegendFakeTile/>
         <GitHubLegendFakeTile text="Uto"/>
-        <GitHubLegendFakeTile text=""/>
+        <GitHubLegendFakeTile/>
         <GitHubLegendFakeTile text="Štv"/>
-        <GitHubLegendFakeTile text=""/>
+        <GitHubLegendFakeTile/>
         <GitHubLegendFakeTile text="Sob"/>
-        <GitHubLegendFakeTile text=""/>
+        <GitHubLegendFakeTile/>
     </div>
 </template>
 

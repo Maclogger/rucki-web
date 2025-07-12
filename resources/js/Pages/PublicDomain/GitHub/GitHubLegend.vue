@@ -5,6 +5,7 @@ import GitHubLegendFakeTile from "@/Pages/PublicDomain/GitHub/GitHubLegendFakeTi
 
 <template>
     <div class="flex flex-col justify-between ms-3 py-2 align-middle items-center">
+        <GitHubLegendFakeTile/> <!-- First Row is Month Legend -->
         <GitHubLegendFakeTile  text="Viac"/>
         <GitHubLegendFakeTile  background-color-class="bg-primary-light-ultra"/>
         <GitHubLegendFakeTile  background-color-class="bg-primary-light"/>
