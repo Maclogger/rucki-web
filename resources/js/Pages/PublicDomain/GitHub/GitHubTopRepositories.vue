@@ -10,7 +10,7 @@ import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
             <GitHubRepository repository-link="https://github.com/Maclogger/rucki-web" repository-name="rucki-web">
                 <template #stack-icons>
                     <font-awesome-icon class="text-3xl" :icon="['fab', 'laravel']" style="color: #ed333b;"/>
-                    <font-awesome-icon class="text-3xl" :icon="['fab', 'php']" style="color: #1a5fb4;"/>
+                    <img src="/images/icons/php.svg" class="h-[1.875em]" alt="php icon">
                     <font-awesome-icon class="text-3xl" :icon="['fab', 'vuejs']" style="color: #63E6BE;"/>
                     <img src="/images/icons/typescript.svg" class="h-[1.875em]" alt="typescript icon">
                     <img src="/images/icons/pinia.svg" class="h-[1.875em]" alt="piniastore icon">
