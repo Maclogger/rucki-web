@@ -32,7 +32,7 @@ const redirect = (url: string) => {
                     <p class="">Pozrite si moju tvorbu priamo na GitHube</p>
                     <button class="btn btn-primary mt-4 w-fit py-6" @click="redirect('https://github.com/Maclogger')">
                         <font-awesome-icon class="text-2xl" :icon="['fas', 'square-up-right']"/>
-                        https://github.com/Maclogger
+                        <p class="ms-2 me-1">https://github.com/Maclogger</p>
                     </button>
                 </div>
                 <font-awesome-icon class="mt-24 text-my-white" style="width: max-content; height: max-content"
