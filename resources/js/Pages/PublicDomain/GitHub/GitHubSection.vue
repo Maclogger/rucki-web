@@ -2,7 +2,7 @@
 
 import {usePublicStore} from "@/stores/publicStore";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import GitHubGraphComp from "@/Pages/PublicDomain/GitHub/GitHubGraphComp.vue";
+import GitHubRightSide from "@/Pages/PublicDomain/GitHub/GitHubGraphComp.vue";
 import GitHubTile from "@/Pages/PublicDomain/GitHub/GitHubTile.vue";
 
 const publicStore = usePublicStore();
@@ -38,8 +38,8 @@ const redirect = (url: string) => {
                 <font-awesome-icon class="mt-24 text-my-white" style="width: max-content; height: max-content"
                                    :icon="['fab', 'github']"/>
             </div>
-            <div class="md:w-2/3">
-                <GitHubGraphComp/>
+            <div class="md:w-2/3 flex flex-col">
+                <GitHubRightSide/>
             </div>
         </div>
     </div>

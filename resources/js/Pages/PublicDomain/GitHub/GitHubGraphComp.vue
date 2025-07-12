@@ -8,6 +8,7 @@ import {toNicelyFormattedDateAndTime} from "@/utils/dateHelper";
 import GitHubGraphYears from "@/Pages/PublicDomain/GitHub/GitHubGraphYears.vue";
 import GitHubLegend from "@/Pages/PublicDomain/GitHub/GitHubLegend.vue";
 import GitHubDaysLegend from "@/Pages/PublicDomain/GitHub/GitHubDaysLegend.vue";
+import GitHubTopRepositories from "@/Pages/PublicDomain/GitHub/GitHubTopRepositories.vue";
 
 const gitHubStore = useGitHubStore();
 const {last_update} = storeToRefs(gitHubStore);
@@ -33,9 +34,8 @@ const {last_update} = storeToRefs(gitHubStore);
     <button class="btn btn-error">Error</button>
 -->
     <p>Aktualizované: <strong>{{ toNicelyFormattedDateAndTime(last_update) }}</strong></p>
-    <p class="text-xl mt-5">Moje <strong>TOP</strong> repozitáre, na ktoré sa oplatí pozrieť.</p>
-
-
+    <p class="text-xl mt-12">Moje <strong>TOP</strong> repozitáre, na ktoré sa oplatí pozrieť.</p>
+    <GitHubTopRepositories class="mt-5"/>
 </template>
 
 <style scoped>
