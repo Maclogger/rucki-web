@@ -16,7 +16,7 @@ const redirect = (url: string) => {
 
 <template>
     <div class=" h-screen">
-        <div class="h-full flex flex-row py-42 xl:gap-20 lg:gap-10 md:gap-8 my-container mx-auto">
+        <div class="h-full flex flex-row py-32 xl:gap-20 lg:gap-10 max-w-[1792px] md:gap-8 xl:px-32 lg:px-24 md:px-12 mx-auto">
             <div class="md:w-1/3
                         flex flex-col justify-between overflow-hidden
                 ">
@@ -34,7 +34,7 @@ const redirect = (url: string) => {
                         https://github.com/Maclogger
                     </button>
                 </div>
-                <font-awesome-icon class="my-23 text-my-black"    style="width: max-content; height:
+                <font-awesome-icon class="mt-24 text-my-black"    style="width: max-content; height:
                 max-content"
                                    :icon="['fab', 'github']"/>
             </div>
@@ -47,26 +47,5 @@ const redirect = (url: string) => {
 
 <style scoped>
 
-.my-container {
-    width: 100%;
-    @media (width >= 40rem /* 640px */) {
-        max-width: 40rem /* 640px */;
-    }
-    @media (width >= 48rem /* 768px */) {
-        max-width: 48rem /* 768px */;
-    }
-    @media (width >= 64rem /* 1024px */) {
-        max-width: 64rem /* 1024px */;
-    }
-    @media (width >= 80rem /* 1280px */) {
-        max-width: 80rem /* 1280px */;
-    }
-    @media (width >= 96rem /* 1536px */) {
-        max-width: 96rem /* 1536px */;
-    }
-    @media (width >= 112rem /* 1792px */) {
-        max-width: 104rem /* 1792px */;
-    }
-}
 
 </style>

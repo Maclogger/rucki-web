@@ -34,23 +34,21 @@ function getRecord(week: number, day: number): GitHubRecord | null {
 </script>
 
 <template>
-    <div class="p-2">
-        <div class="flex flex-col gap-1 overflow-auto">
+    <div class="flex flex-col gap-1 overflow-y-auto py-2 mb-4">
+        <div
+            v-for="day in 7"
+            :key="`row-${day}`"
+            class="flex gap-1"
+        >
             <div
-                v-for="day in 7"
-                :key="`row-${day}`"
-                class="flex gap-1"
+                v-for="week in weekCount + 1"
+                :key="`col-${day}-${week}`"
             >
-                <div
-                    v-for="week in weekCount + 1"
-                    :key="`col-${day}-${week}`"
-                >
-                    <GitHubTile
-                        :day="day"
-                        :week="week"
-                        :gitHubRecord="getRecord(week, day)"
-                    />
-                </div>
+                <GitHubTile
+                    :day="day"
+                    :week="week"
+                    :gitHubRecord="getRecord(week, day)"
+                />
             </div>
         </div>
     </div>

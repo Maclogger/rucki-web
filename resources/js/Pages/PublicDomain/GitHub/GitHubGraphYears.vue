@@ -19,7 +19,7 @@ const yearsToDisplay = computed<number[]>(() => {
 </script>
 
 <template>
-    <div class="flex gap-2 overflow-auto">
+    <div class="flex gap-2 py-2 overflow-y-auto">
         <div v-for="year in yearsToDisplay" :key="year">
             <GitHubGraphYearButton :year="year" />
         </div>

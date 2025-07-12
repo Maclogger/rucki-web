@@ -27,6 +27,9 @@ const {last_update} = storeToRefs(gitHubStore);
     <button class="btn btn-error">Error</button>
 -->
     <p>Aktualizované: <strong>{{ toNicelyFormattedDateAndTime(last_update) }}</strong></p>
+    <p class="text-xl mt-5">Moje <strong>TOP</strong> repozitáre, na ktoré sa oplatí pozrieť.</p>
+
+
 </template>
 
 <style scoped>
