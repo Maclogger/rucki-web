@@ -23,16 +23,6 @@ const {last_update} = storeToRefs(gitHubStore);
         <GitHubLegend/>
     </div>
     <GitHubGraphYears/>
-<!--
-    <button class="btn btn-neutral">Neutral</button>
-    <button class="btn btn-primary">Primary</button>
-    <button class="btn btn-secondary">Secondary</button>
-    <button class="btn btn-accent">Accent</button>
-    <button class="btn btn-info">Info</button>
-    <button class="btn btn-success">Success</button>
-    <button class="btn btn-warning">Warning</button>
-    <button class="btn btn-error">Error</button>
--->
     <p>Aktualizované: <strong>{{ toNicelyFormattedDateAndTime(last_update) }}</strong></p>
     <p class="text-xl mt-12">Moje <strong>TOP</strong> repozitáre, na ktoré sa oplatí pozrieť.</p>
     <GitHubTopRepositories class="mt-5"/>
