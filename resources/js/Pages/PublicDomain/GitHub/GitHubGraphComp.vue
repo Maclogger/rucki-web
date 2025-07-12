@@ -7,6 +7,7 @@ import GitHubGraph from "@/Pages/PublicDomain/GitHub/GitHubGraph.vue";
 import {toNicelyFormattedDateAndTime} from "@/utils/dateHelper";
 import GitHubGraphYears from "@/Pages/PublicDomain/GitHub/GitHubGraphYears.vue";
 import GitHubLegend from "@/Pages/PublicDomain/GitHub/GitHubLegend.vue";
+import GitHubDaysLegend from "@/Pages/PublicDomain/GitHub/GitHubDaysLegend.vue";
 
 const gitHubStore = useGitHubStore();
 const {last_update} = storeToRefs(gitHubStore);
@@ -16,6 +17,7 @@ const {last_update} = storeToRefs(gitHubStore);
 <template>
     <p class="text-xl"><strong>307</strong> príspevkov v roku <strong>2025</strong></p>
     <div class="flex flex-row">
+        <GitHubDaysLegend/>
         <GitHubGraph/>
         <GitHubLegend/>
     </div>
