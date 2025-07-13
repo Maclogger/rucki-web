@@ -4,26 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Constant;
 use Carbon\Carbon;
-use Exception;
-use Illuminate\Http\Request;
 
 class GithubController extends Controller
 {
-    /**
-     * @throws Exception
-     */
-    public function getGithubChartData(int $year) {
+    public function getGithubChartData(int $year)
+    {
 
         $githubRecords = GithubRecordController::getRecordsData($year);
-        if ($githubRecords->isEmpty()) {
-            throw new Exception("No github records found for year $year");
-        }
-
-        $weekCount = Carbon::createFromDate($year, 12, 28)->weekOfYear;
-
         return [
             'year' => $year,
-            'week_count' => $weekCount,
             'github_records' => $githubRecords,
         ];
     }
@@ -38,13 +27,25 @@ class GithubController extends Controller
         return $selectedYear;
     }
 
-    private function getLastUpdate(): Carbon {
-        return Carbon::now();
-    }
+    public function getInitialGithubStoreData(): array
+    {
+        $lastUpdate = new Carbon(Constant::findByKey('githubLastUpdate'));
+        $selectedYear = $this->getSelectedYear();
+        $firstYear = Constant::findByKey("gitHubYearFrom");
 
+        $yearsToLoad = [2023, 2024, 2025];
 
-    public static function getInitialGithubStoreData(): array {
-        return [];
+        $dataByYear = [];
+        foreach ($yearsToLoad as $year) {
+            $dataByYear[$year] = $this->getGithubChartData($year);
+        }
+
+        return [
+            'last_update' => $lastUpdate,
+            'selected_year' => $selectedYear,
+            'first_year' => $firstYear,
+            'data_by_year' => $dataByYear
+        ];
     }
 
 }

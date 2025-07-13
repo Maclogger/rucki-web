@@ -5,11 +5,11 @@ import { computed } from "vue";
 import GithubGraphYearButton from "@/Pages/PublicDomain/Github/GithubGraphYearButton.vue";
 
 const githubStore = useGithubStore();
-const { github_year_from } = storeToRefs(githubStore);
+const { first_year } = storeToRefs(githubStore);
 
 const currentYear = new Date().getFullYear();
 
-const startYear = computed(() => Number(github_year_from.value));
+const startYear = computed(() => Number(first_year.value));
 
 const yearsToDisplay = computed<number[]>(() => {
     const start = startYear.value;

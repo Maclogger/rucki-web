@@ -1,6 +1,4 @@
 import {defineStore} from 'pinia';
-import axios from "axios";
-
 
 export interface GithubRecord {
     date: Date
@@ -14,15 +12,14 @@ export interface GithubRecord {
 
 export interface GithubYearChart {
     year: number, // year to select
-    week_count: number, // how many columns there will be in chart
     github_records: GithubRecord[],
 }
 
 export interface GithubStoreState {
     last_update: Date | null,
     selected_year: number, // which year is currently selected to display the graph
-    github_year_charts: Map<number, GithubYearChart>, // key is the year
-    github_year_from: number // start year
+    data_by_year: Map<number, GithubYearChart>, // key is the year
+    first_year: number, // start year
 }
 
 
@@ -31,8 +28,8 @@ export const useGithubStore = defineStore("githubStore", {
         return {
             last_update: null,
             selected_year: 2025,
-            github_year_charts: new Map<number, GithubYearChart>(),
-            github_year_from: 2017 // default year is 2017
+            first_year: 2017, // default year is 2017
+            data_by_year: new Map<number, GithubYearChart>(),
         };
     },
 
@@ -42,20 +39,19 @@ export const useGithubStore = defineStore("githubStore", {
         },
 
         async fetchGithubYearChart(year: number) {
-            const githubChartData = (await window.axios("/fetch-githubchartdata/" + year)).data;
+            const githubChartData = (await window.axios("/fetch-github-chart-data/" + year)).data;
             console.log(githubChartData);
 
             const newGithubYearChart = {
                 year: year,
-                week_count: githubChartData.week_count,
                 github_records: githubChartData.github_records,
             };
 
-            this.github_year_charts.set(year, newGithubYearChart);
+            this.data_by_year.set(year, newGithubYearChart);
         },
 
         async setNewSelectedYear(newSelectedYear: number) {
-            if (!this.github_year_charts.has(newSelectedYear)) {
+            if (!this.data_by_year.has(newSelectedYear)) {
                 await this.fetchGithubYearChart(newSelectedYear);
             }
 

@@ -21,30 +21,7 @@ class AppController extends Controller
             'laravel_version' => Application::VERSION,
             'php_version' => PHP_VERSION,
             'constant_pairs' => $constantPairs,
-            'github_store' => GithubController::getInitialGithubStoreData(),
+            'github_store' => new GithubController()->getInitialGithubStoreData(),
         ]);
-    }
-
-
-    private function getGithubGraphData() : array
-    {
-        /*
-         *
-         * TODO: This needs to be redone. It works, but it's awful...
-         *  It should be more like the final structure to also possibly
-         *  support multiple years at the start
-         *
-         */
-/*        $currentlySelectedYearInGitHubGraph = $this->getCurrentlySelectedYearInGitHubGraph();
-        $gitHubRecords = GitHubRecordController::getRecordsData($currentlySelectedYearInGitHubGraph);
-        $gitHubYearFrom = Setting::findByKey("gitHubYearFrom");
-
-        return [
-            'year' => $currentlySelectedYearInGitHubGraph,
-            'initial_git_hub_records' => $gitHubRecords,
-            'week_count' => Carbon::createFromDate($currentlySelectedYearInGitHubGraph, 12, 28)->weekOfYear,
-            'git_hub_year_from' => $gitHubYearFrom,
-        ];*/
-        return [];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Log;
 
 // Nezabudni importovať Carbon
@@ -18,6 +19,11 @@ class Type extends Model
         "type_name",
     ];
 
+
+    public function constants(): HasMany
+    {
+        return $this->hasMany(Constant::class, 'type_name', 'type_name');
+    }
 
     public static function getTypeFromValue(mixed $value): string
     {

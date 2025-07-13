@@ -11,12 +11,9 @@ export interface PublicStoreState {
 export interface ConstantPair {
     key: string,
     value: any,
-    type: Type,
+    type_name: string,
 }
 
-export interface Type {
-    type_name: string
-}
 
 export const usePublicStore = defineStore("publicStore", {
     state: (): PublicStoreState => {
