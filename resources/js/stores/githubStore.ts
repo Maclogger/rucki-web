@@ -12,6 +12,7 @@ export interface GithubRecord {
 
 export interface GithubYearChart {
     year: number, // year to select
+    total_contributions: number,
     github_records: GithubRecord[],
 }
 
@@ -44,6 +45,7 @@ export const useGithubStore = defineStore("githubStore", {
 
             const newGithubYearChart = {
                 year: year,
+                total_contributions: githubChartData.total_contributions,
                 github_records: githubChartData.github_records,
             };
 
@@ -57,7 +59,6 @@ export const useGithubStore = defineStore("githubStore", {
 
             this.selected_year = newSelectedYear;
         }
-
     }
 });
 

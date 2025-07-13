@@ -4,17 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\Constant;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Log;
 
 class GithubController extends Controller
 {
     public function getGithubChartData(int $year)
     {
-
         $githubRecords = GithubRecordController::getRecordsData($year);
+        $totalContributions = $this->calcTotalContributions($githubRecords);
+
         return [
             'year' => $year,
+            'total_contributions' => $totalContributions,
             'github_records' => $githubRecords,
         ];
+    }
+
+    private function calcTotalContributions(Collection $githubRecords): int {
+        $totalContributions = 0;
+        foreach ($githubRecords as $githubRecord) {
+            $totalContributions += $githubRecord->contributions_count;
+        }
+        return $totalContributions;
     }
 
 

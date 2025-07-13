@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import {computed} from "vue";
 import {useGithubStore} from "@/stores/githubStore";
-import {storeToRefs} from "pinia";
-import GithubTile from "@/Pages/PublicDomain/Github/GithubTile.vue";
-import type {GithubYearChart, GithubRecord} from "@/stores/githubStore";
-import GithubLegendFakeTile from "@/Pages/PublicDomain/Github/GithubLegendFakeTile.vue";
 
 const githubStore = useGithubStore();
-const {selected_year, github_year_charts} = storeToRefs(githubStore);
 
 const weekCount = computed(() => {
 

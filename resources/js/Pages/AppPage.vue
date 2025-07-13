@@ -26,6 +26,7 @@ const props = defineProps<{
         data_by_year: {
             [year: number]: {
                 year: number,
+                total_contributions: number,
                 github_records: Array<{
                     date: string, // date
                     contributions_count: number,
@@ -78,6 +79,7 @@ function setGithubRecordsState() {
 
         const githubYearChart: GithubYearChart = {
             year: Number(year),
+            total_contributions: Number(yearData.total_contributions),
             github_records: githubRecords,
         }
 
@@ -104,11 +106,11 @@ onMounted(() => {
 <template>
 
 
-    <!--    <form class="bg-gray" @submit.prevent="submit">
-            <button type="submit" class="btn btn-primary">
-                Fetch Github Data
-            </button>
-        </form>-->
+<!--    <form class="bg-gray" @submit.prevent="submit">
+        <button type="submit" class="btn btn-primary">
+            Fetch Github Data
+        </button>
+    </form>-->
 
     <InitialScreen/>
     <GithubSection/>

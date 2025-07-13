@@ -1,5 +1,8 @@
-export const vysklonuj = (num: number, singular: string, dvaTriStyri: string, nulaPatAViac: string): string => {
-    let output: string = "" + num + " ";
+export const vysklonuj = (num: number, singular: string, dvaTriStyri: string, nulaPatAViac: string, hideNum?: boolean): string => {
+    let output: string = "";
+    if (hideNum == undefined || !hideNum) {
+        output += num + " ";
+    }
     if (num == 1) {
         return output + singular;
     }
