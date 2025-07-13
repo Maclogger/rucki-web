@@ -2,8 +2,8 @@
 
 import {usePublicStore} from "@/stores/publicStore";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import GitHubRightSide from "@/Pages/PublicDomain/GitHub/GitHubGraphComp.vue";
-import GitHubTile from "@/Pages/PublicDomain/GitHub/GitHubTile.vue";
+import GithubGraphComp from "@/Pages/PublicDomain/Github/GithubGraphComp.vue";
+import GithubTile from "@/Pages/PublicDomain/Github/GithubTile.vue";
 
 const publicStore = usePublicStore();
 
@@ -29,7 +29,7 @@ const redirect = (url: string) => {
                             publicStore.getFullName()
                         }}
                     </p>
-                    <p class="">Pozrite si moju tvorbu priamo na GitHube</p>
+                    <p class="">Pozrite si moju tvorbu priamo na Githube</p>
                     <button class="btn btn-primary mt-4 w-fit py-6" @click="redirect('https://github.com/Maclogger')">
                         <font-awesome-icon class="text-2xl" :icon="['fas', 'square-up-right']"/>
                         <p class="ms-2 me-1">https://github.com/Maclogger</p>
@@ -39,7 +39,7 @@ const redirect = (url: string) => {
                                    :icon="['fab', 'github']"/>
             </div>
             <div class="md:w-2/3 flex flex-col">
-                <GitHubRightSide/>
+                <GithubGraphComp/>
             </div>
         </div>
     </div>

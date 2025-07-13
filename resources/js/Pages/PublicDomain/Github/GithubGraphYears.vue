@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { useGitHubStore } from "@/stores/githubStore";
+import { useGithubStore } from "@/stores/githubStore";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";
-import GitHubGraphYearButton from "@/Pages/PublicDomain/GitHub/GitHubGraphYearButton.vue";
+import GithubGraphYearButton from "@/Pages/PublicDomain/Github/GithubGraphYearButton.vue";
 
-const gitHubStore = useGitHubStore();
-const { git_hub_year_from } = storeToRefs(gitHubStore);
+const githubStore = useGithubStore();
+const { github_year_from } = storeToRefs(githubStore);
 
 const currentYear = new Date().getFullYear();
 
-const startYear = computed(() => Number(git_hub_year_from.value));
+const startYear = computed(() => Number(github_year_from.value));
 
 const yearsToDisplay = computed<number[]>(() => {
     const start = startYear.value;
@@ -21,7 +21,7 @@ const yearsToDisplay = computed<number[]>(() => {
 <template>
     <div class="flex gap-2 py-2 overflow-y-auto">
         <div v-for="year in yearsToDisplay" :key="year">
-            <GitHubGraphYearButton :year="year" />
+            <GithubGraphYearButton :year="year" />
         </div>
     </div>
 </template>

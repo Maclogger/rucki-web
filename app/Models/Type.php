@@ -3,6 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+
+// Nezabudni importovať Carbon
 
 /**
  * @property String $type_name
@@ -15,8 +19,12 @@ class Type extends Model
     ];
 
 
-    public static function getTypeFromValue($value): string
+    public static function getTypeFromValue(mixed $value): string
     {
+        if ($value instanceof Carbon) {
+            return "carbon";
+        }
+
         $type = gettype($value);
         switch ($type) {
             case 'integer':

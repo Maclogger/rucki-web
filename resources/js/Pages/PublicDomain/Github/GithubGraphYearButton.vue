@@ -1,22 +1,22 @@
 <script setup lang="ts">
 
-import {useGitHubStore} from "@/stores/githubStore";
+import {useGithubStore} from "@/stores/githubStore";
 
 const props = defineProps<{
     year: number
 }>();
 
-const gitHubStore = useGitHubStore();
+const githubStore = useGithubStore();
 
 const isSelected = () => {
-    return gitHubStore.currently_displayed_year === props.year;
+    return githubStore.selected_year === props.year;
 }
 
 const selectThisYear = () => {
     if (!props.year) {
         return;
     }
-    gitHubStore.setNewSelectedYear(props.year);
+    githubStore.setNewSelectedYear(props.year);
 }
 
 </script>

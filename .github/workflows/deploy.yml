@@ -31,8 +31,8 @@ jobs:
             # '|| true' zabezpečí, že skript nespadne, ak stránka nie je v maintenance mode
             php artisan up || true
 
-            # Stiahni najnovšie zmeny z GitHubu
-            echo "🚚 Pulling latest changes from GitHub..."
+            # Stiahni najnovšie zmeny z Githubu
+            echo "🚚 Pulling latest changes from Github..."
             git pull origin master
 
             # Nainštaluj/aktualizuj PHP závislosti bez interakcie

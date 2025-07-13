@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Setting;
+use App\Models\Constant;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,28 +13,20 @@ class AppController extends Controller
 {
     public function index()
     {
-        $settingPairs = SettingController::getSettingPairs();
+        $constantPairs = ConstantController::getConstantPairs();
 
         return Inertia::render('AppPage', [
             'can_login' => Route::has('login'),
             'can_register' => Route::has('register'),
             'laravel_version' => Application::VERSION,
             'php_version' => PHP_VERSION,
-            'setting_pairs' => $settingPairs,
-            'git_hub_chart_data' => $this->getGitHubGraphData(),
+            'constant_pairs' => $constantPairs,
+            'github_store' => GithubController::getInitialGithubStoreData(),
         ]);
     }
 
-    private function getCurrentlySelectedYearInGitHubGraph(): int
-    {
-        $currentlySelectedYearInGitHubGraph = Setting::findByKey('gitHubDefaultYearToSelect');
-        if ($currentlySelectedYearInGitHubGraph == null || $currentlySelectedYearInGitHubGraph == -1) {
-            $currentlySelectedYearInGitHubGraph = Carbon::now()->year;
-        }
-        return $currentlySelectedYearInGitHubGraph;
-    }
 
-    private function getGitHubGraphData() : array
+    private function getGithubGraphData() : array
     {
         /*
          *
@@ -43,7 +35,7 @@ class AppController extends Controller
          *  support multiple years at the start
          *
          */
-        $currentlySelectedYearInGitHubGraph = $this->getCurrentlySelectedYearInGitHubGraph();
+/*        $currentlySelectedYearInGitHubGraph = $this->getCurrentlySelectedYearInGitHubGraph();
         $gitHubRecords = GitHubRecordController::getRecordsData($currentlySelectedYearInGitHubGraph);
         $gitHubYearFrom = Setting::findByKey("gitHubYearFrom");
 
@@ -52,6 +44,7 @@ class AppController extends Controller
             'initial_git_hub_records' => $gitHubRecords,
             'week_count' => Carbon::createFromDate($currentlySelectedYearInGitHubGraph, 12, 28)->weekOfYear,
             'git_hub_year_from' => $gitHubYearFrom,
-        ];
+        ];*/
+        return [];
     }
 }

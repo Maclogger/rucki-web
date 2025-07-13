@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('git_hub_records', function (Blueprint $table) {
-            $table->date("date");
+        Schema::create('constants', function (Blueprint $table) {
+            $table->string("key");
+            $table->string("value");
+            $table->string("type_name");
             $table->timestamps();
-            $table->integer('contributions_count');
-            $table->primary('date');
+            $table->primary("key");
+            $table->foreign("type_name")->references("type_name")->on("types");
         });
     }
 
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('git_hub_records');
+        Schema::dropIfExists('constants');
     }
 };

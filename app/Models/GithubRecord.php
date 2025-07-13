@@ -11,9 +11,9 @@ use Illuminate\Support\Carbon;
  * @property Carbon $created_at Čas vytvorenia záznamu.
  * @property Carbon $updated_at Čas poslednej aktualizácie záznamu.
  */
-class GitHubRecord extends Model
+class GithubRecord extends Model
 {
-    protected $table = 'git_hub_records';
+    protected $table = 'github_records';
 
     protected $fillable = [
         'date',

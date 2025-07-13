@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type {GitHubRecord} from "@/stores/githubStore";
+import type {GithubRecord} from "@/stores/githubStore";
 import {computed, onMounted} from "vue";
-import {useGitHubStore} from "@/stores/githubStore";
+import {useGithubStore} from "@/stores/githubStore";
 import {
     toNicelyFormattedDate,
     getDateFromWeekAndDayISO,
@@ -9,23 +9,23 @@ import {
 import tippy from "tippy.js";
 import {vysklonuj} from "@/utils/sklonovac";
 
-const gitHubStore = useGitHubStore();
+const githubStore = useGithubStore();
 
 const props = defineProps<{
     day: number;
     week: number;
-    gitHubRecord: GitHubRecord | null;
+    githubRecord: GithubRecord | null;
 }>();
 
 const date = computed(() => {
     try {
         return getDateFromWeekAndDayISO(
-            gitHubStore.currently_displayed_year,
+            githubStore.selected_year,
             props.week,
             props.day
         );
     } catch (error) {
-        console.error("Chyba pri získavaní dátumu: {" + gitHubStore.currently_displayed_year + "}", error);
+        console.error("Chyba pri získavaní dátumu: {" + githubStore.selected_year + "}", error);
         return null;
     }
 });
@@ -52,18 +52,18 @@ const theme = "dark";
 const cellBgClass = computed(() => {
     if (!date.value) return "";
 
-    const isCurrentYear = date.value.getFullYear() === gitHubStore.currently_displayed_year;
+    const isCurrentYear = date.value.getFullYear() === githubStore.selected_year;
     if (!isCurrentYear) {
         console.log(
             "Tento rok podla toho nesedi: " +
             date.value.getFullYear() +
             " - " +
-            gitHubStore.currently_displayed_year
+            githubStore.selected_year
         );
         return "";
     }
 
-    const level = props.gitHubRecord?.year_level ?? 0;
+    const level = props.githubRecord?.year_level ?? 0;
     if (level === 0) return colorClasses[theme][0];
     if (level <= 0.25) return colorClasses[theme][1];
     if (level <= 0.5) return colorClasses[theme][2];
@@ -82,13 +82,13 @@ const tooltipText = computed(() => {
         output = "Dátum: ";
     }
 
-    const noContributions = !props.gitHubRecord || props.gitHubRecord.contributions_count <= 0;
+    const noContributions = !props.githubRecord || props.githubRecord.contributions_count <= 0;
     if (noContributions) {
         return output + "žiadne príspevky";
     }
 
     return output + vysklonuj(
-        props.gitHubRecord.contributions_count,
+        props.githubRecord.contributions_count,
         "príspevok",
         "príspevky",
         "príspevkov"

@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\AppController;
-use App\Http\Controllers\GitHubController;
-use App\Http\Controllers\GitHubRecordController;
+use App\Http\Controllers\GithubController;
+use App\Http\Controllers\GithubRecordController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,9 +25,8 @@ Route::middleware('auth')->group(function () {
 });
 
 
+Route::post("/fetch-github-contributions", [GithubRecordController::class, "__invoke"]);
 
-Route::post("/fetch-github-contributions", [GitHubRecordController::class, "__invoke"]);
-
-Route::get("/fetch-githubchartdata/{year}", [GitHubController::class, "getGitHubChartData"]);
+Route::get("/fetch-githubchartdata/{year}", [GithubController::class, "getGithubChartData"]);
 
 require __DIR__.'/auth.php';

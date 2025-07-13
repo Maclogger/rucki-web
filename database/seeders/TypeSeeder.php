@@ -17,11 +17,9 @@ class TypeSeeder extends Seeder
         $this->createType("int");
         $this->createType("bool");
         $this->createType("float");
+        $this->createType("carbon");
     }
 
-    /**
-     * @return void
-     */
     public function createType(String $typeName): void
     {
         $typeName = new Type([

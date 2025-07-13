@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 
-class FetchGitHubRecordsTest extends TestCase
+class FetchGithubRecordsTest extends TestCase
 {
     /**
      * A basic feature test example.

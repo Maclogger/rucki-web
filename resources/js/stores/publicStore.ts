@@ -5,10 +5,10 @@ export interface PublicStoreState {
     can_register: boolean;
     laravel_version: string | null;
     php_version: string | null;
-    setting_pairs: SettingPair[];
+    constant_pairs: ConstantPair[];
 }
 
-export interface SettingPair {
+export interface ConstantPair {
     key: string,
     value: any,
     type: Type,
@@ -25,7 +25,7 @@ export const usePublicStore = defineStore("publicStore", {
             can_register: false,
             laravel_version: null,
             php_version: null,
-            setting_pairs: []
+            constant_pairs: []
         };
     },
 
@@ -34,9 +34,9 @@ export const usePublicStore = defineStore("publicStore", {
             this.$patch(newState);
         },
 
-        getSetting(settingKey: string): any | null {
-            for (const value of this.setting_pairs) {
-                if (value.key == settingKey) {
+        getConstant(constantKey: string): any | null {
+            for (const value of this.constant_pairs) {
+                if (value.key == constantKey) {
                     return value.value;
                 }
             }
@@ -44,11 +44,11 @@ export const usePublicStore = defineStore("publicStore", {
         },
 
         getFullName(): string {
-            if (!this.setting_pairs) return "";
+            if (!this.constant_pairs) return "";
 
-            const titul = this.getSetting("titul");
-            const meno = this.getSetting("meno");
-            const priezvisko = this.getSetting("priezvisko");
+            const titul = this.getConstant("titul");
+            const meno = this.getConstant("meno");
+            const priezvisko = this.getConstant("priezvisko");
 
             return titul + " " + meno + " " + priezvisko;
         }

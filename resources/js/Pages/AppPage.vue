@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
 import {Head, Link, useForm} from '@inertiajs/vue3';
-import GitHubSection from "@/Pages/PublicDomain/GitHub/GitHubSection.vue";
-import {useGitHubStore, GitHubYearChart} from "@/stores/githubStore";
+import GithubSection from "@/Pages/PublicDomain/Github/GithubSection.vue";
+import {useGithubStore, GithubYearChart} from "@/stores/githubStore";
 import {usePublicStore} from "@/stores/publicStore";
 import {onMounted} from "vue";
 import InitialScreen from "@/Pages/InitialScreen.vue";
@@ -13,7 +13,7 @@ const props = defineProps<{
     laravel_version: string;
     php_version: string;
 
-    setting_pairs: Array<{
+    constant_pairs: Array<{
         key: string,
         value: any,
         type: {
@@ -21,9 +21,9 @@ const props = defineProps<{
         },
     }>;
 
-    git_hub_chart_data: {
+    github_chart_data: {
         year: number,
-        initial_git_hub_records: Array<{
+        initial_github_records: Array<{
             date: string,
             contributions_count: number,
             updated_at: string,
@@ -33,13 +33,13 @@ const props = defineProps<{
             year_level: number,
         }>;
         week_count: number,
-        git_hub_year_from: number,
+        github_year_from: number,
     }
 }>();
 
 
 const form = useForm({});
-const gitHubStore = useGitHubStore();
+const githubStore = useGithubStore();
 const publicStore = usePublicStore();
 
 const submit = () => {
@@ -52,20 +52,20 @@ function setPublicStoreState() {
         can_register: props.can_register,
         laravel_version: props.laravel_version,
         php_version: props.php_version,
-        setting_pairs: props.setting_pairs,
+        constant_pairs: props.constant_pairs,
     };
 
     publicStore.setState(publicStoreState);
 }
 
 function findLatestUpdateDate(
-    gitHubRecords: {
+    githubRecords: {
         date: Date; contributions_count: number; updated_at: Date; created_at: Date
     }[]
 ) {
     let latestUpdateDate: Date | null = null;
 
-    gitHubRecords.forEach((value, index) => {
+    githubRecords.forEach((value, index) => {
         if (latestUpdateDate == null || latestUpdateDate > value.updated_at) {
             latestUpdateDate = value.updated_at;
         }
@@ -74,8 +74,8 @@ function findLatestUpdateDate(
     return latestUpdateDate;
 }
 
-function getCurrentGitHubYearChartRecords() {
-    return props.git_hub_chart_data.initial_git_hub_records.map(record => ({
+function getCurrentGithubYearChartRecords() {
+    return props.github_chart_data.initial_github_records.map(record => ({
         ...record,
         date: new Date(record.date),
         updated_at: new Date(record.updated_at),
@@ -83,40 +83,53 @@ function getCurrentGitHubYearChartRecords() {
     }));
 }
 
-function setGitHubRecordsState() {
-    const currentGitHubYearChartRecords = getCurrentGitHubYearChartRecords();
+function setGithubRecordsState() {
+    const currentGithubYearChartRecords = getCurrentGithubYearChartRecords();
 
-    const currentGitHubYearChart = {
-        year: props.git_hub_chart_data.year,
-        week_count: props.git_hub_chart_data.week_count,
-        git_hub_records: currentGitHubYearChartRecords
+    const currentGithubYearChart = {
+        year: props.github_chart_data.year,
+        week_count: props.github_chart_data.week_count,
+        github_records: currentGithubYearChartRecords
     }
 
-    const allYearsGitHubYearCharts = new Map<number, GitHubYearChart>()
-    allYearsGitHubYearCharts.set(currentGitHubYearChart.year, currentGitHubYearChart);
+    const allYearsGithubYearCharts = new Map<number, GithubYearChart>()
+    allYearsGithubYearCharts.set(currentGithubYearChart.year, currentGithubYearChart);
 
-    const latestUpdateDate = findLatestUpdateDate(currentGitHubYearChartRecords);
+    const latestUpdateDate = findLatestUpdateDate(currentGithubYearChartRecords);
 
-    const gitHubStoreState = {
+    const githubStoreState = {
         last_update: latestUpdateDate,
-        currently_displayed_year: props.git_hub_chart_data.year,
-        git_hub_year_charts: allYearsGitHubYearCharts,
-        git_hub_year_from: Number(props.git_hub_chart_data.git_hub_year_from),
+        currently_displayed_year: props.github_chart_data.year,
+        github_year_charts: allYearsGithubYearCharts,
+        github_year_from: Number(props.github_chart_data.github_year_from),
     };
 
-    gitHubStore.setState(gitHubStoreState);
+    githubStore.setState(githubStoreState);
 }
 
 onMounted(() => {
+/*
     setPublicStoreState()
     setGitHubRecordsState();
+*/
 });
 </script>
 
 <template>
 
+
+    <form class="bg-gray" @submit.prevent="submit">
+        <button type="submit" class="btn btn-primary">
+            Fetch Github Data
+        </button>
+    </form>
+
+<!--
     <InitialScreen/>
-    <GitHubSection/>
+    <GithubSection/>
+-->
+
+
 
 </template>
 
