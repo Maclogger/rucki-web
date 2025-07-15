@@ -1,34 +1,13 @@
 <script setup lang="ts">
-import type {GithubRecord} from "@/stores/githubStore";
-import {computed, onMounted} from "vue";
-import {useGithubStore} from "@/stores/githubStore";
-import {
-    toNicelyFormattedDate,
-    getDateFromWeekAndDayISO,
-} from "@/utils/dateHelper";
-import tippy from "tippy.js";
-import {vysklonuj} from "@/utils/sklonovac";
-
-const githubStore = useGithubStore();
+import {computed, onMounted, onUnmounted, watch} from "vue";
+import { toNicelyFormattedDate } from "@/utils/dateHelper";
+import tippy from "tippy.js"; // Importujeme typy
+import { vysklonuj } from "@/utils/sklonovac";
+import { TileData } from "@/Pages/PublicDomain/Github/GithubGraph.vue";
 
 const props = defineProps<{
-    day: number;
-    week: number;
-    githubRecord: GithubRecord | null;
+    tileData: TileData;
 }>();
-
-const date = computed(() => {
-    try {
-        return getDateFromWeekAndDayISO(
-            githubStore.selected_year,
-            props.week,
-            props.day
-        );
-    } catch (error) {
-        console.error("Chyba pri získavaní dátumu: {" + githubStore.selected_year + "}", error);
-        return null;
-    }
-});
 
 const colorClasses = {
     dracula: [
@@ -50,20 +29,10 @@ const colorClasses = {
 const theme = "dark";
 
 const cellBgClass = computed(() => {
-    if (!date.value) return "";
+    const isOutsideOfTheYear = props.tileData.date == undefined;
+    if (isOutsideOfTheYear) return ""; // invisible
 
-    const isCurrentYear = date.value.getFullYear() === githubStore.selected_year;
-    if (!isCurrentYear) {
-        console.log(
-            "Tento rok podla toho nesedi: " +
-            date.value.getFullYear() +
-            " - " +
-            githubStore.selected_year
-        );
-        return "";
-    }
-
-    const level = props.githubRecord?.year_level ?? 0;
+    const level = props.tileData.contributionData?.year_level ?? 0;
     if (level === 0) return colorClasses[theme][0];
     if (level <= 0.25) return colorClasses[theme][1];
     if (level <= 0.5) return colorClasses[theme][2];
@@ -72,44 +41,107 @@ const cellBgClass = computed(() => {
 });
 
 const tooltipText = computed(() => {
-    if (!date.value) return "Neplatný dátum";
+    if (!props.tileData.date) return null; // Vráti null ak dátum neexistuje
+    const date = props.tileData.date;
 
     let output;
     try {
-        output = toNicelyFormattedDate(date.value) + ": ";
+        output = toNicelyFormattedDate(date) + ": ";
     } catch (error) {
-        console.error("Chyba pri formátovaní dátumu {" + date.value + "}:", error);
+        console.error("Chyba pri formátovaní dátumu {" + date + "}:", error);
         output = "Dátum: ";
     }
 
-    const noContributions = !props.githubRecord || props.githubRecord.contributions_count <= 0;
+    const noContributions =
+        !props.tileData.contributionData ||
+        props.tileData.contributionData.contributions_count <= 0;
+
     if (noContributions) {
         return output + "žiadne príspevky";
     }
 
-    return output + vysklonuj(
-        props.githubRecord.contributions_count,
-        "príspevok",
-        "príspevky",
-        "príspevkov"
+    return (
+        output +
+        vysklonuj(
+            props.tileData.contributionData!.contributions_count,
+            "príspevok",
+            "príspevky",
+            "príspevkov"
+        )
     );
 });
 
 const cellId = computed(() => {
-    return "id-" + props.day + "-" + props.week;
+    return "id-" + props.tileData.row + "-" + props.tileData.column;
 });
 
-onMounted(() => {
+let tippyInstance: any = null;
+
+const updateTooltip = () => {
+    // Ak dátum neexistuje, odstráň tooltip ak existuje a skonči
+    if (!props.tileData.date) {
+        if (tippyInstance) {
+            tippyInstance.destroy();
+            tippyInstance = null;
+        }
+        return;
+    }
+
     const element = document.getElementById(cellId.value);
-    if (element) {
-        tippy(element, {
-            content: tooltipText.value,
+    if (!element) {
+        console.warn(`Element s ID ${cellId.value} nebol nájdený`);
+        return;
+    }
+
+    if (tippyInstance) {
+        tippyInstance.setContent(tooltipText.value);
+    } else {
+        tippyInstance = tippy(element as HTMLElement, {
+            content: tooltipText.value || "",
             arrow: true,
             animation: "fade",
             theme: "tomato",
         });
-    } else {
-        console.warn(`Element s ID ${cellId.value} nebol nájdený`);
+    }
+};
+
+onMounted(() => {
+    // Vytvor tooltip len ak existuje dátum
+    if (props.tileData.date) {
+        updateTooltip();
+    }
+});
+
+// Sleduj zmeny v dátach a aktualizuj tooltip
+watch(
+    () => props.tileData.contributionData,
+    () => {
+        updateTooltip();
+    },
+    { deep: true }
+);
+
+// Sleduj zmeny v dátume
+watch(
+    () => props.tileData.date,
+    (newDate) => {
+        // Ak sa dátum zmenil na undefined, odstráň tooltip
+        if (!newDate && tippyInstance) {
+            tippyInstance.destroy();
+            tippyInstance = null;
+            return;
+        }
+
+        // Inak aktualizuj tooltip
+        updateTooltip();
+    }
+);
+
+// Cleanup pri odstránení komponentu
+onUnmounted(() => {
+    if (tippyInstance) {
+        tippyInstance.destroy();
+        tippyInstance = null;
     }
 });
 </script>
@@ -125,7 +157,4 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* Scoped štýly sú v poriadku pre špecifické veci, ktoré nechceš riešiť Tailwindiem.
-   Pre farby pozadia by si sa mal snažiť použiť Tailwind triedy.
-*/
 </style>

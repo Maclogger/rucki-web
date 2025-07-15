@@ -5,8 +5,6 @@ export interface GithubRecord {
     contributions_count: number,
     updated_at: Date,
     created_at: Date,
-    day_of_the_week: number, // row
-    week_of_the_year: number, // column
     year_level: number, // highlight thickness ~ <0, 1>
 }
 
@@ -43,10 +41,17 @@ export const useGithubStore = defineStore("githubStore", {
             const githubChartData = (await window.axios("/fetch-github-chart-data/" + year)).data;
             console.log(githubChartData);
 
-            const newGithubYearChart = {
+            const githubRecords: GithubRecord[] = githubChartData.github_records.map((record: any) => ({
+                ...record,
+                date: new Date(record.date),
+                updated_at: new Date(record.updated_at),
+                created_at: new Date(record.created_at),
+            }));
+
+            const newGithubYearChart: GithubYearChart = {
                 year: year,
                 total_contributions: githubChartData.total_contributions,
-                github_records: githubChartData.github_records,
+                github_records: githubRecords,
             };
 
             this.data_by_year.set(year, newGithubYearChart);

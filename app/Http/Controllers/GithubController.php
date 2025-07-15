@@ -45,7 +45,7 @@ class GithubController extends Controller
         $selectedYear = $this->getSelectedYear();
         $firstYear = Constant::findByKey("gitHubYearFrom");
 
-        $yearsToLoad = [2023, 2024, 2025];
+        $yearsToLoad = [2025];
 
         $dataByYear = [];
         foreach ($yearsToLoad as $year) {

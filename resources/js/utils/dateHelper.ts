@@ -25,49 +25,43 @@ export const toNicelyFormattedDate = (date: Date | null): string => {
     return format(date, formatString);
 }
 
+export const isLeapYear = (year: number) => {
+    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+};
 
-/**
- * Získa dátum začiatku prvého týždňa daného roka podľa ISO 8601.
- * Prvý týždeň je ten, ktorý obsahuje prvý štvrtok roka.
- * @param year Rok.
- * @returns Objekt Date reprezentujúci začiatok prvého týždňa.
- */
-function getFirstWeekStartDateISO(year: number): Date {
-    const januaryFourth = new Date(year, 0, 4); // Mesiac 0 je január
 
-    const dayOfWeek = (januaryFourth.getDay() + 6) % 7; // Pondelok = 0, Utorok = 1, ... Nedeľa = 6
+export const getDayCountFromStartOfTheYear = (date: Date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth(); // 0 (Jan) - 11 (Dec)
+    const day = date.getDate(); // 1 - 31
 
-    januaryFourth.setDate(januaryFourth.getDate() - dayOfWeek);
+    let dayOfYear = 0;
 
-    return januaryFourth;
-}
-
-/**
- * Konvertuje rok, číslo týždňa a poradové číslo dňa v týždni na inštanciu Date
- * striktne podľa ISO 8601 štandardu.
- * Dni v týždni sú číslované od 1 (pondelok) do 7 (nedeľa).
- *
- * @param year Rok.
- * @param weekNumber Číslo týždňa (1-53).
- * @param dayOfWeek Poradové číslo dňa v týždni (1 = pondelok, 7 = nedeľa).
- * @returns Inštancia Date reprezentujúca daný dátum.
- * @throws Error ak je dayOfWeek mimo rozsahu 1-7.
- */
-export function getDateFromWeekAndDayISO(
-    year: number,
-    weekNumber: number,
-    dayOfWeek: number
-): Date {
-    if (dayOfWeek < 1 || dayOfWeek > 7) {
-        throw new Error("Poradové číslo dňa v týždni musí byť v rozsahu 1-7.");
+    for (let i = 0; i < month; i++) {
+        switch (i) {
+            case 0: // Január
+            case 2: // Marec
+            case 4: // Máj
+            case 6: // Júl
+            case 7: // August
+            case 9: // Október
+            case 11: // December
+                dayOfYear += 31;
+                break;
+            case 3: // Apríl
+            case 5: // Jún
+            case 8: // September
+            case 10: // November
+                dayOfYear += 30;
+                break;
+            case 1: // Február
+                // Zistíme, či je rok priestupný pre Február
+                const isLeap = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+                dayOfYear += isLeap ? 29 : 28;
+                break;
+        }
     }
 
-    const firstWeekStart = getFirstWeekStartDateISO(year);
-
-    const daysToAdd = (weekNumber - 1) * 7 + (dayOfWeek - 1);
-
-    const resultDate = new Date(firstWeekStart);
-    resultDate.setDate(firstWeekStart.getDate() + daysToAdd);
-
-    return resultDate;
+    return dayOfYear + day;
 }
+

@@ -27,20 +27,8 @@ class GithubRecord extends Model
     ];
 
     protected $appends = [
-        'day_of_the_week',
-        'week_of_the_year',
         'year_level',
     ];
-
-    public function getDayOfTheWeekAttribute(): int
-    {
-        return $this->date->dayOfWeek;
-    }
-
-    public function getWeekOfTheYearAttribute(): int
-    {
-        return $this->date->weekOfYear;
-    }
 
     public function getYearLevelAttribute(): float
     {

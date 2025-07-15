@@ -32,8 +32,6 @@ const props = defineProps<{
                     contributions_count: number,
                     updated_at: string, // date
                     created_at: string, // date
-                    day_of_the_week: number,
-                    week_of_the_year: number,
                     year_level: number,
                 }>
             }
