@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::post("/fetch-github-contributions", [GithubRecordController::class, "__invoke"]);
+Route::get("/fetch-github-contributions", [GithubRecordController::class, "__invoke"]);
 
 Route::get("/fetch-github-chart-data/{year}", [GithubController::class, "getGithubChartData"]);
 

@@ -45,7 +45,7 @@ const githubStore = useGithubStore();
 const publicStore = usePublicStore();
 
 const submit = () => {
-    form.post("/fetch-github-contributions");
+    form.get("/fetch-github-contributions");
 };
 
 function setPublicStoreState() {
