@@ -32,7 +32,7 @@ else
     echo "✅ 'public/build' je aktuálny, žiadny nový commit nie je potrebný."
 fi
 
-# 5. KROK: Pushnutie finálneho stavu na GitHub
+# 5. KROK: Pushnutie finálneho stavu na Github
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 echo "⬆️  Pushujem branch '$CURRENT_BRANCH' na GitHub..."
 git push --force-with-lease origin $CURRENT_BRANCH
