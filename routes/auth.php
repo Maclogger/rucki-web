@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthenticatedSessionController::class, "create"]);
 
-    Route::post('/login', [AuthenticatedSessionController::class, "store"]);
+    Route::post('/login', [AuthenticatedSessionController::class, "store"])->name('login');
 });
 
 Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
-    Route::get('home', [HomeController::class, "index"])->name("home");
+    Route::get('home', [HomeController::class, "index"])->name('home');
 });

@@ -1,16 +1,30 @@
 <script setup lang="ts">
 
-import {reactive} from 'vue'
-import {router} from '@inertiajs/vue3'
+import {useForm} from '@inertiajs/vue3'
+import ToastList from "@/Components/ToastList.vue";
+import {ref} from "vue";
+import {ToastSeverity, useToastsStore} from "@/stores/toastsStore";
 
-const form = reactive({
-    login: null,
+const form = useForm({
+    email: null,
     password: null,
-})
+    remember: true,
+});
 
 const submit = () => {
-    router.post('/login', form);
-    console.log("sent");
+    form.post(route('login'), {
+        onFinish: () => {
+            form.reset('password');
+        },
+    });
+};
+
+const toastListRef = ref<typeof ToastList | null>(null);
+
+const toastsStore = useToastsStore();
+
+const addToast = () => {
+    toastsStore.displayToast({message: form.email, severity: ToastSeverity.ERROR})
 }
 
 
@@ -22,8 +36,8 @@ const submit = () => {
             <div class="card-body w-full">
                 <form @submit.prevent="submit">
                     <h1 class="card-title text-[2em] mb-2">Admin Login</h1>
-                    <label for="login">Login</label>
-                    <input v-model="form.login" id="login" class="input w-full mb-2"/>
+                    <label for="email">Login</label>
+                    <input v-model="form.email" id="email" class="input w-full mb-2"/>
 
                     <label for="password">Password</label>
                     <input v-model="form.password" id="password" type="password" class="input w-full"/>
@@ -32,6 +46,7 @@ const submit = () => {
                 </form>
             </div>
         </div>
+        <button @click="addToast" class="btn btn-secondary">Pridaj toast</button>
     </div>
 </template>
 
