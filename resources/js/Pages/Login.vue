@@ -19,20 +19,11 @@ const submit = () => {
     });
 };
 
-const toastListRef = ref<typeof ToastList | null>(null);
-
-const toastsStore = useToastsStore();
-
-const addToast = () => {
-    toastsStore.displayToast({message: form.email, severity: ToastSeverity.ERROR})
-}
-
-
 </script>
 
 <template>
     <div class="flex flex-col justify-center align-middle items-center h-[100vh]">
-        <div class="card card-md w-1/3 bg-primary-dark-transparent">
+        <div class="card card-md xl:w-1/4 lg:w-1/3 md:w-2/3 bg-primary-dark-transparent">
             <div class="card-body w-full">
                 <form @submit.prevent="submit">
                     <h1 class="card-title text-[2em] mb-2">Admin Login</h1>
@@ -46,7 +37,6 @@ const addToast = () => {
                 </form>
             </div>
         </div>
-        <button @click="addToast" class="btn btn-secondary">Pridaj toast</button>
     </div>
 </template>
 

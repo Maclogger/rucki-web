@@ -15,7 +15,6 @@ export interface TileData {
 }
 
 function getRowColForGivenDate(date: Date): { row: number; col: number } {
-    console.log(date);
     if (!date) return {row: -1, col: -1};
     if (date.getFullYear() != githubStore.selected_year) {
         throw new Error("selectedYear from githubStore != given date");

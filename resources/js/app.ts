@@ -12,6 +12,7 @@ import {createPinia} from 'pinia';
 
 import 'tippy.js/dist/tippy.css';
 import AppLayout from "@/Layouts/AppLayout.vue";
+import {ToastProps, ToastSeverity, useToastsStore} from "@/stores/toastsStore";
 
 const pinia = createPinia();
 
@@ -47,9 +48,15 @@ createInertiaApp({
         color: '#4B5563',
     },
 }).then(() => {
+    router.on('error', (event) => {
+        const store = useToastsStore();
+        Object.values(event.detail.errors).forEach((errorMsg) => {
+            const toast: ToastProps = {
+                message: errorMsg,
+                severity: ToastSeverity.ERROR,
+            }
+            store.displayToast(toast);
+        })
+    });
 });
 
-router.on('error', (event) => {
-
-
-});

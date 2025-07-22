@@ -39,7 +39,6 @@ export const useGithubStore = defineStore("githubStore", {
 
         async fetchGithubYearChart(year: number) {
             const githubChartData = (await window.axios("/fetch-github-chart-data/" + year)).data;
-            console.log(githubChartData);
 
             const githubRecords: GithubRecord[] = githubChartData.github_records.map((record: any) => ({
                 ...record,
