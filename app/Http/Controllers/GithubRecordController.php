@@ -72,7 +72,8 @@ class GithubRecordController extends Controller
      *
      * @return void
      */
-    private function clearExistingRecords(): void {
+    private function clearExistingRecords(): void
+    {
         GithubRecord::query()->delete();
     }
 
@@ -82,7 +83,8 @@ class GithubRecordController extends Controller
      * @param array $contributions
      * @return void
      */
-    private function insertContributions(array $contributions): void {
+    private function insertContributions(array $contributions): void
+    {
         foreach ($contributions as $oneContributionData) {
             $this->createAndSaveContribution($oneContributionData);
         }

@@ -5,7 +5,6 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Log;
 
 /**
  *
@@ -47,7 +46,12 @@ class Constant extends Model
 
     public static function findByKey(string $key): mixed
     {
-        return Constant::find($key)->value;
+        $constant = Constant::find($key);
+        if (is_null($constant)) {
+            return null;
+        }
+
+        return $constant->value;
     }
 
     /**

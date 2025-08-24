@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AppController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\GithubController;
 use App\Http\Controllers\GithubRecordController;
 use Illuminate\Support\Facades\Route;
@@ -17,4 +16,4 @@ Route::get("/fetch-github-contributions", [GithubRecordController::class, "__inv
 
 Route::get("/fetch-github-chart-data/{year}", [GithubController::class, "getGithubChartData"]);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

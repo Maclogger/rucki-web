@@ -1,5 +1,5 @@
-import {usePublicStore} from "@/stores/publicStore";
-import {format} from 'date-fns';
+import { usePublicStore } from "@/stores/publicStore";
+import { format } from 'date-fns';
 
 export const toNicelyFormattedDateAndTime = (date: Date | null): string => {
     const publicStore = usePublicStore();

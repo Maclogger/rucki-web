@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Constant;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Log;
 
 class GithubController extends Controller
 {
@@ -21,7 +20,8 @@ class GithubController extends Controller
         ];
     }
 
-    private function calcTotalContributions(Collection $githubRecords): int {
+    private function calcTotalContributions(Collection $githubRecords): int
+    {
         $totalContributions = 0;
         foreach ($githubRecords as $githubRecord) {
             $totalContributions += $githubRecord->contributions_count;
@@ -59,6 +59,4 @@ class GithubController extends Controller
             'data_by_year' => $dataByYear
         ];
     }
-
 }
-

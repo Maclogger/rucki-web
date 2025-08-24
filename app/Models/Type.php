@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Log;
 
 // Nezabudni importovať Carbon
 
@@ -33,23 +32,19 @@ class Type extends Model
 
         $type = gettype($value);
         switch ($type) {
-            case 'integer':
-            {
-                return "int";
-            }
-            case 'boolean':
-            {
-                return "bool";
-            }
-            case 'double':
-            {
-                return "float";
-            }
+            case 'integer': {
+                    return "int";
+                }
+            case 'boolean': {
+                    return "bool";
+                }
+            case 'double': {
+                    return "float";
+                }
             case 'string':
-            default:
-            {
-                return "string";
-            }
+            default: {
+                    return "string";
+                }
         }
     }
 }
