@@ -1,12 +1,9 @@
 <script setup lang="ts">
 
-import {useForm} from '@inertiajs/vue3'
-import ToastList from "@/Components/ToastList.vue";
-import {ref} from "vue";
-import {ToastSeverity, useToastsStore} from "@/stores/toastsStore";
+import { useForm } from '@inertiajs/vue3'
 
 const form = useForm({
-    email: null,
+    username: null,
     password: null,
     remember: true,
 });
@@ -27,11 +24,11 @@ const submit = () => {
             <div class="card-body w-full">
                 <form @submit.prevent="submit">
                     <h1 class="card-title text-[2em] mb-2">Admin Login</h1>
-                    <label for="email">Login</label>
-                    <input v-model="form.email" id="email" class="input w-full mb-2"/>
+                    <label for="username">Username</label>
+                    <input v-model="form.username" id="username" class="input w-full mb-2" />
 
                     <label for="password">Password</label>
-                    <input v-model="form.password" id="password" type="password" class="input w-full"/>
+                    <input v-model="form.password" id="password" type="password" class="input w-full" />
 
                     <button class="btn btn-primary mt-4 w-full" type="submit">Login</button>
                 </form>
@@ -40,6 +37,4 @@ const submit = () => {
     </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

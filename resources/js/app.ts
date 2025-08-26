@@ -1,18 +1,19 @@
 import '../css/app.css';
 import './bootstrap';
 
-import {createInertiaApp, router} from '@inertiajs/vue3';
-import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers';
-import {createApp, DefineComponent, h} from 'vue';
-import {ZiggyVue} from '../../vendor/tightenco/ziggy';
+import { createInertiaApp, router } from '@inertiajs/vue3';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { createApp, DefineComponent, h } from 'vue';
+import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
 import './plugins/fontawesome';
 
-import {createPinia} from 'pinia';
+import { createPinia } from 'pinia';
 
 import 'tippy.js/dist/tippy.css';
 import AppLayout from "@/Layouts/AppLayout.vue";
-import {ToastProps, ToastSeverity, useToastsStore} from "@/stores/toastsStore";
+import { ToastProps, ToastSeverity, useToastsStore } from "@/stores/toastsStore";
+import { useUserStore } from './stores/userStore';
 
 const pinia = createPinia();
 
@@ -32,17 +33,22 @@ createInertiaApp({
 
         return page;
     },
-    setup({el, App, props, plugin}) {
+    setup({ el, App, props, plugin }) {
         const app = createApp({
-                render: () => h(App, props),
-                mounted(): any {
-                }
-            })
-                .use(plugin)
-                .use(ZiggyVue)
-                .use(pinia)
-                .mount(el)
-        ;
+            render: () => h(App, props),
+            mounted(): any {
+            }
+        })
+            .use(plugin)
+            .use(ZiggyVue)
+            .use(pinia);
+
+        const userStore = useUserStore();
+        if (props.initialPage.props.auth && props.initialPage.props.auth.user) {
+            userStore.setUser(props.initialPage.props.auth.user);
+        }
+
+        app.mount(el);
     },
     progress: {
         color: '#4B5563',

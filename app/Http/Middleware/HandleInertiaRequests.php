@@ -32,7 +32,12 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $request->user() ? [
+                    'id' => $request->user()->id,
+                    'username' => $request->user()->username, // <-- TOTO JE KĽÚČOVÉ! Uisti sa, že toto tu je!
+                    // Pridaj sem akékoľvek ďalšie dáta o používateľovi, ktoré potrebuješ na frontende
+                    // napr. 'email' => $request->user()->email,
+                ] : null,
             ],
         ];
     }
