@@ -17,11 +17,11 @@ Route::get('/lietadlo', function () {
 Route::get('login', [LoginController::class, "index"])->name("loginIndex");
 Route::post('login', [LoginController::class, "login"])->name("login");
 
-Route::get("/fetch-github-contributions", [GithubRecordController::class, "__invoke"]);
 
 Route::get("/fetch-github-chart-data/{year}", [GithubController::class, "getGithubChartData"]);
 
 Route::middleware('auth')->group(function () {
     Route::get("/home", [HomeController::class, "index"])->name('home');
     Route::post("/logout", [LoginController::class, "logout"])->name('logout');
+    Route::post("/fetch-github-contributions", [GithubRecordController::class, "__invoke"]);
 });

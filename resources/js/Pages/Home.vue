@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { User, useUserStore } from '@/stores/userStore';
+import GitHubFetchDataButton from "@/Pages/GitHubFetchDataButton.vue";
 
 defineProps<{}>()
 
@@ -12,6 +13,7 @@ const onLogout = () => {
     if (!user) return;
     userStore.logout();
 }
+
 </script>
 
 <template>
@@ -21,13 +23,12 @@ const onLogout = () => {
         <div v-if="user" class="mb-4">
             <p>Vitaj, <span class="font-semibold">{{ user.username }}</span>!</p>
             <p>Tvoje ID je: {{ user.id }}</p>
-            <!-- Ak si pridal aj iné dáta, môžeš ich zobraziť tu -->
+            <GitHubFetchDataButton />
+            <button @click="onLogout()" class="btn btn-primary">Logout</button>
         </div>
         <div v-else>
             <p>Nie si prihlásený.</p>
         </div>
-
-        <button @click="onLogout()" class="btn btn-primary">Logout</button>
     </div>
 
 </template>

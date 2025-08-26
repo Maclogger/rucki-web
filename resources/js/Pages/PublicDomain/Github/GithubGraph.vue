@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {computed, onMounted} from "vue";
-import {GithubRecord, useGithubStore} from "@/stores/githubStore";
-import {getDayCountFromStartOfTheYear, isLeapYear} from '@/utils/dateHelper';
+import { computed } from "vue";
+import { GithubRecord, useGithubStore } from "@/stores/githubStore";
+import { getDayCountFromStartOfTheYear, isLeapYear } from '@/utils/dateHelper';
 import GithubLegendFakeTile from "@/Pages/PublicDomain/Github/GithubLegendFakeTile.vue";
 import GithubTile from "@/Pages/PublicDomain/Github/GithubTile.vue";
 
@@ -15,7 +15,7 @@ export interface TileData {
 }
 
 function getRowColForGivenDate(date: Date): { row: number; col: number } {
-    if (!date) return {row: -1, col: -1};
+    if (!date) return { row: -1, col: -1 };
     if (date.getFullYear() != githubStore.selected_year) {
         throw new Error("selectedYear from githubStore != given date");
     }
@@ -26,7 +26,7 @@ function getRowColForGivenDate(date: Date): { row: number; col: number } {
     let row = date.getDay() - 1;
     if (row == -1) row = 6;
 
-    return {row: row, col: col};
+    return { row: row, col: col };
 }
 
 const weekCount = computed(() => {
@@ -80,7 +80,7 @@ const matrix = computed(() => {
         data_by_year.get(selected_year)!.github_records.forEach((githubRecord) => {
             try {
                 if (!githubRecord.date) return;
-                const {row, col} = getRowColForGivenDate(githubRecord.date);
+                const { row, col } = getRowColForGivenDate(githubRecord.date);
                 if (m[row] && m[row][col]) {
                     m[row][col].contributionData = githubRecord;
                 }
@@ -97,30 +97,17 @@ const matrix = computed(() => {
 <template>
     <div class="flex flex-col gap-1 overflow-y-auto py-2 ">
         <div class="flex gap-1">
-            <div
-                v-for="week in weekCount"
-            >
-                <GithubLegendFakeTile/>
+            <div v-for="week in weekCount">
+                <GithubLegendFakeTile />
             </div>
         </div>
 
-        <div
-            v-if="matrix != undefined"
-            v-for="day in 7"
-            :key="`row-${day}`"
-            class="flex gap-1"
-        >
-            <div
-                v-for="week in weekCount"
-                :key="`col-${day}-${week}`"
-            >
-                <GithubTile
-                    :tileData="matrix[day - 1][week - 1]"
-                />
+        <div v-if="matrix != undefined" v-for="day in 7" :key="`row-${day}`" class="flex gap-1">
+            <div v-for="week in weekCount" :key="`col-${day}-${week}`">
+                <GithubTile :tileData="matrix[day - 1][week - 1]" />
             </div>
         </div>
     </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
