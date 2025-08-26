@@ -7,13 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- *
  * @property String $key
  * @property mixed $value
  * @property String $type_name
  * @property Type $type
  * @property Carbon $created_at Čas vytvorenia záznamu.
  * @property Carbon $updated_at Čas poslednej aktualizácie záznamu.
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Constant newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Constant newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Constant query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Constant whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Constant whereKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Constant whereTypeName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Constant whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Constant whereValue($value)
+ * @mixin \Eloquent
  */
 class Constant extends Model
 {
