@@ -7,6 +7,7 @@ const props = defineProps<{
     icon?: string | null,
     wip: boolean,
     onClick?: () => void,
+    label?: string | null,
 }>();
 
 
@@ -35,12 +36,9 @@ const handleClick = (): void => {
 </script>
 
 <template>
-    <button
-        class="btn bg-primary-dark-transparent hover:bg-primary btn-square flex flex-col w-full h-full aspect-square"
+    <button class="btn bg-primary-dark-transparent hover:bg-primary flex flex-col w-full h-full aspect-square"
         :disabled="isDisabled()" @click="handleClick">
         <font-awesome-icon :icon="getIcon()" class="text-6xl" :style="getIconStyle()" />
-        <div class="badge badge-primary">
-            <slot />
-        </div>
+        <div v-if="props.label" class="badge badge-primary badge-xl mt-4">{{ props.label ?? "" }}</div>
     </button>
 </template>

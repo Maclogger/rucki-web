@@ -1,7 +1,6 @@
 <script setup lang="ts">
 
-import { useForm } from '@inertiajs/vue3';
-import { useGithubStore, GithubYearChart, GithubRecord } from "@/stores/githubStore";
+import { useGithubStore } from "@/stores/githubStore";
 import { usePublicStore } from "@/stores/publicStore";
 import { onMounted } from "vue";
 import InitialScreen from "@/Pages/InitialScreen.vue";
@@ -40,13 +39,8 @@ const props = defineProps<{
 }>();
 
 
-const form = useForm({});
 const githubStore = useGithubStore();
 const publicStore = usePublicStore();
-
-const submit = () => {
-    form.get("/fetch-github-contributions");
-};
 
 function setPublicStoreState() {
     const publicStoreState = {

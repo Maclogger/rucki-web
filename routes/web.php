@@ -25,4 +25,5 @@ Route::middleware('auth')->group(function () {
     Route::get("/home", [HomeController::class, "index"])->name('home');
     Route::post("/logout", [LoginController::class, "logout"])->name('logout');
     Route::post("/fetch-github-contributions", [GithubRecordController::class, "__invoke"]);
+    Route::inertia('/photos', "Photos/PhotosPage");
 });

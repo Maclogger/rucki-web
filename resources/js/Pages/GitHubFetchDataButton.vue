@@ -23,5 +23,5 @@ const onClicked = () => {
 
 
 <template>
-    <SquareButton @click="onClicked" icon="fa-brands fa-github" :wip="false">Fetch Data</SquareButton>
+    <SquareButton @click="onClicked" icon="fa-brands fa-github" :wip="false" label="Fetch Data" />
 </template>
