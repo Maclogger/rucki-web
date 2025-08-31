@@ -6,6 +6,7 @@ const props = defineProps<{
     color?: string | null,
     icon?: string | null,
     wip: boolean,
+    onClick?: () => void,
 }>();
 
 
@@ -24,11 +25,22 @@ const isDisabled = (): boolean => {
     return props.wip === true;
 }
 
+const handleClick = (): void => {
+    if (!props.onClick) {
+        return;
+    }
+    props.onClick();
+}
+
 </script>
 
 <template>
-    <button class="btn btn-primary btn-square flex flex-col w-full h-full aspect-square" :disabled="isDisabled()">
+    <button
+        class="btn bg-primary-dark-transparent hover:bg-primary btn-square flex flex-col w-full h-full aspect-square"
+        :disabled="isDisabled()" @click="handleClick">
         <font-awesome-icon :icon="getIcon()" class="text-6xl" :style="getIconStyle()" />
-        <slot />
+        <div class="badge badge-primary">
+            <slot />
+        </div>
     </button>
 </template>

@@ -46,9 +46,7 @@ onMounted(() => {
 
         <div class="grid grid-cols-6 place-items-center gap-y-4 gap-x-4">
             <SquareButton icon="fa-solid fa-image" :wip="false">Fotky</SquareButton>
-            <GitHubFetchDataButton v-slot="{ onClicked }">
-                <SquareButton @click="onClicked" :wip="false">Fetch GitHub</SquareButton>
-            </GitHubFetchDataButton>
+            <GitHubFetchDataButton />
             <SquareButton :wip="true">WIP</SquareButton>
             <SquareButton :wip="true">WIP</SquareButton>
             <SquareButton :wip="true">WIP</SquareButton>
@@ -61,7 +59,7 @@ onMounted(() => {
             <SquareButton :wip="true">WIP</SquareButton>
         </div>
 
-        <div class="mt-6 flex flex-col items-center ">
+        <div class="mt-6 flex flex-col">
             <div class="flex flex-col">
                 <GithubGraphComp />
             </div>

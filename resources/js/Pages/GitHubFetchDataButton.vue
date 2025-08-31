@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ToastProps, ToastSeverity, useToastsStore } from '@/stores/toastsStore';
 import { router } from '@inertiajs/vue3';
+import SquareButton from "@/Pages/Home/SquareButton.vue";
 
 defineProps<{}>()
 
@@ -22,5 +23,5 @@ const onClicked = () => {
 
 
 <template>
-    <slot :onClicked="onClicked" />
+    <SquareButton @click="onClicked" icon="fa-brands fa-github" :wip="false">Fetch Data</SquareButton>
 </template>

@@ -86,7 +86,6 @@ export const useGithubStore = defineStore("githubStore", {
 
         async refresh() {
             const data: GitHubStoreRefreshData = (await window.axios("/refresh-github-chart-data")).data;
-            console.log(data);
             const dataByYear = new Map<number, GithubYearChart>();
 
             Object.entries(data.data_by_year).forEach(([year, yearData]) => {
