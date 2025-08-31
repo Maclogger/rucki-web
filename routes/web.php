@@ -5,6 +5,7 @@ use App\Http\Controllers\GithubController;
 use App\Http\Controllers\GithubRecordController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PhotosController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -26,4 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::post("/logout", [LoginController::class, "logout"])->name('logout');
     Route::post("/fetch-github-contributions", [GithubRecordController::class, "__invoke"]);
     Route::inertia('/photos', "Photos/PhotosPage");
+    Route::get("/photos-show/{fileName}", [PhotosController::class, 'show'])
+        ->where('fileName', '.*')
+        ->name('photos.show');
 });
