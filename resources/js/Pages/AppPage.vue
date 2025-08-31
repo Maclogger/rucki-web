@@ -1,9 +1,9 @@
 <script setup lang="ts">
 
-import {useForm} from '@inertiajs/vue3';
-import {useGithubStore, GithubYearChart, GithubRecord} from "@/stores/githubStore";
-import {usePublicStore} from "@/stores/publicStore";
-import {onMounted} from "vue";
+import { useForm } from '@inertiajs/vue3';
+import { useGithubStore, GithubYearChart, GithubRecord } from "@/stores/githubStore";
+import { usePublicStore } from "@/stores/publicStore";
+import { onMounted } from "vue";
 import InitialScreen from "@/Pages/InitialScreen.vue";
 import GithubSection from "@/Pages/PublicDomain/Github/GithubSection.vue";
 
@@ -60,43 +60,9 @@ function setPublicStoreState() {
     publicStore.setState(publicStoreState);
 }
 
-
-function setGithubRecordsState() {
-    //const currentGithubYearChartRecords = transformGithubDates();
-
-    const dataByYear = new Map<number, GithubYearChart>()
-
-
-    Object.entries(props.github_store.data_by_year).forEach(([year, yearData]) => {
-        const githubRecords: GithubRecord[] = yearData.github_records.map(record => ({
-            ...record,
-            date: new Date(record.date),
-            updated_at: new Date(record.updated_at),
-            created_at: new Date(record.created_at),
-        }));
-
-        const githubYearChart: GithubYearChart = {
-            year: Number(year),
-            total_contributions: Number(yearData.total_contributions),
-            github_records: githubRecords,
-        }
-
-        dataByYear.set(Number(year), githubYearChart);
-    });
-
-    const githubStoreState = {
-        last_update: new Date(props.github_store.last_update),
-        selected_year: props.github_store.selected_year,
-        first_year: Number(props.github_store.first_year),
-        data_by_year: dataByYear,
-    };
-
-    githubStore.setState(githubStoreState);
-}
-
 onMounted(() => {
-    setPublicStoreState()
-    setGithubRecordsState();
+    setPublicStoreState();
+    githubStore.refresh();
 });
 
 </script>
@@ -104,18 +70,14 @@ onMounted(() => {
 <template>
 
 
-<!--    <form class="bg-gray" @submit.prevent="submit">
+    <!--    <form class="bg-gray" @submit.prevent="submit">
         <button type="submit" class="btn btn-primary">
             Fetch Github Data
         </button>
     </form>-->
 
-    <InitialScreen/>
-    <GithubSection/>
-
-
+    <InitialScreen />
+    <GithubSection />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,4 +1,4 @@
-import {defineStore} from 'pinia';
+import { defineStore } from 'pinia';
 
 export interface GithubRecord {
     date: Date
@@ -21,6 +21,26 @@ export interface GithubStoreState {
     first_year: number, // start year
 }
 
+interface GitHubStoreRefreshData {
+    last_update: string, // date
+    selected_year: number,
+    first_year: number,
+    data_by_year: {
+        [year: number]: {
+            year: number,
+            total_contributions: number,
+            github_records: Array<{
+                date: string, // date
+                contributions_count: number,
+                updated_at: string, // date
+                created_at: string, // date
+                year_level: number,
+            }>
+        }
+    }
+}
+
+
 
 export const useGithubStore = defineStore("githubStore", {
     state: (): GithubStoreState => {
@@ -33,7 +53,7 @@ export const useGithubStore = defineStore("githubStore", {
     },
 
     actions: {
-        setState(newState: GithubStoreState) {
+        _setState(newState: GithubStoreState) {
             this.$patch(newState);
         },
 
@@ -62,6 +82,38 @@ export const useGithubStore = defineStore("githubStore", {
             }
 
             this.selected_year = newSelectedYear;
+        },
+
+        async refresh() {
+            const data: GitHubStoreRefreshData = (await window.axios("/refresh-github-chart-data")).data;
+            console.log(data);
+            const dataByYear = new Map<number, GithubYearChart>();
+
+            Object.entries(data.data_by_year).forEach(([year, yearData]) => {
+                const githubRecords: GithubRecord[] = yearData.github_records.map((record: any) => ({
+                    ...record,
+                    date: new Date(record.date),
+                    updated_at: new Date(record.updated_at),
+                    created_at: new Date(record.created_at),
+                }));
+
+                const githubYearChart: GithubYearChart = {
+                    year: Number(year),
+                    total_contributions: Number(yearData.total_contributions),
+                    github_records: githubRecords,
+                }
+
+                dataByYear.set(Number(year), githubYearChart);
+            });
+
+            const githubStoreState: GithubStoreState = {
+                last_update: new Date(data.last_update),
+                selected_year: data.selected_year,
+                first_year: Number(data.first_year),
+                data_by_year: dataByYear,
+            };
+
+            this._setState(githubStoreState);
         }
     }
 });

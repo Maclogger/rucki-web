@@ -17,6 +17,7 @@ Route::get('/lietadlo', function () {
 Route::get('login', [LoginController::class, "index"])->name("loginIndex");
 Route::post('login', [LoginController::class, "login"])->name("login");
 
+Route::get('/refresh-github-chart-data', [GithubController::class, "getInitialGithubStoreData"]);
 
 Route::get("/fetch-github-chart-data/{year}", [GithubController::class, "getGithubChartData"]);
 

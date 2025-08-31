@@ -1,13 +1,12 @@
 <script setup lang="ts">
 
 import ToastList from "@/Components/ToastList.vue";
+
 </script>
 
 <template>
-    <ToastList/>
-    <slot/>
+    <ToastList />
+    <slot />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -7,6 +7,7 @@ defineProps<{}>()
 const toastStore = useToastsStore();
 
 const onClicked = () => {
+    console.log("JUPI");
     router.post("/fetch-github-contributions", {}, {
         onFinish: () => {
             const toast: ToastProps = {
@@ -17,12 +18,9 @@ const onClicked = () => {
         },
     });
 }
-
 </script>
 
 
 <template>
-
-    <button @click="onClicked()" class="btn btn-primary">Fetch data from GitHub</button>
-
+    <slot :onClicked="onClicked" />
 </template>

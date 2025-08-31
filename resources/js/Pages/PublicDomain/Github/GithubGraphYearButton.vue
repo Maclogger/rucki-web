@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {useGithubStore} from "@/stores/githubStore";
+import { useGithubStore } from "@/stores/githubStore";
 
 const props = defineProps<{
     year: number
@@ -22,11 +22,10 @@ const selectThisYear = () => {
 </script>
 
 <template>
-    <button @click="selectThisYear" class="btn" :class="isSelected() ? 'btn-primary' : 'btn-neutral'">
-        {{props.year}}
+    <button @click="selectThisYear" class="github-year-button btn"
+        :class="isSelected() ? 'btn-primary' : 'btn-neutral'">
+        {{ props.year }}
     </button>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

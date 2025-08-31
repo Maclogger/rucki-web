@@ -3,9 +3,9 @@
 import { usePublicStore } from "@/stores/publicStore";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import GithubGraphComp from "@/Pages/PublicDomain/Github/GithubGraphComp.vue";
+import GithubTopRepositories from "@/Pages/PublicDomain/Github/GithubTopRepositories.vue";
 
 const publicStore = usePublicStore();
-
 
 const redirect = (url: string) => {
     window.location.replace(url);
@@ -36,6 +36,8 @@ const redirect = (url: string) => {
             </div>
             <div class="md:w-2/3 flex flex-col">
                 <GithubGraphComp />
+                <p class="text-xl mt-12">Moje <strong>TOP</strong> repozitáre, na ktoré sa oplatí pozrieť.</p>
+                <GithubTopRepositories class="mt-5" />
             </div>
         </div>
     </div>
