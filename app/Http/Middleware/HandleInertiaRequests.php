@@ -34,9 +34,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user() ? [
                     'id' => $request->user()->id,
-                    'username' => $request->user()->username, // <-- TOTO JE KĽÚČOVÉ! Uisti sa, že toto tu je!
-                    // Pridaj sem akékoľvek ďalšie dáta o používateľovi, ktoré potrebuješ na frontende
-                    // napr. 'email' => $request->user()->email,
+                    'username' => $request->user()->username,
                 ] : null,
             ],
         ];

@@ -62,7 +62,7 @@ createInertiaApp({
                 severity: ToastSeverity.ERROR,
             }
             store.displayToast(toast);
-        })
+        });
     });
 });
 

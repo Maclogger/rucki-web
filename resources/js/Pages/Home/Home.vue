@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import GitHubFetchDataButton from "@/Pages/GitHubFetchDataButton.vue";
 import SquareButton from "@/Pages/Home/SquareButton.vue";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import GithubGraphComp from "@/Pages/PublicDomain/Github/GithubGraphComp.vue";
 import { onMounted } from 'vue';
 import { useGithubStore } from '@/stores/githubStore';
@@ -15,7 +14,6 @@ onMounted(() => {
 });
 
 const handleFotkyClick = () => {
-    console.log("jupi");
     router.get("/photos");
 }
 
