@@ -10,6 +10,7 @@ use App\Models\Photo;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Validation\ValidationException;
+use Inertia\Inertia;
 
 /** @package App->Http->Controllers */
 class PhotosController extends Controller
@@ -122,5 +123,14 @@ class PhotosController extends Controller
         Storage::disk('local')->putFileAs($directory, $file, $uniqueFileName);
 
         return $photo;
+    }
+
+    public function getPhotos()
+    {
+        $photos = Photo::orderBy('created_at', 'desc')->get();
+
+        return [
+            'photos' => $photos,
+        ];
     }
 }

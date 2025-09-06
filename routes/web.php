@@ -30,5 +30,6 @@ Route::middleware('auth')->group(function () {
     Route::get("/photos-show/{fileName}", [PhotosController::class, 'show'])
         ->where('fileName', '.*')
         ->name('photos.show');
-    Route::post("photos-upload", [PhotosController::class, 'uploadPhotos']);
+    Route::post('photos-upload', [PhotosController::class, "uploadPhotos"]);
+    Route::get('/get-photos', [PhotosController::class, "getPhotos"]);
 });

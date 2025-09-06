@@ -2,8 +2,8 @@
 
 
 import ToastItem from "@/Components/ToastItem.vue";
-import {ToastSeverity, useToastsStore} from "@/stores/toastsStore";
-import {computed} from "vue";
+import { useToastsStore } from "@/stores/toastsStore";
+import { computed } from "vue";
 
 const toastsStore = useToastsStore();
 
@@ -16,8 +16,7 @@ const toasts = computed(() => {
 <template>
     <div v-if="toasts.size > 0" class="toast toast-top toast-end">
         <div v-for="(toastKey) in toasts.keys()">
-            <ToastItem :key="toastKey"
-                       :id-of-toast-in-store="toastKey"/>
+            <ToastItem :key="toastKey" :id-of-toast-in-store="toastKey" />
         </div>
     </div>
 </template>

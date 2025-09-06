@@ -8,9 +8,17 @@ export const toNicelyFormattedDateAndTime = (date: Date | null): string => {
         return "Invalid Date";
     }
 
-    const formatString = publicStore.getConstant('dateAndTimeFormat') || 'dd.MM.yyyy HH:MM';
+    const formatString = publicStore.getConstant('dateAndTimeFormat') || 'dd.MM.yyyy HH:mm';
 
     return format(date, formatString);
+}
+
+export const toFormattedDate = (date: Date | null, mask: string): string => {
+    if (!date) {
+        return "Invalid Date";
+    }
+
+    return format(date, mask);
 }
 
 export const toNicelyFormattedDate = (date: Date | null): string => {

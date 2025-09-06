@@ -8,6 +8,6 @@ const handleClick = () => {
 </script>
 
 <template>
-    <BottomRowButton icon="fa-solid fa-copy" :onClick="handleClick"
-        class="bg-primary-dark-transparent hover:bg-my-white hover:text-primary" />
+    <BottomRowButton icon="fa-solid fa-trash-can" :onClick="handleClick"
+        class="bg-red-400 hover:bg-my-white hover:text-red-400" />
 </template>
