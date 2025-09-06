@@ -8,9 +8,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Photo;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Validation\ValidationException;
-use Inertia\Inertia;
+use Symfony\Component\HttpFoundation\Response;
 
 /** @package App->Http->Controllers */
 class PhotosController extends Controller
@@ -26,7 +25,7 @@ class PhotosController extends Controller
         }
 
         $photo = Photo::where('file_name', $fileName)
-            ->where('id_user', Auth::id()) // Essential security check
+            ->where('id_user', Auth::id())
             ->first();
 
         if (!$photo) {
@@ -34,11 +33,10 @@ class PhotosController extends Controller
             abort(404);
         }
 
-        $path = 'photos/' . $photo->file_name; // Use filename from DB
+        $path = 'photos/' . $photo->file_name;
 
         if (!Storage::disk('local')->exists($path)) {
             Log::error("Photo record exists but file not found on disk: '" . $path . "' for user ID: " . Auth::id());
-            // Optionally, consider deleting the DB record if the file is truly missing
             abort(404);
         }
 
@@ -132,5 +130,54 @@ class PhotosController extends Controller
         return [
             'photos' => $photos,
         ];
+    }
+
+    public function deleteSinglePhoto(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer|exists:photos,id',
+        ]);
+
+        $this->deletePhotoById($request->id);
+
+        Log::info("Fotografia záznam zmazaný z DB: ID {$request->id}");
+
+        return back();
+    }
+
+    public function deleteMultiplePhotos(Request $request)
+    {
+        $request->validate([
+            'ids' => "required|array",
+            'ids.*' => "required|integer|exists:photos,id"
+        ]);
+
+        $idsToDelete = $request->ids;
+        foreach ($idsToDelete as $id) {
+            $this->deletePhotoById($id);
+        }
+    }
+
+    private function deletePhotoById(int $id)
+    {
+        $photo = Photo::find($id);
+
+        if (!$photo) {
+            throw ValidationException::withMessages([
+                'id' => "Fotografia s ID {$id} nebola nájdená.",
+            ])->status(Response::HTTP_NOT_FOUND);
+        }
+
+        $directory = 'photos';
+        $filePath = $directory . $photo->file_name;
+
+        if (Storage::disk('local')->exists($filePath)) {
+            Storage::disk('local')->delete($filePath);
+            Log::info("Fotografia súbor zmazaný: {$filePath}"); // Voliteľné: logovanie
+        } else {
+            Log::warning("Fotografia súbor nenájdený na zmazanie: {$filePath}"); // Voliteľné: logovanie
+        }
+
+        $photo->delete();
     }
 }

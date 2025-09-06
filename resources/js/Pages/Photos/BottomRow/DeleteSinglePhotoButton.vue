@@ -1,8 +1,15 @@
 <script setup lang="ts">
+import { inject } from 'vue';
 import BottomRowButton from './BottomRowButton.vue';
+import { PhotoType, usePhotosStore } from '@/stores/photosStore';
+
+const photo: PhotoType = inject("photo")!;
+const photoStore = usePhotosStore();
+
 
 const handleClick = () => {
-    console.log("Copied");
+    console.log("Deleted");
+    photoStore.deleteSinglePhoto(photo);
 }
 
 </script>

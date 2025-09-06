@@ -14,6 +14,7 @@ export interface PhotoType {
     readable_size: string,
     created_at: Date,
     updated_at: Date,
+    selected: boolean,
 }
 
 interface PhotosResponse {
@@ -41,6 +42,15 @@ export const usePhotosStore = defineStore("photosStore", {
     },
 
     actions: {
+        getSelectedCount() {
+            let count = 0;
+            this.photos.forEach(p => {
+                if (p.selected) {
+                    count++;
+                }
+            });
+            return count;
+        },
         // setState(newState: PhotosStoreState) {
         //     this.$patch(newState);
         // },
@@ -65,9 +75,10 @@ export const usePhotosStore = defineStore("photosStore", {
                 id_user: p.id_user,
                 original_name: p.original_name,
                 mime_type: p.mime_type,
-                readable_size: p.readable_size, // nicely formatted size
+                readable_size: p.readable_size,
                 created_at: new Date(p.created_at),
                 updated_at: new Date(p.created_at),
+                selected: false,
             }));
 
             this.$patch({
@@ -75,6 +86,21 @@ export const usePhotosStore = defineStore("photosStore", {
                 refreshedAt: new Date(),
             });
         },
+
+        async deleteSinglePhoto(photo: PhotoType) {
+            const originalPhotos = this.photos;
+            this.photos = this.photos.filter(p => p.id != photo.id); // removing the photo from store
+            window.axios.post(
+                "/delete-single-photo",
+                { id: photo.id })
+                .then(() => {
+                    console.log("Successfuly deleted");
+                })
+                .catch(() => {
+                    console.error("Photo could not be deleted!");
+                    this.photos = originalPhotos;
+                });
+        }
     },
 
 });

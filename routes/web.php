@@ -32,4 +32,6 @@ Route::middleware('auth')->group(function () {
         ->name('photos.show');
     Route::post('photos-upload', [PhotosController::class, "uploadPhotos"]);
     Route::get('/get-photos', [PhotosController::class, "getPhotos"]);
+    Route::post('/delete-single-photo', [PhotosController::class, "deleteSinglePhoto"]);
+    Route::post('/delete-multiple-photos', [PhotosController::class, "deleteMultiplePhotos"]);
 });

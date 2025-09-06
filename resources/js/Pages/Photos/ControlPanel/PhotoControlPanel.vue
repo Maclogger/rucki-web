@@ -1,20 +1,16 @@
 <script setup lang="ts">
-import { usePhotosStore } from '@/stores/photosStore';
 import UploadPhotosButton from './UploadPhotosButton.vue';
+import RefreshRow from './RefreshRow.vue';
+import ActionsRow from './ActionsRow.vue';
 
-
-const photoStore = usePhotosStore();
-
-const handleRefreshClick = () => {
-    photoStore.refresh();
-}
 
 
 </script>
 
 <template>
-    <div class="flex flex-col flex-1">
-        <button class="btn btn-primary aspect-square" @click="handleRefreshClick">Refresh</button>
+    <div class="flex flex-col flex-1 bg-primary-dark-transparent p-6 gap-6 rounded-xl">
+        <RefreshRow />
+        <ActionsRow />
         <UploadPhotosButton />
     </div>
 </template>

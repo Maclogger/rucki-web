@@ -23,7 +23,8 @@ const formatName = () => {
 <template>
     <div v-if="user">
         <div class="p-4 container mx-auto">
-            <div class="rounded shadow bg-primary-dark-transparent p-4 mb-4 flex flex-row justify-between items-center">
+            <div
+                class="rounded-xl shadow bg-primary-dark-transparent p-4 mb-4 flex flex-row justify-between items-center">
                 <div v-if="$slots.headline">
                     <slot name="headline" />
                 </div>
