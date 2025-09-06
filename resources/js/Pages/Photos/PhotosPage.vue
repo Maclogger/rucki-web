@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AuthLayout from '@/Layouts/AuthLayout.vue';
 import UploadPhotosButton from '@/Pages/Photos/UploadPhotosButton.vue';
+import PhotoGallery from '@/Pages/Photos/PhotoGallery.vue';
 
 
 
@@ -13,12 +14,10 @@ import UploadPhotosButton from '@/Pages/Photos/UploadPhotosButton.vue';
             <p class="text-2xl">Fotky</p>
         </template>
         <template #default>
-            <!-- <div class="w-full bg-red-300"> -->
-            <!--     <div> -->
-            <!--         <img src="/photos-show/bmw.jpg" /> -->
-            <!--     </div> -->
-            <!-- </div> -->
-            <UploadPhotosButton />
+            <div class="flex flex-row">
+                <PhotoGallery class="w-2/3" />
+                <UploadPhotosButton class="bg-red-300 flex-1" />
+            </div>
         </template>
     </AuthLayout>
 </template>
