@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PhotoDeleted;
+use App\Events\PhotoUploaded;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -116,6 +118,7 @@ class PhotosController extends Controller
         $photo->mime_type = $mimeType;
         $photo->size = $size;
         $photo->save();
+        PhotoUploaded::dispatch($photo);
 
         $directory = 'photos';
         Storage::disk('local')->putFileAs($directory, $file, $uniqueFileName);
@@ -139,6 +142,7 @@ class PhotosController extends Controller
         ]);
 
         $this->deletePhotoById($request->id);
+
 
         Log::info("Fotografia záznam zmazaný z DB: ID {$request->id}");
 
@@ -179,5 +183,13 @@ class PhotosController extends Controller
         }
 
         $photo->delete();
+        Log::info("Mažeme: " . $photo->id_user);
+        PhotoDeleted::dispatch($photo);
+    }
+
+    public function debugButtonPressed()
+    {
+        Log::info("Debug button pressed.");
+        PhotoUploaded::dispatch("hihi");
     }
 }

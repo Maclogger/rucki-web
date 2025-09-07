@@ -2,14 +2,60 @@
 import AuthLayout from '@/Layouts/AuthLayout.vue';
 import PhotoGallery from '@/Pages/Photos/PhotoGallery.vue';
 import PhotoControlPanel from './ControlPanel/PhotoControlPanel.vue';
-import { onMounted } from 'vue';
-import { usePhotosStore } from '@/stores/photosStore';
+import { computed, onMounted } from 'vue';
+import { PhotoType, usePhotosStore } from '@/stores/photosStore';
+import { useEcho } from '@laravel/echo-vue';
+import { useUserStore } from '@/stores/userStore';
 
 const photoStore = usePhotosStore();
+
+const userStore = useUserStore();
+const user = computed(() => {
+    return userStore.getUser!;
+})
+
+const userChannel = computed(() => {
+    return `users.${user.value.id}.photos`;
+})
+
+interface PhotoEvent {
+    photo: PhotoType,
+}
+
+interface PhotoUploadedEvent extends PhotoEvent {
+};
+
+interface PhotoDeletedEvent extends PhotoEvent {
+};
+
+useEcho<PhotoUploadedEvent>(
+    userChannel.value, "PhotoUploaded", (e) => {
+        console.log("Nová fotka nahraná.");
+        photoStore.newPhotoAdded(e.photo);
+    }
+);
+
+useEcho<PhotoDeletedEvent>(
+    userChannel.value, "PhotoDeleted", (e) => {
+        console.log("Fotka zmazaná.");
+        photoStore.photoDeleted(e.photo);
+    }
+);
 
 onMounted(() => {
     photoStore.refresh();
 });
+
+const debugButtonPressed = () => {
+    console.log("debugButtonPressed");
+    window.axios("/debug-button-pressed")
+        .then(() => {
+            console.log("done");
+        })
+        .catch((e) => {
+            console.error(e);
+        });
+}
 
 
 </script>
@@ -24,6 +70,9 @@ onMounted(() => {
             <div class="flex flex-row">
                 <PhotoGallery class="w-2/3" />
                 <PhotoControlPanel />
+
+                <button @click="debugButtonPressed" class="btn btn-primary absolute top-0 left-0 z-10">DEBUG
+                    BUTTON</button>
             </div>
         </template>
     </AuthLayout>

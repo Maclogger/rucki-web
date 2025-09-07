@@ -34,4 +34,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/get-photos', [PhotosController::class, "getPhotos"]);
     Route::post('/delete-single-photo', [PhotosController::class, "deleteSinglePhoto"]);
     Route::post('/delete-multiple-photos', [PhotosController::class, "deleteMultiplePhotos"]);
+    Route::get("/debug-button-pressed", [PhotosController::class, "debugButtonPressed"]);
 });

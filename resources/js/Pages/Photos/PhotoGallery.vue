@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { PhotoStoreState, usePhotosStore } from '@/stores/photosStore';
+import { FetchStatus, usePhotosStore } from '@/stores/photosStore';
 import PhotoComponent from './PhotoComponent.vue';
 import { storeToRefs } from 'pinia';
 
 const photoStore = usePhotosStore();
 
-const { photos, state: photoStoreState } = storeToRefs(photoStore);
+const { photos, status: photoStoreFetchStatus } = storeToRefs(photoStore);
 
 </script>
 
 <template>
 
     <div class="pr-4">
-        <div v-if="photoStoreState == PhotoStoreState.LOADING"
+        <div v-if="photoStoreFetchStatus == FetchStatus.LOADING"
             class="bg-primary-dark-transparent rounded-xl h-full flex justify-center items-center">
             <span class="loading loading-spinner text-primary w-12"></span>
         </div>

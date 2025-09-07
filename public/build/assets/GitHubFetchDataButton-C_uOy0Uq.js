@@ -1,0 +1,1 @@
+import{_ as o}from"./GitHubFetchDataButton.vue_vue_type_script_setup_true_lang-Ch3zWpPi.js";import"./app-CILYoJyI.js";import"./SquareButton.vue_vue_type_script_setup_true_lang-Gja8zq0P.js";export{o as default};

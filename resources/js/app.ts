@@ -14,6 +14,11 @@ import 'tippy.js/dist/tippy.css';
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { ToastProps, ToastSeverity, useToastsStore } from "@/stores/toastsStore";
 import { useUserStore } from './stores/userStore';
+import { configureEcho } from '@laravel/echo-vue';
+
+configureEcho({
+    broadcaster: 'reverb',
+});
 
 const pinia = createPinia();
 

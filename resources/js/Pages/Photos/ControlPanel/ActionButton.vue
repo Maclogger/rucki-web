@@ -17,7 +17,7 @@ const getBtnClass = () => {
 const photoStore = usePhotosStore();
 
 const isDisabled = computed(() => {
-    return photoStore.getSelectedCount() <= 0;
+    return photoStore.getSelectedCount <= 0;
 });
 
 

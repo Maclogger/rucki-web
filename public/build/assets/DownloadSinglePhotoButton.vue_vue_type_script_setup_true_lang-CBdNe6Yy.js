@@ -1,0 +1,1 @@
+import{_ as n}from"./BottomRowButton.vue_vue_type_script_setup_true_lang-Dk612KuS.js";import{d as a,e,a as r}from"./app-CILYoJyI.js";const _=a({__name:"DownloadSinglePhotoButton",setup(t){const o=()=>{console.log("Downloading...")};return(c,s)=>(r(),e(n,{icon:"fa-solid fa-download",onClick:o,class:"bg-primary hover:bg-my-white hover:text-primary"}))}});export{_};

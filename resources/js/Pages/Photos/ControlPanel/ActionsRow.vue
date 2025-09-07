@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { usePhotosStore } from '@/stores/photosStore';
 import { computed } from 'vue';
 import ActionButton from "./ActionButton.vue";
@@ -8,7 +7,7 @@ import ActionButton from "./ActionButton.vue";
 const photoStore = usePhotosStore();
 
 const selectedCount = computed(() => {
-    return photoStore.getSelectedCount();
+    return photoStore.getSelectedCount;
 });
 
 </script>

@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { User, useUserStore } from '@/stores/userStore';
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { computed, ComputedRef, provide } from 'vue';
 
 defineProps<{}>()
 
 const userStore = useUserStore();
 
-const user: User | null = userStore.getUser;
+const user: ComputedRef<User | null> = computed(() => {
+    return userStore.getUser;
+});
 
 const onLogout = () => {
     if (!user) return;
@@ -14,8 +17,8 @@ const onLogout = () => {
 }
 
 const formatName = () => {
-    if (!user) return "Hacker";
-    return user.username.charAt(0).toUpperCase() + user.username.slice(1);
+    if (!user.value) return "Hacker";
+    return user.value.username.charAt(0).toUpperCase() + user.value.username.slice(1);
 }
 
 </script>
