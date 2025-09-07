@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 export interface PhotosStoreState {
     photos: PhotoType[];
     refreshedAt: Date;
+    state: PhotoStoreState;
 };
 
 export interface PhotoType {
@@ -31,6 +32,11 @@ interface PhotosResponse {
     }>,
 }
 
+export enum PhotoStoreState {
+    LOADING,
+    LOADED,
+}
+
 
 
 export const usePhotosStore = defineStore("photosStore", {
@@ -38,6 +44,7 @@ export const usePhotosStore = defineStore("photosStore", {
         return {
             photos: [],
             refreshedAt: new Date(),
+            state: PhotoStoreState.LOADING,
         };
     },
 
@@ -55,7 +62,17 @@ export const usePhotosStore = defineStore("photosStore", {
         //     this.$patch(newState);
         // },
         async refresh() {
-            const data: PhotosResponse = (await window.axios("/get-photos")).data;
+            this.$patch({
+                photos: [],
+                state: PhotoStoreState.LOADING,
+            });
+
+            const data: PhotosResponse = (await window.axios("/get-photos").finally(() => {
+                this.$patch({
+                    state: PhotoStoreState.LOADING, // TODO
+                });
+            })).data;
+
             console.log(data);
             if (!data || !data.photos) {
                 console.error("Refreshing photos was not successful!");
