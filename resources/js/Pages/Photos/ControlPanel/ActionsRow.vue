@@ -2,6 +2,7 @@
 import { usePhotosStore } from '@/stores/photosStore';
 import { computed } from 'vue';
 import ActionButton from "./ActionButton.vue";
+import DownloadMultiplePhotosButton from './DownloadMultiplePhotosButton.vue';
 
 
 const photoStore = usePhotosStore();
@@ -19,6 +20,6 @@ const selectedCount = computed(() => {
         </div>
         <ActionButton icon="fa-solid fa-download" sub-title="ZIP" />
         <ActionButton icon="fa-solid fa-download" sub-title="Multiple" />
-        <ActionButton icon="fa-solid fa-trash-can" btn-class="btn-error" />
+        <DownloadMultiplePhotosButton />
     </div>
 </template>

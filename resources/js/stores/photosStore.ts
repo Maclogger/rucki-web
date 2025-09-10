@@ -136,6 +136,23 @@ export const usePhotosStore = defineStore("photosStore", {
         photoDeleted(photoId: number) {
             this.photos = this.photos.filter(p => p.id != photoId);
         },
+
+        deleteSelectedPhotos() {
+            const originalPhotos = this.photos;
+            const idsOfPhotosToDelete = this.photos.filter(p => p.selected).map(p => p.id);
+            this.photos = this.photos.filter(p => !p.selected);
+
+            window.axios.post(
+                "/delete-multiple-photos",
+                { ids: idsOfPhotosToDelete })
+                .then(() => {
+                    console.log("Successfuly deleted");
+                })
+                .catch(() => {
+                    console.log("Photos could not be deleted!");
+                    this.photos = originalPhotos;
+                });
+        },
     },
 
 });
