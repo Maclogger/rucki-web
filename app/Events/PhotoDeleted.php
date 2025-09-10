@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\Photo;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -17,7 +16,8 @@ class PhotoDeleted implements ShouldBroadcast
      * Create a new event instance.
      */
     public function __construct(
-        public Photo $photo
+        public int $photoId,
+        public int $idUser,
     ) {}
 
     /**
@@ -28,7 +28,7 @@ class PhotoDeleted implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('users.' . $this->photo->id_user . '.photos'),
+            new PrivateChannel('users.' . $this->idUser . '.photos'),
         ];
     }
 }

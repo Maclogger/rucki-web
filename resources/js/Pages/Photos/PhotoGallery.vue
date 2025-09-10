@@ -17,7 +17,7 @@ const { photos, status: photoStoreFetchStatus } = storeToRefs(photoStore);
             <span class="loading loading-spinner text-primary w-12"></span>
         </div>
         <div v-else class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4">
-            <div v-for="(photo) in photos">
+            <div v-for="(photo) in photos" :key="photo.file_name">
                 <PhotoComponent :photo="photo" />
             </div>
         </div>

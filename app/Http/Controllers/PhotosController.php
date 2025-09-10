@@ -143,7 +143,6 @@ class PhotosController extends Controller
 
         $this->deletePhotoById($request->id);
 
-
         Log::info("Fotografia záznam zmazaný z DB: ID {$request->id}");
 
         return back();
@@ -173,7 +172,7 @@ class PhotosController extends Controller
         }
 
         $directory = 'photos';
-        $filePath = $directory . $photo->file_name;
+        $filePath = $directory . '/' . $photo->file_name;
 
         if (Storage::disk('local')->exists($filePath)) {
             Storage::disk('local')->delete($filePath);
@@ -183,13 +182,8 @@ class PhotosController extends Controller
         }
 
         $photo->delete();
-        Log::info("Mažeme: " . $photo->id_user);
-        PhotoDeleted::dispatch($photo);
+        PhotoDeleted::dispatch($photo->id, $photo->id_user);
     }
 
-    public function debugButtonPressed()
-    {
-        Log::info("Debug button pressed.");
-        PhotoUploaded::dispatch("hihi");
-    }
+    public function debugButtonPressed() {}
 }

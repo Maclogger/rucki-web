@@ -4,31 +4,31 @@ import PhotoGallery from '@/Pages/Photos/PhotoGallery.vue';
 import PhotoControlPanel from './ControlPanel/PhotoControlPanel.vue';
 import { computed, onMounted } from 'vue';
 import { PhotoType, usePhotosStore } from '@/stores/photosStore';
-import { useEcho } from '@laravel/echo-vue';
+import { useEcho, } from '@laravel/echo-vue';
 import { useUserStore } from '@/stores/userStore';
 
 const photoStore = usePhotosStore();
-
 const userStore = useUserStore();
+
 const user = computed(() => {
     return userStore.getUser!;
-})
+});
 
 const userChannel = computed(() => {
     return `users.${user.value.id}.photos`;
-})
+});
 
-interface PhotoEvent {
+
+interface PhotoUploadedEvent {
     photo: PhotoType,
 }
 
-interface PhotoUploadedEvent extends PhotoEvent {
-};
+interface PhotoDeletedEvent {
+    photoId: number,
+    idUser: number,
+}
 
-interface PhotoDeletedEvent extends PhotoEvent {
-};
-
-useEcho<PhotoUploadedEvent>(
+const { channel } = useEcho<PhotoUploadedEvent>(
     userChannel.value, "PhotoUploaded", (e) => {
         console.log("Nová fotka nahraná.");
         photoStore.newPhotoAdded(e.photo);
@@ -38,12 +38,26 @@ useEcho<PhotoUploadedEvent>(
 useEcho<PhotoDeletedEvent>(
     userChannel.value, "PhotoDeleted", (e) => {
         console.log("Fotka zmazaná.");
-        photoStore.photoDeleted(e.photo);
+        photoStore.photoDeleted(e.photoId);
     }
 );
 
+const registerStateHooks = () => {
+    const connection = (channel() as any).pusher.connection;
+    connection.bind('connected', () => {
+        console.log("Websocket connected.");
+        photoStore.websocketConnection = true;
+    });
+    connection.bind('connecting', () => {
+        console.log("Websocket disconnected. :(");
+        photoStore.websocketConnection = false;
+    });
+}
+
+
 onMounted(() => {
     photoStore.refresh();
+    registerStateHooks();
 });
 
 const debugButtonPressed = () => {
@@ -56,6 +70,10 @@ const debugButtonPressed = () => {
             console.error(e);
         });
 }
+//
+// useEcho.connector.pusher.connection.bind('connected', () => {
+//       console.log('connected');
+//     });
 
 
 </script>
@@ -70,9 +88,9 @@ const debugButtonPressed = () => {
             <div class="flex flex-row">
                 <PhotoGallery class="w-2/3" />
                 <PhotoControlPanel />
-
-                <button @click="debugButtonPressed" class="btn btn-primary absolute top-0 left-0 z-10">DEBUG
-                    BUTTON</button>
+                <button @click="debugButtonPressed" class="btn btn-primary absolute top-0 left-0 z-10">
+                    DEBUG BUTTON
+                </button>
             </div>
         </template>
     </AuthLayout>
