@@ -20,9 +20,9 @@ const websocketConnection = computed(() => {
 })
 
 const getColorClass = () => {
-    return !websocketConnection.value ? "bg-red-500" : "bg-green-500";
+    const connectedToWebSocket = !websocketConnection.value;
+    return connectedToWebSocket ? "bg-error" : "bg-success";
 }
-
 
 </script>
 

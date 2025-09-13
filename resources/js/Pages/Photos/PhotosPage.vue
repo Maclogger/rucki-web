@@ -2,6 +2,7 @@
 import AuthLayout from '@/Layouts/AuthLayout.vue';
 import PhotoGallery from '@/Pages/Photos/PhotoGallery.vue';
 import PhotoControlPanel from './ControlPanel/PhotoControlPanel.vue';
+import DebugButton from '@/Components/DebugButton.vue';
 import { computed, onMounted } from 'vue';
 import { PhotoType, usePhotosStore } from '@/stores/photosStore';
 import { useEcho, } from '@laravel/echo-vue';
@@ -60,16 +61,6 @@ onMounted(() => {
     registerStateHooks();
 });
 
-const debugButtonPressed = () => {
-    console.log("debugButtonPressed");
-    window.axios("/debug-button-pressed")
-        .then(() => {
-            console.log("done");
-        })
-        .catch((e) => {
-            console.error(e);
-        });
-}
 //
 // useEcho.connector.pusher.connection.bind('connected', () => {
 //       console.log('connected');
@@ -88,9 +79,7 @@ const debugButtonPressed = () => {
             <div class="flex flex-row">
                 <PhotoGallery class="w-2/3" />
                 <PhotoControlPanel />
-                <button @click="debugButtonPressed" class="btn btn-primary absolute top-0 left-0 z-10">
-                    DEBUG BUTTON
-                </button>
+                <DebugButton />
             </div>
         </template>
     </AuthLayout>

@@ -1,4 +1,4 @@
-import {defineStore} from 'pinia';
+import { defineStore } from 'pinia';
 
 
 export enum ToastSeverity {
@@ -60,6 +60,11 @@ export const useToastsStore = defineStore("toastsStore", {
 
     actions: {
         displayToast(toast: ToastProps) {
+            if (toast.severity == ToastSeverity.ERROR) {
+                console.error(toast.message);
+            } else {
+                console.log(toast.message);
+            }
             toast.id = this.currentIndex;
             this.toasts.set(toast.id, toast);
             this.currentIndex++;

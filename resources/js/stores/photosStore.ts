@@ -26,12 +26,18 @@ export interface PhotoType {
     created_at: Date,
     updated_at: Date,
     selected: boolean,
+    status: SinglePhotoStatus,
 }
 
 export enum FetchStatus {
     LOADING,
     LOADED,
     ERROR,
+}
+
+export enum SinglePhotoStatus {
+    LOADING, // when the <img> tag is loading the photo
+    LOADED,
 }
 
 export interface PhotosStoreState {
@@ -94,6 +100,7 @@ export const usePhotosStore = defineStore("photosStore", {
                     created_at: new Date(p.created_at),
                     updated_at: new Date(p.updated_at),
                     selected: false,
+                    status: SinglePhotoStatus.LOADING, // the loading starts when <img> is rendered
                 }));
 
                 this.photos = transformedPhotos;
