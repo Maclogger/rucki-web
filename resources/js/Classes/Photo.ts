@@ -17,33 +17,53 @@ export interface PhotoResponse {
 
 export class Photo {
     id: number;
-    file_name: string;
-    id_user: number;
-    original_name: string;
-    mime_type: string;
-    readable_size: string;
-    created_at: Date;
-    updated_at: Date;
+    fileName: string;
+    idUser: number;
+    originalName: string;
+    mimeType: string;
+    readableSize: string;
+    createdAt: Date;
+    updatedAt: Date;
     selected: boolean;
     status: PhotoStatus;
-    imgElement: HTMLImageElement | null; // Referencia na DOM element
+    imgElement: HTMLImageElement | null;
+
+    constructor(data: PhotoResponse);
+    constructor(data: Photo);
 
     constructor(data: PhotoResponse | Photo) {
-        this.id = data.id;
-        this.file_name = data.file_name;
-        this.id_user = data.id_user;
-        this.original_name = data.original_name;
-        this.mime_type = data.mime_type;
-        this.readable_size = data.readable_size;
-        this.created_at = new Date(data.created_at);
-        this.updated_at = new Date(data.updated_at);
-        this.selected = (data as Photo).selected !== undefined ? (data as Photo).selected : false;
-        this.status = (data as Photo).status !== undefined ? (data as Photo).status : PhotoStatus.LOADING;
-        this.imgElement = (data as Photo).imgElement !== undefined ? (data as Photo).imgElement : null;
+        const isPhotoResponse = 'file_name' in data; // Ak má 'file_name', je to PhotoResponse (snake_case)
+        if (isPhotoResponse) {
+            console.log("okej");
+            this.id = data.id;
+            this.fileName = data.file_name;
+            this.idUser = data.id_user;
+            this.originalName = data.original_name;
+            this.mimeType = data.mime_type;
+            this.readableSize = data.readable_size;
+            this.createdAt = new Date(data.created_at);
+            this.updatedAt = new Date(data.updated_at);
+            this.selected = false;
+            this.status = PhotoStatus.LOADING;
+            this.imgElement = null;
+        } else {
+            console.log("zle");
+            this.id = data.id;
+            this.fileName = data.fileName;
+            this.idUser = data.idUser;
+            this.originalName = data.originalName;
+            this.mimeType = data.mimeType;
+            this.readableSize = data.readableSize;
+            this.createdAt = data.createdAt;
+            this.updatedAt = data.updatedAt;
+            this.selected = data.selected;
+            this.status = data.status;
+            this.imgElement = data.imgElement;
+        }
     }
 
     getFilePath(): string {
-        return `/photos-show/${this.file_name}`;
+        return `/photos-show/${this.fileName}`;
     }
 
     toggleSelection() {

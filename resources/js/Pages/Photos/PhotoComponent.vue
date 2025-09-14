@@ -3,13 +3,13 @@ import PhotoTopRow from './PhotoTopRow.vue';
 import PhotoImage from './PhotoImage.vue';
 import PhotoBottomRow from './BottomRow/PhotoBottomRow.vue';
 import { Photo } from '@/Classes/Photo';
-import { provide } from 'vue';
+import { provide, toRef } from 'vue';
 
 const props = defineProps<{
     photo: Photo
 }>();
 
-provide('photo', props.photo);
+provide('photo', toRef(props, 'photo'));
 
 </script>
 

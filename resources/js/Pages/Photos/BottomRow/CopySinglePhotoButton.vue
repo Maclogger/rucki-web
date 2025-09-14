@@ -19,10 +19,12 @@ enum CopyButtonState {
 const status = ref<CopyButtonState>(CopyButtonState.ENABLED);
 
 const getLoadedElementFromPage = () => {
-    const imageElement = document.getElementById(photo.file_name) as HTMLImageElement;
+    console.log(photo);
+    const imageElement = photo.imgElement;
+    //const imageElement = document.getElementById(photo.file_name) as HTMLImageElement;
     if (!imageElement) {
         toastStore.displayToast({
-            message: `Image element could not be found by ID: ${photo.file_name}.`,
+            message: `Image element could not be found by ID: ${photo.fileName}.`,
             severity: ToastSeverity.ERROR,
         });
         return null;

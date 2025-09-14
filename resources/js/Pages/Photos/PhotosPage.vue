@@ -4,9 +4,10 @@ import PhotoGallery from '@/Pages/Photos/PhotoGallery.vue';
 import PhotoControlPanel from './ControlPanel/PhotoControlPanel.vue';
 import DebugButton from '@/Components/DebugButton.vue';
 import { computed, onMounted } from 'vue';
-import { PhotoResponse, usePhotosStore } from '@/stores/photosStore';
+import { usePhotosStore } from '@/stores/photosStore';
 import { useEcho, } from '@laravel/echo-vue';
 import { useUserStore } from '@/stores/userStore';
+import { Photo, PhotoResponse } from '@/Classes/Photo';
 
 const photoStore = usePhotosStore();
 const userStore = useUserStore();
