@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { ref, Ref } from 'vue';
 
 // Raw data from response:
 interface PhotosResponse {
@@ -27,7 +28,9 @@ export interface PhotoType {
     updated_at: Date,
     selected: boolean,
     status: SinglePhotoStatus,
+    imgElement?: HTMLImageElement | null,
 }
+
 
 export enum FetchStatus {
     LOADING,
@@ -101,6 +104,7 @@ export const usePhotosStore = defineStore("photosStore", {
                     updated_at: new Date(p.updated_at),
                     selected: false,
                     status: SinglePhotoStatus.LOADING, // the loading starts when <img> is rendered
+                    imgElement: ref<HTMLImageElement | null>(null).value,
                 }));
 
                 this.photos = transformedPhotos;
@@ -160,41 +164,14 @@ export const usePhotosStore = defineStore("photosStore", {
                     this.photos = originalPhotos;
                 });
         },
+
+        createCanvasForPhoto(photo: PhotoType) {
+
+        },
+
     },
 
 });
 
 
 
-
-/*Illuminate\Database\Eloquent\ModelNotFoundException: No query results for model [App\Models\Photo]. in /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:750
-Stack trace:
-#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Queue/SerializesAndRestoresModelIdentifiers.php(110): Illuminate\Database\Eloquent\Builder->firstOrFail()
-#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Queue/SerializesAndRestoresModelIdentifiers.php(63): App\Events\PhotoDeleted->restoreModel()
-#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Queue/SerializesModels.php(97): App\Events\PhotoDeleted->getRestoredPropertyValue()
-#3 [internal function]: App\Events\PhotoDeleted->__unserialize()
-#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(95): unserialize()
-#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(62): Illuminate\Queue\CallQueuedHandler->getCommand()
-#6 /var/www/html/vendor/laravel/framework/src/Illuminate/Queue/Jobs/Job.php(102): Illuminate\Queue\CallQueuedHandler->call()
-#7 /var/www/html/vendor/laravel/framework/src/Illuminate/Queue/Worker.php(444): Illuminate\Queue\Jobs\Job->fire()
-#8 /var/www/html/vendor/laravel/framework/src/Illuminate/Queue/Worker.php(394): Illuminate\Queue\Worker->process()
-#9 /var/www/html/vendor/laravel/framework/src/Illuminate/Queue/Worker.php(180): Illuminate\Queue\Worker->runJob()
-#10 /var/www/html/vendor/laravel/framework/src/Illuminate/Queue/Console/WorkCommand.php(148): Illuminate\Queue\Worker->daemon()
-#11 /var/www/html/vendor/laravel/framework/src/Illuminate/Queue/Console/WorkCommand.php(131): Illuminate\Queue\Console\WorkCommand->runWorker()
-#12 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\Queue\Console\WorkCommand->handle()
-#13 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\Container\BoundMethod::{closure:Illuminate\Container\BoundMethod::call():35}()
-#14 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\Container\Util::unwrapIfClosure()
-#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\Container\BoundMethod::callBoundMethod()
-#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/Container.php(780): Illuminate\Container\BoundMethod::call()
-#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Console/Command.php(211): Illuminate\Container\Container->call()
-#18 /var/www/html/vendor/symfony/console/Command/Command.php(318): Illuminate\Console\Command->execute()
-#19 /var/www/html/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\Component\Console\Command\Command->run()
-#20 /var/www/html/vendor/symfony/console/Application.php(1092): Illuminate\Console\Command->run()
-#21 /var/www/html/vendor/symfony/console/Application.php(341): Symfony\Component\Console\Application->doRunCommand()
-#22 /var/www/html/vendor/symfony/console/Application.php(192): Symfony\Component\Console\Application->doRun()
-#23 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(197): Symfony\Component\Console\Application->run()
-#24 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle()
-#25 /var/www/html/artisan(16): Illuminate\Foundation\Application->handleCommand()
-#26 {main}
-
-*/

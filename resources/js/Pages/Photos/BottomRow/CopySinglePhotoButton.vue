@@ -12,7 +12,7 @@ const photo: PhotoType = inject("photo")!;
 const COPIED_DELAY: number = 2_000; // in ms, time after the button is in COPIED state
 enum CopyButtonState {
     ENABLED, // when the image is ready to be copied
-    LOADING, // when the image is being loaded to clipboard
+    WRITING_TO_CLIPBOARD, // when the image is being loaded to clipboard
     COPIED, // after the image is copied succesfully, for COPIED_DELAY ms this state will be used
 }
 
@@ -80,8 +80,8 @@ const writeBlobToClipboard = (blob: Blob | null) => {
 }
 
 const copyImageToClipboard = () => {
-    if (status.value == CopyButtonState.LOADING) return;
-    status.value = CopyButtonState.LOADING;
+    if (status.value == CopyButtonState.WRITING_TO_CLIPBOARD) return;
+    status.value = CopyButtonState.WRITING_TO_CLIPBOARD;
     const imageElement = getLoadedElementFromPage();
     if (!imageElement) return;
     const canvas = createCanvasWithImage(imageElement);
@@ -97,7 +97,7 @@ const getColorClass = () => {
 <template>
     <BottomRowButton :onClick="copyImageToClipboard" :disabled="photo.status == SinglePhotoStatus.LOADING"
         class="hover:bg-my-white hover:text-primary" :class="getColorClass()">
-        <span v-if="status == CopyButtonState.LOADING" class="loading loading-spinner loading-xs"></span>
+        <span v-if="status == CopyButtonState.WRITING_TO_CLIPBOARD" class="loading loading-spinner loading-xs"></span>
         <font-awesome-icon v-else-if="status == CopyButtonState.COPIED" icon="fa-solid fa-check" />
         <font-awesome-icon v-else icon="fa-solid fa-copy" />
     </BottomRowButton>
