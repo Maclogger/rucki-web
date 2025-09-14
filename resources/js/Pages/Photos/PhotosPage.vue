@@ -4,7 +4,7 @@ import PhotoGallery from '@/Pages/Photos/PhotoGallery.vue';
 import PhotoControlPanel from './ControlPanel/PhotoControlPanel.vue';
 import DebugButton from '@/Components/DebugButton.vue';
 import { computed, onMounted } from 'vue';
-import { PhotoType, usePhotosStore } from '@/stores/photosStore';
+import { PhotoResponse, usePhotosStore } from '@/stores/photosStore';
 import { useEcho, } from '@laravel/echo-vue';
 import { useUserStore } from '@/stores/userStore';
 
@@ -21,7 +21,7 @@ const userChannel = computed(() => {
 
 
 interface PhotoUploadedEvent {
-    photo: PhotoType,
+    photo: PhotoResponse,
 }
 
 interface PhotoDeletedEvent {
@@ -32,7 +32,9 @@ interface PhotoDeletedEvent {
 const { channel } = useEcho<PhotoUploadedEvent>(
     userChannel.value, "PhotoUploaded", (e) => {
         console.log("Nová fotka nahraná.");
-        photoStore.newPhotoAdded(e.photo);
+
+        const photo = new Photo(e.photo);
+        photoStore.newPhotoAdded(photo);
     }
 );
 

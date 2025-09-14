@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import PhotoTopRow from './PhotoTopRow.vue';
-import Photo from './Photo.vue';
+import PhotoImage from './PhotoImage.vue';
 import PhotoBottomRow from './BottomRow/PhotoBottomRow.vue';
-import { PhotoType } from '@/stores/photosStore';
+import { Photo } from '@/Classes/Photo';
 import { provide } from 'vue';
 
 const props = defineProps<{
-    photo: PhotoType
+    photo: Photo
 }>();
 
 provide('photo', props.photo);
@@ -16,7 +16,7 @@ provide('photo', props.photo);
 <template>
     <div class="w-full h-72 rounded-xl flex flex-col overflow-hidden">
         <PhotoTopRow />
-        <Photo />
+        <PhotoImage />
         <PhotoBottomRow />
     </div>
 </template>

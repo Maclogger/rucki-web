@@ -2,12 +2,12 @@
 import { inject, ref } from 'vue';
 import BottomRowButton from './BottomRowButton.vue';
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { PhotoType, SinglePhotoStatus } from '@/stores/photosStore';
-import { ToastProps, ToastSeverity, useToastsStore } from '@/stores/toastsStore';
+import { ToastSeverity, useToastsStore } from '@/stores/toastsStore';
+import { Photo, PhotoStatus } from '@/Classes/Photo';
 
 const toastStore = useToastsStore();
 
-const photo: PhotoType = inject("photo")!;
+const photo: Photo = inject("photo")!;
 
 const COPIED_DELAY: number = 2_000; // in ms, time after the button is in COPIED state
 enum CopyButtonState {
@@ -95,7 +95,7 @@ const getColorClass = () => {
 </script>
 
 <template>
-    <BottomRowButton :onClick="copyImageToClipboard" :disabled="photo.status == SinglePhotoStatus.LOADING"
+    <BottomRowButton :onClick="copyImageToClipboard" :disabled="photo.status == PhotoStatus.LOADING"
         class="hover:bg-my-white hover:text-primary" :class="getColorClass()">
         <span v-if="status == CopyButtonState.WRITING_TO_CLIPBOARD" class="loading loading-spinner loading-xs"></span>
         <font-awesome-icon v-else-if="status == CopyButtonState.COPIED" icon="fa-solid fa-check" />

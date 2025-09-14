@@ -62,6 +62,8 @@ export const useToastsStore = defineStore("toastsStore", {
         displayToast(toast: ToastProps) {
             if (toast.severity == ToastSeverity.ERROR) {
                 console.error(toast.message);
+            } else if (toast.severity == ToastSeverity.WARNING) {
+                console.warn(toast.message);
             } else {
                 console.log(toast.message);
             }
