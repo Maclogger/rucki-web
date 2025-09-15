@@ -49,6 +49,7 @@ const submit = () => {
         </div>
 
         <input type="file" @change="handleFileChange" multiple :disabled="form.processing"
+            accept="image/jpeg, image/png, image/webp, image/gif, image/bmp, image/tiff"
             class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" aria-label="Vybrať súbory na nahratie" />
 
         <progress v-if="form.progress" class="progress progress-secondary absolute bottom-0 left-0 w-full"

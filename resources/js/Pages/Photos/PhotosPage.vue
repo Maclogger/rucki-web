@@ -60,7 +60,9 @@ const registerStateHooks = () => {
 
 
 onMounted(() => {
-    photoStore.refresh();
+    if (photoStore.photos.length <= 0) {
+        photoStore.refresh();
+    }
     registerStateHooks();
 });
 

@@ -10,7 +10,7 @@ const imageRef: Ref<HTMLImageElement | null> = ref<HTMLImageElement | null>(null
 onMounted(() => {
     if (!imageRef.value) {
         useToastsStore().displayToast({
-            message: "ImageRef was not initialized in onMounted function. PhotoImage.vue",
+            message: "ImageRef nebol inicializovaný vo funkcii onMounted. PhotoImage.vue",
             severity: ToastSeverity.ERROR,
         });
         return;

@@ -1,16 +1,20 @@
 <script setup lang="ts">
-import { inject, Ref } from 'vue';
+import { computed, inject, ref, Ref } from 'vue';
 import BottomRowButton from './BottomRowButton.vue';
-import { Photo } from '@/Classes/Photo';
+import { Photo, PhotoStatus } from '@/Classes/Photo';
 import { ToastSeverity, useToastsStore } from '@/stores/toastsStore';
+
+const DOWNLOADED_DELAY: number = 2_000; // in ms, time after the button is in COPIED state
 
 const photo = inject<Ref<Photo>>("photo")!;
 const toastStore = useToastsStore();
+const isDownloaded = ref<boolean>(false);
+
 
 const downloadBlob = (blob: Blob | null) => {
     if (!blob) {
         toastStore.displayToast({
-            message: "Image could not be downloaded.",
+            message: "Obrázok sa nepodarilo stiahnuť.",
             severity: ToastSeverity.ERROR,
         });
         return;
@@ -29,11 +33,13 @@ const downloadBlob = (blob: Blob | null) => {
         message: "Fotka bola stiahnutá.",
         severity: ToastSeverity.SUCCESS
     });
-
+    isDownloaded.value = true;
+    setTimeout(() => {
+        isDownloaded.value = false;
+    }, DOWNLOADED_DELAY);
 }
 
 const handleClick = async () => {
-    console.log("Downloading...");
     const [canvas, toast] = photo.value.createCanvasWithImage();
     if (toast) {
         toastStore.displayToast(toast);
@@ -43,10 +49,17 @@ const handleClick = async () => {
     canvas.toBlob(downloadBlob, photo.value.mimeType);
 }
 
+const getIcon = computed(() => {
+    return "fa-solid " + (isDownloaded.value ? "fa-check" : "fa-download");
+});
+
+const getColorClass = computed(() => {
+    return isDownloaded.value ? "bg-success" : "bg-primary";
+});
 
 </script>
 
 <template>
-    <BottomRowButton icon="fa-solid fa-download" :onClick="handleClick"
-        class="bg-primary hover:bg-my-white hover:text-primary" />
+    <BottomRowButton :icon="getIcon" :onClick="handleClick" :disabled="photo.status == PhotoStatus.LOADING"
+        class="hover:bg-my-white hover:text-primary" :class="getColorClass"></BottomRowButton>
 </template>

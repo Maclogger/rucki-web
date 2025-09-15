@@ -56,7 +56,7 @@ export const usePhotosStore = defineStore("photosStore", {
 
                 if (!data || !data.photos) {
                     useToastsStore().displayToast({
-                        message: "Refreshing photos was not successful!",
+                        message: "Refresh fotiek bol neúspešný.",
                         severity: ToastSeverity.ERROR,
                     });
                     this.status = FetchStatus.ERROR; // Nastav status na ERROR
@@ -65,7 +65,7 @@ export const usePhotosStore = defineStore("photosStore", {
 
                 if (data.photos.length <= 0) {
                     useToastsStore().displayToast({
-                        message: "0 photos were received from the server.",
+                        message: "Na serveri sa nenašli žiadne fotky.",
                         severity: ToastSeverity.WARNING,
                     });
                     this.photos = [];

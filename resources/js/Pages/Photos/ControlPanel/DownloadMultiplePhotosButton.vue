@@ -101,7 +101,7 @@ const handleClick = async () => {
 
     if (selectedPhotos.length === 0) {
         toastStore.displayToast({
-            message: "Nie sú vybrané žiadne fotky.",
+            message: "Nie sú vybraté žiadne fotky.",
             severity: ToastSeverity.WARNING,
         });
         return;

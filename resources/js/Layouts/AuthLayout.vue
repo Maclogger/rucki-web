@@ -2,6 +2,7 @@
 import { User, useUserStore } from '@/stores/userStore';
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { computed, ComputedRef, provide } from 'vue';
+import { router } from '@inertiajs/vue3';
 
 defineProps<{}>()
 
@@ -28,15 +29,22 @@ const formatName = () => {
         <div class="p-4 container mx-auto">
             <div
                 class="rounded-xl shadow bg-primary-dark-transparent p-4 mb-4 flex flex-row justify-between items-center">
-                <div v-if="$slots.headline">
-                    <slot name="headline" />
-                </div>
-                <div v-else>
-                    <h1 class="text-2xl p-0 m-0 h-full">
-                        <span class="p-0 font-normal">Vitaj </span>
-                        <span class="p-0 font-bold">{{ formatName() }}</span>
-                        <span class="p-0 font-normal"> 😜!</span>
-                    </h1>
+                <div class="flex flex-row gap-3">
+                    <div class="h-full">
+                        <button class="btn btn-primary" @click="router.get('/home');">
+                            <font-awesome-icon icon="fa-solid fa-house text-2xl" />
+                        </button>
+                    </div>
+                    <div class="flex items-center" v-if="$slots.headline">
+                        <slot name="headline" />
+                    </div>
+                    <div v-else>
+                        <h1 class="text-2xl p-0 m-0 h-full">
+                            <span class="p-0 font-normal">Vitaj </span>
+                            <span class="p-0 font-bold">{{ formatName() }}</span>
+                            <span class="p-0 font-normal"> 😜!</span>
+                        </h1>
+                    </div>
                 </div>
                 <button @click="onLogout()" class="btn btn-secondary text-lg">
                     Odhlásiť sa <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
