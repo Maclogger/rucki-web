@@ -33,6 +33,9 @@ export const usePhotosStore = defineStore("photosStore", {
     getters: {
         getSelectedCount(state): number {
             return state.photos.filter(p => p.selected).length;
+        },
+        getSelectedPhotos(state): Photo[] {
+            return (state.photos as Photo[]).filter(p => p.selected);
         }
     },
 
@@ -78,7 +81,6 @@ export const usePhotosStore = defineStore("photosStore", {
                 this.status = FetchStatus.ERROR;
             }
         },
-
 
         async deleteSinglePhoto(photo: Photo) {
             const originalPhotos = this.photos;
