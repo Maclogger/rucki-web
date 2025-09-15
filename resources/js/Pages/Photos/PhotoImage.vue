@@ -3,7 +3,7 @@ import { inject, onMounted, Ref, ref } from 'vue';
 import { Photo, PhotoStatus } from '@/Classes/Photo';
 import { ToastSeverity, useToastsStore } from '@/stores/toastsStore';
 
-const photo: Photo = inject("photo")!;
+const photo = inject<Ref<Photo>>("photo")!;
 
 const imageRef: Ref<HTMLImageElement | null> = ref<HTMLImageElement | null>(null);
 
@@ -15,10 +15,10 @@ onMounted(() => {
         });
         return;
     }
-    photo.status = PhotoStatus.LOADING;
+    photo.value.status = PhotoStatus.LOADING;
     imageRef.value.onload = () => {
-        photo.status = PhotoStatus.LOADED;
-        photo.imgElement = imageRef.value;
+        photo.value.status = PhotoStatus.LOADED;
+        photo.value.imgElement = imageRef.value;
     };
 });
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue';
+import { inject, Ref, ref } from 'vue';
 import BottomRowButton from './BottomRowButton.vue';
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { ToastSeverity, useToastsStore } from '@/stores/toastsStore';
@@ -7,7 +7,7 @@ import { Photo, PhotoStatus } from '@/Classes/Photo';
 
 const toastStore = useToastsStore();
 
-const photo: Photo = inject("photo")!;
+const photo: Ref<Photo> = inject<Ref<Photo>>("photo")!;
 
 const COPIED_DELAY: number = 2_000; // in ms, time after the button is in COPIED state
 enum CopyButtonState {
@@ -20,11 +20,11 @@ const status = ref<CopyButtonState>(CopyButtonState.ENABLED);
 
 const getLoadedElementFromPage = () => {
     console.log(photo);
-    const imageElement = photo.imgElement;
+    const imageElement = photo.value.imgElement;
     //const imageElement = document.getElementById(photo.file_name) as HTMLImageElement;
     if (!imageElement) {
         toastStore.displayToast({
-            message: `Image element could not be found by ID: ${photo.fileName}.`,
+            message: `Image element could not be found by ID: ${photo.value.fileName}.`,
             severity: ToastSeverity.ERROR,
         });
         return null;
