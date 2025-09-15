@@ -18,7 +18,7 @@ const handleMouseOver = () => {
     }
     hoverTimeout = setTimeout(() => {
         showOverlay.value = true;
-    }, 50); // 200ms delay
+    }, 30); // 200ms delay
 };
 
 const handleMouseLeave = () => {
