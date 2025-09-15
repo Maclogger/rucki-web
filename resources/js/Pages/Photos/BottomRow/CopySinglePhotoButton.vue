@@ -18,39 +18,6 @@ enum CopyButtonState {
 
 const status = ref<CopyButtonState>(CopyButtonState.ENABLED);
 
-const getLoadedElementFromPage = () => {
-    console.log(photo);
-    const imageElement = photo.value.imgElement;
-    //const imageElement = document.getElementById(photo.file_name) as HTMLImageElement;
-    if (!imageElement) {
-        toastStore.displayToast({
-            message: `Image element could not be found by ID: ${photo.value.fileName}.`,
-            severity: ToastSeverity.ERROR,
-        });
-        return null;
-    }
-
-    const imageIsLoaded = imageElement.complete && imageElement.naturalHeight !== 0;
-    if (!imageIsLoaded) {
-        toastStore.displayToast({
-            message: `Image is not fully loaded yet. Cannot copy.`,
-            severity: ToastSeverity.ERROR,
-        });
-        return null;
-    }
-
-    return imageElement;
-}
-
-
-const createCanvasWithImage = (imageElement: HTMLImageElement) => {
-    const canvas = document.createElement('canvas');
-    canvas.width = imageElement.naturalWidth;
-    canvas.height = imageElement.naturalHeight;
-    const ctx = canvas.getContext('2d')!;
-    ctx.drawImage(imageElement, 0, 0);
-    return canvas;
-}
 
 const writeBlobToClipboard = (blob: Blob | null) => {
     if (!blob) {
@@ -81,12 +48,14 @@ const writeBlobToClipboard = (blob: Blob | null) => {
     });
 }
 
-const copyImageToClipboard = () => {
+const copyImageToClipboard = async () => {
     if (status.value == CopyButtonState.WRITING_TO_CLIPBOARD) return;
     status.value = CopyButtonState.WRITING_TO_CLIPBOARD;
-    const imageElement = getLoadedElementFromPage();
-    if (!imageElement) return;
-    const canvas = createCanvasWithImage(imageElement);
+    const [canvas, errorToast] = photo.value.createCanvasWithImage();
+    if (errorToast) {
+        toastStore.displayToast(errorToast);
+        return;
+    }
     canvas.toBlob(writeBlobToClipboard, 'image/png');
 }
 

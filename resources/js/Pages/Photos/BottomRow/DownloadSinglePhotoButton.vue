@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { inject } from 'vue';
 import BottomRowButton from './BottomRowButton.vue';
 
 const handleClick = () => {
     console.log("Downloading...");
 }
-
-const photo = inject("photo");
-
 
 
 </script>

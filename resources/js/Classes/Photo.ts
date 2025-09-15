@@ -1,3 +1,5 @@
+import { ToastProps, ToastSeverity } from "@/stores/toastsStore";
+
 export enum PhotoStatus {
     LOADING, // when the <img> tag is loading the photo
     LOADED,
@@ -69,4 +71,33 @@ export class Photo {
     toggleSelection() {
         this.selected = !this.selected;
     }
+
+    createCanvasWithImage(): [HTMLCanvasElement, null] | [null, ToastProps] {
+        if (!this.imgElement) {
+            return [null, {
+                message: `Image element could not be found by ID: ${this.fileName}.`,
+                severity: ToastSeverity.ERROR,
+            }];
+        }
+
+        const imageIsLoaded = this.imgElement.complete && this.imgElement.naturalHeight !== 0;
+        if (!imageIsLoaded) {
+            return [null, {
+                message: `Image is not fully loaded yet. Cannot copy.`,
+                severity: ToastSeverity.ERROR,
+            }];
+        }
+
+        return [this.createCanvasWithImageImpl(), null];
+    }
+
+    private createCanvasWithImageImpl() {
+        const canvas = document.createElement('canvas');
+        canvas.width = this.imgElement!.naturalWidth;
+        canvas.height = this.imgElement!.naturalHeight;
+        const ctx = canvas.getContext('2d')!;
+        ctx.drawImage(this.imgElement!, 0, 0);
+        return canvas;
+    }
+
 }
