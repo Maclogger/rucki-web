@@ -36,7 +36,10 @@ export const usePhotosStore = defineStore("photosStore", {
         },
         getSelectedPhotos(state): Photo[] {
             return (state.photos as Photo[]).filter(p => p.selected);
-        }
+        },
+        areAllPhotosSelected(state): boolean {
+            return state.photos.length > 0 && state.photos.every(photo => photo.selected);
+        },
     },
 
     actions: {
@@ -80,6 +83,16 @@ export const usePhotosStore = defineStore("photosStore", {
                 console.error("Error refreshing photos:", error);
                 this.status = FetchStatus.ERROR;
             }
+        },
+
+        toggleSelectAll() {
+            let newSelection: boolean = true;
+            if (this.areAllPhotosSelected) {
+                newSelection = false;
+            }
+            this.photos.forEach(p => {
+                p.selected = newSelection;
+            });
         },
 
         async deleteSinglePhoto(photo: Photo) {
