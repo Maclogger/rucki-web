@@ -9,7 +9,7 @@ const props = defineProps<{
     photo: Photo
 }>();
 
-provide('photo', toRef(props, 'photo'));
+provide('photo', toRef(props.photo));
 
 </script>
 
