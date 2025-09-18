@@ -17,6 +17,7 @@ export interface PhotosStoreState {
     refreshedAt: Date;
     status: FetchStatus;
     websocketConnection: boolean;
+    currentPage: number;
 }
 
 
@@ -27,6 +28,7 @@ export const usePhotosStore = defineStore("photosStore", {
             refreshedAt: new Date(),
             status: FetchStatus.LOADING,
             websocketConnection: false,
+            currentPage: 1,
         };
     },
 

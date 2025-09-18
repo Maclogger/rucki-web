@@ -16,9 +16,9 @@ onMounted(() => {
         return;
     }
     photo.value.status = PhotoStatus.LOADING;
+    photo.value.imgElement = imageRef.value;
     imageRef.value.onload = () => {
         photo.value.status = PhotoStatus.LOADED;
-        photo.value.imgElement = imageRef.value;
     };
 });
 

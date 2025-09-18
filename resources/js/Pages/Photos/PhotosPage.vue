@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AuthLayout from '@/Layouts/AuthLayout.vue';
-import PhotoGallery from '@/Pages/Photos/PhotoGallery.vue';
+import PhotoGalleryComp from '@/Pages/Photos/PhotoGalleryComp.vue';
 import PhotoControlPanel from './ControlPanel/PhotoControlPanel.vue';
 import DebugButton from '@/Components/DebugButton.vue';
 import { computed, onMounted } from 'vue';
@@ -82,7 +82,7 @@ onMounted(() => {
         </template>
         <template #default>
             <div class="flex flex-row">
-                <PhotoGallery class="w-2/3" />
+                <PhotoGalleryComp class="w-2/3" />
                 <PhotoControlPanel />
                 <DebugButton />
             </div>
