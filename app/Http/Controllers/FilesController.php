@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\PhotoDeleted;
-use App\Events\PhotoUploaded;
+use App\Events\FileDeleted;
+use App\Events\FileUploaded;
+use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Photo;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
-/** @package App->Http->Controllers */
-class PhotosController extends Controller
+class FilesController extends Controller
 {
     /**
      * Display a private photo.
@@ -26,7 +25,7 @@ class PhotosController extends Controller
             abort(403, 'Unauthorized');
         }
 
-        $photo = Photo::where('file_name', $fileName)
+        $photo = File::where('file_name', $fileName)
             ->where('id_user', Auth::id())
             ->first();
 
@@ -38,7 +37,7 @@ class PhotosController extends Controller
         $path = 'photos/' . $photo->file_name;
 
         if (!Storage::disk('local')->exists($path)) {
-            Log::error("Photo record exists but file not found on disk: '" . $path . "' for user ID: " . Auth::id());
+            Log::error("File record exists but file not found on disk: '" . $path . "' for user ID: " . Auth::id());
             abort(404);
         }
 
@@ -58,7 +57,7 @@ class PhotosController extends Controller
      * @param Request $request
      * @return \Illuminate\Http->JsonResponse
      */
-    public function uploadPhotos(Request $request)
+    public function uploadFiles(Request $request)
     {
         if (!Auth::check()) {
             return back()->withErrors([
@@ -75,7 +74,7 @@ class PhotosController extends Controller
 
         try {
             $files = $request->file('photos');
-            $countOfValidPhotos = 0;
+            $countOfValidFiles = 0;
 
             foreach ($files as $file) {
                 $fileIsValid = $file && $file->isValid();
@@ -84,13 +83,13 @@ class PhotosController extends Controller
                     continue;
                 }
 
-                $photo = $this->createPhoto($file);
-                $countOfValidPhotos++;
+                $photo = $this->createFile($file);
+                $countOfValidFiles++;
 
-                Log::info("Photo uploaded and metadata saved by user " . Auth::id() . ": " . $photo->file_name);
+                Log::info("File uploaded and metadata saved by user " . Auth::id() . ": " . $photo->file_name);
             }
 
-            if ($countOfValidPhotos <= 0) {
+            if ($countOfValidFiles <= 0) {
                 return back()->withErrors([
                     'mesage' => "No valid photos were uploaded."
                 ]);
@@ -98,12 +97,12 @@ class PhotosController extends Controller
 
             return back();
         } catch (\Exception $e) {
-            Log::error('Photos upload failed for user ' . Auth::id() . ': ' . $e->getMessage(), ['exception' => $e]);
+            Log::error('File upload failed for user ' . Auth::id() . ': ' . $e->getMessage(), ['exception' => $e]);
             return back()->with('error', "Failed to upload photos.");
         }
     }
 
-    private function createPhoto(UploadedFile $file)
+    private function createFile(UploadedFile $file)
     {
         $originalName = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
@@ -111,44 +110,44 @@ class PhotosController extends Controller
         $mimeType = $file->getMimeType();
         $size = $file->getSize();
 
-        $photo = new Photo;
-        $photo->id_user = Auth::id();
-        $photo->file_name = $uniqueFileName;
-        $photo->original_name = $originalName;
-        $photo->mime_type = $mimeType;
-        $photo->size = $size;
-        $photo->save();
-        PhotoUploaded::dispatch($photo);
+        $file = new File();
+        $file->id_user = Auth::id();
+        $file->file_name = $uniqueFileName;
+        $file->original_name = $originalName;
+        $file->mime_type = $mimeType;
+        $file->size = $size;
+        $file->save();
+        FileUploaded::dispatch($file);
 
         $directory = 'photos';
         Storage::disk('local')->putFileAs($directory, $file, $uniqueFileName);
 
-        return $photo;
+        return $file;
     }
 
-    public function getPhotos()
+    public function getFiles()
     {
-        $photos = Photo::orderBy('created_at', 'desc')->get();
+        $photos = File::orderBy('created_at', 'desc')->get();
 
         return [
-            'photos' => $photos,
+            'files' => $photos,
         ];
     }
 
-    public function deleteSinglePhoto(Request $request)
+    public function deleteSingleFile(Request $request)
     {
         $request->validate([
             'id' => 'required|integer|exists:photos,id',
         ]);
 
-        $this->deletePhotoById($request->id);
+        $this->deleteFileById($request->id);
 
         Log::info("Fotografia záznam zmazaný z DB: ID {$request->id}");
 
         return back();
     }
 
-    public function deleteMultiplePhotos(Request $request)
+    public function deleteMultipleFiles(Request $request)
     {
         $request->validate([
             'ids' => "required|array",
@@ -157,13 +156,13 @@ class PhotosController extends Controller
 
         $idsToDelete = $request->ids;
         foreach ($idsToDelete as $id) {
-            $this->deletePhotoById($id);
+            $this->deleteFileById($id);
         }
     }
 
-    private function deletePhotoById(int $id)
+    private function deleteFileById(int $id)
     {
-        $photo = Photo::find($id);
+        $photo = File::find($id);
 
         if (!$photo) {
             throw ValidationException::withMessages([
@@ -182,7 +181,7 @@ class PhotosController extends Controller
         }
 
         $photo->delete();
-        PhotoDeleted::dispatch($photo->id, $photo->id_user);
+        FileDeleted::dispatch($photo->id, $photo->id_user);
     }
 
     public function debugButtonPressed() {}

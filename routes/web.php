@@ -5,7 +5,7 @@ use App\Http\Controllers\GithubController;
 use App\Http\Controllers\GithubRecordController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PhotosController;
+use App\Http\Controllers\FilesController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -26,13 +26,13 @@ Route::middleware('auth')->group(function () {
     Route::get("/home", [HomeController::class, "index"])->name('home');
     Route::post("/logout", [LoginController::class, "logout"])->name('logout');
     Route::post("/fetch-github-contributions", [GithubRecordController::class, "__invoke"]);
-    Route::inertia('/photos', "Photos/PhotosPage");
-    Route::get("/photos-show/{fileName}", [PhotosController::class, 'show'])
+    Route::inertia('/files', "Photos/FilesPage");
+    Route::get("/photos-show/{fileName}", [FilesController::class, 'show'])
         ->where('fileName', '.*')
         ->name('photos.show');
-    Route::post('photos-upload', [PhotosController::class, "uploadPhotos"]);
-    Route::get('/get-photos', [PhotosController::class, "getPhotos"]);
-    Route::post('/delete-single-photo', [PhotosController::class, "deleteSinglePhoto"]);
-    Route::post('/delete-multiple-photos', [PhotosController::class, "deleteMultiplePhotos"]);
-    Route::get("/debug-button-pressed", [PhotosController::class, "debugButtonPressed"]);
+    Route::post('photos-upload', [FilesController::class, "uploadFiles"]);
+    Route::get('/get-files', [FilesController::class, "getFiles"]);
+    Route::post('/delete-single-photo', [FilesController::class, "deleteSingleFile"]);
+    Route::post('/delete-multiple-photos', [FilesController::class, "deleteMultipleFiles"]);
+    Route::get("/debug-button-pressed", [FilesController::class, "debugButtonPressed"]);
 });

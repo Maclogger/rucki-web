@@ -1,81 +1,45 @@
 import { ToastProps, ToastSeverity } from "@/stores/toastsStore";
+import { File, FilesResponse } from "./File";
 
 export enum PhotoStatus {
     LOADING, // when the <img> tag is loading the photo
     LOADED,
 }
 
-export interface PhotoResponse {
-    id: number,
-    file_name: string,
-    id_user: number,
-    original_name: string,
-    mime_type: string,
-    size: number,
-    readable_size: string,
-    created_at: string,
-    updated_at: string,
-}
 
-export class Photo {
-    id: number;
-    fileName: string;
-    idUser: number;
-    originalName: string;
-    mimeType: string;
-    readableSize: string;
-    createdAt: Date;
-    updatedAt: Date;
-    selected: boolean;
+export class Photo extends File {
     status: PhotoStatus;
     imgElement: HTMLImageElement | null;
 
-    constructor(data: PhotoResponse);
+    constructor(data: FilesResponse);
     constructor(data: Photo);
 
-    constructor(data: PhotoResponse | Photo) {
-        const isPhotoResponse = 'file_name' in data; // Ak má 'file_name', je to PhotoResponse (snake_case)
-        if (isPhotoResponse) {
-            console.log("okej");
-            this.id = data.id;
-            this.fileName = data.file_name;
-            this.idUser = data.id_user;
-            this.originalName = data.original_name;
-            this.mimeType = data.mime_type;
-            this.readableSize = data.readable_size;
-            this.createdAt = new Date(data.created_at);
-            this.updatedAt = new Date(data.updated_at);
-            this.selected = false;
+    constructor(data: FilesResponse | Photo) {
+        if ('file_name' in data) { // Dáta z API (FilesResponse - snake_case)
+            // Predpokladáme, že FilesResponse obsahuje všetky potrebné dáta pre Photo,
+            // takže stačí predať data do konštruktora predka.
+            super(data);
             this.status = PhotoStatus.LOADING;
             this.imgElement = null;
-        } else {
-            console.log("zle");
-            this.id = data.id;
-            this.fileName = data.fileName;
-            this.idUser = data.idUser;
-            this.originalName = data.originalName;
-            this.mimeType = data.mimeType;
-            this.readableSize = data.readableSize;
-            this.createdAt = data.createdAt;
-            this.updatedAt = data.updatedAt;
-            this.selected = data.selected;
+        } else { // Existujúci objekt Photo (camelCase)
+            super(data);
             this.status = data.status;
             this.imgElement = data.imgElement;
         }
+
+        // Ak sa vytvorí Photo z FilesResponse a mime_type nie je image,
+        // mohol by si tu pridať logiku na vyhodenie chyby alebo konverziu na File.
+        // Pre jednoduchosť predpokladáme, že FilesResponse pre Photo bude vždy image.
     }
 
     getFilePath(): string {
         return `/photos-show/${this.fileName}`;
     }
 
-    toggleSelection() {
-        this.selected = !this.selected;
-    }
-
     createCanvasWithImage(): [HTMLCanvasElement, null] | [null, ToastProps] {
         if (!this.imgElement) {
             return [null, {
-                message: `Image element could not be found by ID: ${this.fileName}.`,
+                message: `Image element could not be found for photo: ${this.fileName}.`,
                 severity: ToastSeverity.ERROR,
             }];
         }
@@ -83,7 +47,7 @@ export class Photo {
         const imageIsLoaded = this.imgElement.complete && this.imgElement.naturalHeight !== 0;
         if (!imageIsLoaded) {
             return [null, {
-                message: `Image is not fully loaded yet. Cannot copy.`,
+                message: `Image is not fully loaded yet. Cannot copy photo.`,
                 severity: ToastSeverity.ERROR,
             }];
         }
@@ -91,13 +55,13 @@ export class Photo {
         return [this.createCanvasWithImageImpl(), null];
     }
 
-    private createCanvasWithImageImpl() {
+    private createCanvasWithImageImpl(): HTMLCanvasElement {
         const canvas = document.createElement('canvas');
         canvas.width = this.imgElement!.naturalWidth;
         canvas.height = this.imgElement!.naturalHeight;
+        // Používame '2d' kontext pre prácu s obrázkami. '3d' je pre WebGL.
         const ctx = canvas.getContext('2d')!;
-        ctx.drawImage(this.imgElement!, 0, 0);
+        ctx.drawImage(this.imgElement!, 0, 0); // Oprava - drawImage potrebuje x a y pozíciu, nie len 1
         return canvas;
     }
-
 }

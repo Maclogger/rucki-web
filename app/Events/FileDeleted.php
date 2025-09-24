@@ -2,14 +2,13 @@
 
 namespace App\Events;
 
-use App\Models\Photo;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class PhotoUploaded implements ShouldBroadcast
+class FileDeleted implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -17,7 +16,8 @@ class PhotoUploaded implements ShouldBroadcast
      * Create a new event instance.
      */
     public function __construct(
-        public Photo $photo
+        public int $fileId,
+        public int $idUser,
     ) {}
 
     /**
@@ -28,7 +28,7 @@ class PhotoUploaded implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('users.' . $this->photo->id_user . '.photos'),
+            new PrivateChannel('users.' . $this->idUser . '.files'),
         ];
     }
 }

@@ -14,7 +14,7 @@ onMounted(() => {
 });
 
 const handleFotkyClick = () => {
-    router.get("/photos");
+    router.get("/files");
 }
 
 </script>
@@ -23,9 +23,8 @@ const handleFotkyClick = () => {
     <AuthLayout>
         <template #default>
             <div class="grid grid-cols-6 place-items-center gap-y-4 gap-x-4">
-                <SquareButton icon="fa-solid fa-image" :wip="false" :onClick="handleFotkyClick" label="Fotky" />
+                <SquareButton icon="fa-solid fa-image" :wip="false" :onClick="handleFotkyClick" label="Súbory" />
                 <GitHubFetchDataButton />
-                <SquareButton :wip="true" label="WIP" />
                 <SquareButton :wip="true" label="WIP" />
                 <SquareButton :wip="true" label="WIP" />
                 <SquareButton :wip="true" label="WIP" />

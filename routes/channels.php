@@ -6,6 +6,6 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('users.{userId}.photos', function ($user, $userId) {
+Broadcast::channel('users.{userId}.files', function ($user, $userId) {
     return (int) $user->id === (int) $userId;
 });
