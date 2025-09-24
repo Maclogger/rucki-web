@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import { inject, Ref } from 'vue';
 import BottomRowButton from './BottomRowButton.vue';
-import { usePhotosStore } from '@/stores/photosStore';
-import { Photo } from '@/Classes/Photo';
+import { useFilesStore } from '@/stores/filesStore';
+import { File } from '@/Classes/File';
 
-const photo: Ref<Photo> = inject<Ref<Photo>>("photo")!;
-const photoStore = usePhotosStore();
+const file: Ref<File> = inject<Ref<File>>("file")!;
+const filesStore = useFilesStore();
 
 
 const handleClick = () => {
-    console.log("Deleted");
-    photoStore.deleteSinglePhoto(photo.value);
+    filesStore.deleteSingleFile(file.value);
 }
 
 </script>

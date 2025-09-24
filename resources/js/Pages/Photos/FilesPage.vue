@@ -6,6 +6,7 @@ import { useUserStore } from '@/stores/userStore';
 import { File, FilesResponse } from '@/Classes/File';
 import { useFilesStore } from '@/stores/filesStore';
 import FilesControlPanel from './ControlPanel/FilesControlPanel.vue';
+import PhotoGalleryComp from './PhotoGalleryComp.vue';
 
 const filesStore = useFilesStore();
 const userStore = useUserStore();
@@ -71,7 +72,7 @@ onMounted(() => {
         </template>
         <template #default>
             <div class="flex flex-row">
-                <!-- <PhotoGalleryComp class="w-2/3" /> -->
+                <PhotoGalleryComp class="w-2/3" />
                 <FilesControlPanel />
                 <!-- <DebugButton /> -->
             </div>

@@ -3,11 +3,12 @@ import { computed, inject, Ref, ref } from 'vue';
 import BottomRowButton from './BottomRowButton.vue';
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { ToastSeverity, useToastsStore } from '@/stores/toastsStore';
+import { File } from '@/Classes/File';
 import { Photo, PhotoStatus } from '@/Classes/Photo';
 
 const toastStore = useToastsStore();
 
-const photo: Ref<Photo> = inject<Ref<Photo>>("photo")!;
+const file: Ref<File> = inject<Ref<File>>("file")!;
 
 const COPIED_DELAY: number = 2_000; // in ms, time after the button is in COPIED state
 enum CopyButtonState {
@@ -51,7 +52,7 @@ const writeBlobToClipboard = (blob: Blob | null) => {
 const copyImageToClipboard = async () => {
     if (status.value == CopyButtonState.WRITING_TO_CLIPBOARD) return;
     status.value = CopyButtonState.WRITING_TO_CLIPBOARD;
-    const [canvas, errorToast] = photo.value.createCanvasWithImage();
+    const [canvas, errorToast] = (file.value as Photo).createCanvasWithImage();
     if (errorToast) {
         toastStore.displayToast(errorToast);
         return;
@@ -66,10 +67,13 @@ const getColorClass = computed(() => {
 </script>
 
 <template>
-    <BottomRowButton :onClick="copyImageToClipboard" :disabled="photo.status == PhotoStatus.LOADING"
-        class="hover:bg-my-white hover:text-primary" :class="getColorClass">
-        <span v-if="status == CopyButtonState.WRITING_TO_CLIPBOARD" class="loading loading-spinner loading-xs"></span>
-        <font-awesome-icon v-else-if="status == CopyButtonState.COPIED" icon="fa-solid fa-check" />
-        <font-awesome-icon v-else icon="fa-solid fa-copy" />
-    </BottomRowButton>
+    <div v-if="file instanceof Photo">
+        <BottomRowButton :onClick="copyImageToClipboard" :disabled="file.status == PhotoStatus.LOADING"
+            class="hover:bg-my-white hover:text-primary" :class="getColorClass">
+            <span v-if="status == CopyButtonState.WRITING_TO_CLIPBOARD"
+                class="loading loading-spinner loading-xs"></span>
+            <font-awesome-icon v-else-if="status == CopyButtonState.COPIED" icon="fa-solid fa-check" />
+            <font-awesome-icon v-else icon="fa-solid fa-copy" />
+        </BottomRowButton>
+    </div>
 </template>

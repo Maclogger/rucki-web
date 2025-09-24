@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed, inject, ref, Ref } from 'vue';
 import BottomRowButton from './BottomRowButton.vue';
-import { Photo, PhotoStatus } from '@/Classes/Photo';
+import { File } from '@/Classes/File';
 import { ToastSeverity, useToastsStore } from '@/stores/toastsStore';
+import { Photo, PhotoStatus } from '@/Classes/Photo';
 
 const DOWNLOADED_DELAY: number = 2_000; // in ms, time after the button is in COPIED state
 
-const photo = inject<Ref<Photo>>("photo")!;
+const file = inject<Ref<File>>("file")!;
 const toastStore = useToastsStore();
 const isDownloaded = ref<boolean>(false);
 
@@ -14,7 +15,7 @@ const isDownloaded = ref<boolean>(false);
 const downloadBlob = (blob: Blob | null) => {
     if (!blob) {
         toastStore.displayToast({
-            message: "Obrázok sa nepodarilo stiahnuť.",
+            message: "Súbor sa nepodarilo stiahnuť.",
             severity: ToastSeverity.ERROR,
         });
         return;
@@ -22,7 +23,7 @@ const downloadBlob = (blob: Blob | null) => {
     const blobUrl = URL.createObjectURL(blob);
 
     const link = document.createElement('a');
-    link.download = photo.value.originalName;
+    link.download = file.value.originalName;
     link.href = blobUrl;
 
     document.body.appendChild(link);
@@ -30,7 +31,7 @@ const downloadBlob = (blob: Blob | null) => {
     document.body.removeChild(link);
 
     toastStore.displayToast({
-        message: "Fotka bola stiahnutá.",
+        message: "Súbor bol stiahnutý.",
         severity: ToastSeverity.SUCCESS
     });
     isDownloaded.value = true;
@@ -40,13 +41,15 @@ const downloadBlob = (blob: Blob | null) => {
 }
 
 const handleClick = async () => {
-    const [canvas, toast] = photo.value.createCanvasWithImage();
-    if (toast) {
-        toastStore.displayToast(toast);
-        return;
-    }
+    if (file.value instanceof Photo) {
+        const [canvas, toast] = file.value.createCanvasWithImage();
+        if (toast) {
+            toastStore.displayToast(toast);
+            return;
+        }
 
-    canvas.toBlob(downloadBlob, photo.value.mimeType);
+        canvas.toBlob(downloadBlob, file.value.mimeType);
+    }
 }
 
 const getIcon = computed(() => {
@@ -60,6 +63,12 @@ const getColorClass = computed(() => {
 </script>
 
 <template>
-    <BottomRowButton :icon="getIcon" :onClick="handleClick" :disabled="photo.status == PhotoStatus.LOADING"
-        class="hover:bg-my-white hover:text-primary" :class="getColorClass"></BottomRowButton>
+    <div v-if="file instanceof Photo">
+        <BottomRowButton :icon="getIcon" :onClick="handleClick" :disabled="file.status == PhotoStatus.LOADING"
+            class="hover:bg-my-white hover:text-primary" :class="getColorClass" />
+    </div>
+    <div v-else>
+        <BottomRowButton :icon="getIcon" :onClick="handleClick" class="hover:bg-my-white hover:text-primary"
+            :class="getColorClass" />
+    </div>
 </template>

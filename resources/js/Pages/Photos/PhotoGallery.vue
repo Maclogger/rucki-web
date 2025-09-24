@@ -2,20 +2,20 @@
 import { computed, ComputedRef, onMounted, onUpdated, ref } from 'vue';
 import PhotoComponent from './PhotoComponent.vue';
 import PhotoSkeleton from './PhotoSkeleton.vue';
-import { usePhotosStore } from '@/stores/photosStore';
+import { useFilesStore } from '@/stores/filesStore';
 import { storeToRefs } from 'pinia';
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { Photo } from '@/Classes/Photo';
+import { File } from '@/Classes/File';
 
-const photoStore = usePhotosStore();
+const filesStore = useFilesStore();
 
-const { photos, currentPage } = storeToRefs(photoStore);
+const { files, currentPage } = storeToRefs(filesStore);
 
 const maxPageNumber = ref<number>(1);
 const PHOTOS_PER_PAGE: number = 9;
 
-interface PhotoItem {
-    photo: Photo | null,
+interface FileItem {
+    file: File | null,
     key: string
 }
 
@@ -29,25 +29,25 @@ const makeid = (length: number) => {
     return result;
 }
 
-const paginatedPhotos: ComputedRef<PhotoItem[]> = computed(() => {
+const paginatedFiles: ComputedRef<FileItem[]> = computed(() => {
     const startIndex = (currentPage.value - 1) * PHOTOS_PER_PAGE;
     const endIndex = startIndex + PHOTOS_PER_PAGE;
-    const currentPhotos = photos.value.slice(startIndex, endIndex);
+    const currentPhotos = files.value.slice(startIndex, endIndex);
 
-    const photoItems: Array<PhotoItem> = currentPhotos.map(photo => {
+    const fileItems: Array<FileItem> = currentPhotos.map(file => {
         return {
-            photo: photo,
-            key: photo.fileName,
+            file: file,
+            key: file.fileName,
         };
     });
 
     if (currentPhotos.length < PHOTOS_PER_PAGE) {
         const skeletonsToAdd = PHOTOS_PER_PAGE - currentPhotos.length;
         for (let i = 0; i < skeletonsToAdd; i++) {
-            photoItems.push({ photo: null, key: makeid(5) });
+            fileItems.push({ file: null, key: makeid(5) });
         }
     }
-    return photoItems;
+    return fileItems;
 });
 
 onMounted(() => {
@@ -56,7 +56,7 @@ onMounted(() => {
 });
 
 const updateMaxPageNumber = () => {
-    maxPageNumber.value = Math.ceil(photos.value.length / PHOTOS_PER_PAGE);
+    maxPageNumber.value = Math.ceil(files.value.length / PHOTOS_PER_PAGE);
 }
 
 const nextPageClick = () => {
@@ -79,15 +79,14 @@ onUpdated(() => {
     updateMaxPageNumber();
 })
 
-
 </script>
 
 <template>
     <div class="flex flex-col gap-4">
         <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4">
-            <div id="all-photos-div" v-for="(photoItem, index) in paginatedPhotos" :key="photoItem.key">
-                <template v-if="photoItem.photo">
-                    <PhotoComponent :photo="photoItem.photo" />
+            <div id="all-photos-div" v-for="(photoItem) in paginatedFiles" :key="photoItem.key">
+                <template v-if="photoItem.file">
+                    <PhotoComponent :photo="photoItem.file" />
                 </template>
                 <template v-else>
                     <PhotoSkeleton />
