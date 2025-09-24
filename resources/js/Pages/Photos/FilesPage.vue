@@ -5,6 +5,7 @@ import { useEcho, } from '@laravel/echo-vue';
 import { useUserStore } from '@/stores/userStore';
 import { File, FilesResponse } from '@/Classes/File';
 import { useFilesStore } from '@/stores/filesStore';
+import FilesControlPanel from './ControlPanel/FilesControlPanel.vue';
 
 const filesStore = useFilesStore();
 const userStore = useUserStore();
@@ -71,7 +72,7 @@ onMounted(() => {
         <template #default>
             <div class="flex flex-row">
                 <!-- <PhotoGalleryComp class="w-2/3" /> -->
-                <!-- <PhotoControlPanel /> -->
+                <FilesControlPanel />
                 <!-- <DebugButton /> -->
             </div>
         </template>

@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { usePhotosStore } from '@/stores/photosStore';
+import { useFilesStore } from '@/stores/filesStore';
 import ActionButton from './ActionButton.vue';
-import { Photo } from '@/Classes/Photo';
+import { File } from '@/Classes/File';
 import { useToastsStore, ToastSeverity } from '@/stores/toastsStore';
 import JSZip from 'jszip';
+import { Photo } from '@/Classes/Photo';
 
-const photoStore = usePhotosStore();
+const filesStore = useFilesStore();
 const toastStore = useToastsStore();
 
 const props = defineProps<{
@@ -36,30 +37,33 @@ const downloadBlob = (blob: Blob, filename: string) => {
     URL.revokeObjectURL(blobUrl);
 }
 
-const handleMultipleDownload = async (selectedPhotos: Photo[]) => {
-    for (const photo of selectedPhotos) {
-        const [canvas, toast] = photo.createCanvasWithImage();
-        if (toast) {
-            toastStore.displayToast(toast);
-            continue;
-        }
+const handleMultipleDownload = async (selectedFiles: File[]) => {
+    for (const file of selectedFiles) {
+        if (file instanceof Photo) {
+            const photo = file as Photo;
+            const [canvas, toast] = photo.createCanvasWithImage();
+            if (toast) {
+                toastStore.displayToast(toast);
+                continue;
+            }
 
-        const blob = await new Promise<Blob | null>(resolve => {
-            canvas!.toBlob(resolve, photo.mimeType);
-        });
-
-        if (blob) {
-            downloadBlob(blob, photo.originalName);
-        } else {
-            toastStore.displayToast({
-                message: `Nepodarilo sa vytvoriť Blob pre fotku: ${photo.originalName}`,
-                severity: ToastSeverity.ERROR,
+            const blob = await new Promise<Blob | null>(resolve => {
+                canvas!.toBlob(resolve, photo.mimeType);
             });
+
+            if (blob) {
+                downloadBlob(blob, photo.originalName);
+            } else {
+                toastStore.displayToast({
+                    message: `Nepodarilo sa vytvoriť Blob pre fotku: ${photo.originalName}`,
+                    severity: ToastSeverity.ERROR,
+                });
+            }
         }
     }
 
     toastStore.displayToast({
-        message: `${selectedPhotos.length} fotiek bolo stiahnutých.`,
+        message: `${selectedFiles.length} súborov bolo stiahnutých.`,
         severity: ToastSeverity.SUCCESS
     });
 }
@@ -67,10 +71,11 @@ const handleMultipleDownload = async (selectedPhotos: Photo[]) => {
 /**
  * Zabalí všetky vybrané fotky do jedného ZIP archívu a stiahne ho.
  */
-const handleZipDownload = async (selectedPhotos: Photo[]) => {
+const handleZipDownload = async (selectedFiles: File[]) => {
     const zip = new JSZip();
 
-    for (const photo of selectedPhotos) {
+    for (const file of selectedFiles) {
+        const photo = file as Photo;
         const [canvas, toast] = photo.createCanvasWithImage();
         if (toast) {
             toastStore.displayToast(toast);
@@ -88,20 +93,20 @@ const handleZipDownload = async (selectedPhotos: Photo[]) => {
     }
 
     const zipBlob = await zip.generateAsync({ type: "blob" });
-    downloadBlob(zipBlob, "fotky.zip");
+    downloadBlob(zipBlob, "súbory.zip");
 
     toastStore.displayToast({
-        message: `ZIP archív s ${selectedPhotos.length} fotkami bol stiahnutý.`,
+        message: `ZIP archív s ${selectedFiles.length} súbormi bol stiahnutý.`,
         severity: ToastSeverity.SUCCESS
     });
 }
 
 const handleClick = async () => {
-    const selectedPhotos: Photo[] = photoStore.getSelectedPhotos;
+    const selectedFiles: File[] = filesStore.getSelectedFiles;
 
-    if (selectedPhotos.length === 0) {
+    if (selectedFiles.length === 0) {
         toastStore.displayToast({
-            message: "Nie sú vybraté žiadne fotky.",
+            message: "Nie sú vybraté žiadne súbory.",
             severity: ToastSeverity.WARNING,
         });
         return;
@@ -109,13 +114,13 @@ const handleClick = async () => {
 
     try {
         if (props.type === "multiple") {
-            await handleMultipleDownload(selectedPhotos);
+            await handleMultipleDownload(selectedFiles);
         } else {
-            await handleZipDownload(selectedPhotos);
+            await handleZipDownload(selectedFiles);
         }
     } catch (error) {
         toastStore.displayToast({
-            message: "Vyskytla sa neočakávaná chyba pri sťahovaní.",
+            message: "Pri sťahovaní súborov sa vyskytla neočakávaná chyba.",
             severity: ToastSeverity.ERROR,
         });
     }

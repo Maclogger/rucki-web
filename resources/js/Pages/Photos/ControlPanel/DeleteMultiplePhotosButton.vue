@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { usePhotosStore } from '@/stores/photosStore';
+import { useFilesStore } from '@/stores/filesStore';
 import ActionButton from './ActionButton.vue';
 
-const photoStore = usePhotosStore();
+const filesStore = useFilesStore();
 
 
 const handleClick = () => {
-    photoStore.deleteSelectedPhotos();
+    filesStore.deleteSelectedFiles();
 }
 
 </script>

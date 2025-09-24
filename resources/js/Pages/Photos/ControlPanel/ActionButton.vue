@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePhotosStore } from "@/stores/photosStore";
+import { useFilesStore } from "@/stores/filesStore";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { computed } from "vue";
 
@@ -14,10 +14,10 @@ const getBtnClass = () => {
     return props.btnClass ?? "btn-primary";
 }
 
-const photoStore = usePhotosStore();
+const filesStore = useFilesStore();
 
 const isDisabled = computed(() => {
-    return photoStore.getSelectedCount <= 0;
+    return filesStore.getSelectedCount <= 0;
 });
 
 

@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { usePhotosStore } from '@/stores/photosStore';
+import { useFilesStore } from '@/stores/filesStore';
 import { toFormattedDate } from '@/utils/dateHelper';
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { computed } from 'vue';
 
 
-const photoStore = usePhotosStore();
+const filesStore = useFilesStore();
 
 const handleRefreshClick = () => {
-    photoStore.refresh();
+    filesStore.refresh();
 }
 
 const lastRefreshDate = computed(() => {
-    return toFormattedDate(photoStore.refreshedAt, "dd.MM.yyyy HH:mm:ss");
+    return toFormattedDate(filesStore.refreshedAt, "dd.MM.yyyy HH:mm:ss");
 })
 
 const websocketConnection = computed(() => {
-    return photoStore.websocketConnection;
+    return filesStore.websocketConnection;
 })
 
 const getColorClass = () => {
