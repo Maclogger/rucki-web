@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import PhotoTopRow from './PhotoTopRow.vue';
+import FileTopRow from './PhotoTopRow.vue';
 import PhotoImage from './PhotoImage.vue';
-import PhotoBottomRow from './BottomRow/PhotoBottomRow.vue';
-import { Photo } from '@/Classes/Photo';
+import FileBottomRow from './BottomRow/PhotoBottomRow.vue';
+import { File } from '@/Classes/File';
 import { provide, toRef } from 'vue';
 
 const props = defineProps<{
-    photo: Photo
+    file: File
 }>();
 
-provide('photo', toRef(props.photo));
+provide('file', toRef(props.file));
 
 </script>
 
 <template>
     <div class="w-full h-72 rounded-xl flex flex-col overflow-hidden">
-        <PhotoTopRow />
+        <FileTopRow />
         <PhotoImage />
-        <PhotoBottomRow />
+        <FileBottomRow />
     </div>
 </template>

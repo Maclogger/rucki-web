@@ -1,7 +1,7 @@
-import { defineStore } from 'pinia';
-import { ToastSeverity, useToastsStore } from './toastsStore';
-import { File, FilesResponse } from '@/Classes/File';
-import { Photo } from '@/Classes/Photo';
+import {defineStore} from 'pinia';
+import {ToastSeverity, useToastsStore} from './toastsStore';
+import {File, FilesResponse} from '@/Classes/File';
+import {Photo} from '@/Classes/Photo';
 
 interface FilesDataResponse {
     files: Array<FilesResponse>,
@@ -74,14 +74,12 @@ export const useFilesStore = defineStore("filesStore", {
                     return;
                 }
 
-                const transformedFiles: File[] = data.files.map(fileResponse => {
+                this.files = data.files.map(fileResponse => {
                     if (fileResponse.mime_type.startsWith('image/')) {
                         return new Photo(fileResponse);
                     }
                     return new File(fileResponse);
                 });
-
-                this.files = transformedFiles;
                 this.refreshedAt = new Date();
                 this.status = FetchStatus.LOADED;
             } catch (error) {
@@ -93,7 +91,7 @@ export const useFilesStore = defineStore("filesStore", {
             }
         },
 
-        toggleSelectAllFiles() {
+        toggleSelectAll() {
             let newSelection: boolean = true;
             if (this.areAllFilesSelected) {
                 newSelection = false;

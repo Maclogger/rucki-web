@@ -13,11 +13,11 @@ const handleRefreshClick = () => {
 
 const lastRefreshDate = computed(() => {
     return toFormattedDate(filesStore.refreshedAt, "dd.MM.yyyy HH:mm:ss");
-})
+});
 
 const websocketConnection = computed(() => {
     return filesStore.websocketConnection;
-})
+});
 
 const getColorClass = () => {
     const connectedToWebSocket = !websocketConnection.value;

@@ -8,6 +8,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class FileUploaded implements ShouldBroadcast
 {
@@ -17,8 +18,9 @@ class FileUploaded implements ShouldBroadcast
      * Create a new event instance.
      */
     public function __construct(
-        public File $file
-    ) {}
+        public File $file,
+    ) {
+    }
 
     /**
      * Get the channels the event should broadcast on.

@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import UploadPhotosButton from './UploadPhotosButton.vue';
+import UploadFilesButton from './UploadFilesButton.vue';
 import RefreshRow from './RefreshRow.vue';
 import ActionsRow from './ActionsRow.vue';
-
 
 
 </script>
@@ -11,6 +10,6 @@ import ActionsRow from './ActionsRow.vue';
     <div class="flex flex-col flex-1 bg-primary-dark-transparent p-6 gap-6 rounded-xl">
         <RefreshRow />
         <ActionsRow />
-        <UploadPhotosButton />
+        <UploadFilesButton />
     </div>
 </template>

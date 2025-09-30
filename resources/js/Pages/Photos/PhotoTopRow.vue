@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Photo } from '@/Classes/Photo';
+import { File } from '@/Classes/File';
 import { toFormattedDate } from '@/utils/dateHelper';
 import { inject, Ref } from 'vue';
 
-const photo = inject<Ref<Photo>>("photo")!;
+const photo = inject<Ref<File>>("file")!;
 
 const getFormattedDate = () => {
     return toFormattedDate(photo.value.createdAt, "dd.MM.yyyy HH:mm:ss");

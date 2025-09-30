@@ -30,9 +30,9 @@ Route::middleware('auth')->group(function () {
     Route::get("/photos-show/{fileName}", [FilesController::class, 'show'])
         ->where('fileName', '.*')
         ->name('photos.show');
-    Route::post('photos-upload', [FilesController::class, "uploadFiles"]);
+    Route::post('files-upload', [FilesController::class, "uploadFiles"]);
     Route::get('/get-files', [FilesController::class, "getFiles"]);
-    Route::post('/delete-single-photo', [FilesController::class, "deleteSingleFile"]);
-    Route::post('/delete-multiple-photos', [FilesController::class, "deleteMultipleFiles"]);
+    Route::post('/delete-single-file', [FilesController::class, "deleteSingleFile"]);
+    Route::post('/delete-multiple-files', [FilesController::class, "deleteMultipleFiles"]);
     Route::get("/debug-button-pressed", [FilesController::class, "debugButtonPressed"]);
 });

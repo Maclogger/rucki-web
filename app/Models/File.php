@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class File extends Model
 {
-    use HasFactory;
-
+    protected $table = "files";
     protected $fillable = [
         'id_user',
         'file_name',
@@ -19,13 +18,14 @@ class File extends Model
 
     protected $appends = [
         'readable_size',
+        'is_photo',
     ];
 
 
     /**
      * Get the user that owns the photo.
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'id_user');
     }
@@ -46,5 +46,16 @@ class File extends Model
         $factor = min($factor, count($size) - 1);
 
         return sprintf("%.{$decimals}f", $bytes / (1024 ** $factor)) . ' ' . $size[$factor];
+    }
+
+    public function getIsPhotoAttribute(): bool
+    {
+        $mime = $this->attributes['mime_type'] ?? $this->mime_type ?? null;
+
+        if (!$mime) {
+            return false;
+        }
+
+        return str_starts_with(strtolower($mime), 'image/');
     }
 }

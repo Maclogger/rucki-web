@@ -4,19 +4,19 @@ import { useForm } from '@inertiajs/vue3';
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 const form = useForm({
-    photos: [] as File[],
+    files: [] as File[],
 });
 
 const handleFileChange = (event: Event) => {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length > 0) {
-        form.photos = Array.from(target.files);
+        form.files = Array.from(target.files);
         submit();
     }
 }
 
 const submit = () => {
-    form.post("photos-upload", {
+    form.post("/files-upload", {
         onSuccess: () => {
             const toast: ToastProps = {
                 message: "Fotky boli úspešne nahraté",
@@ -35,7 +35,7 @@ const submit = () => {
             useToastsStore().displayToast(toast);
         },
         onFinish: () => {
-            form.photos = [];
+            form.files = [];
         }
     });
 }
@@ -45,11 +45,10 @@ const submit = () => {
     <div class="btn btn-primary rounded-xl flex flex-row gap-6 h-24 p-4 relative overflow-hidden cursor-pointer">
         <div class="text-md p-0 m-0 flex flex-row gap-6">
             <font-awesome-icon icon="fa-solid fa-upload" class="m-0 p-0 text-2xl" />
-            <p class="m-0 p-0 text-lg">Nahrať fotky</p>
+            <p class="m-0 p-0 text-lg">Nahrať súbory</p>
         </div>
 
         <input type="file" @change="handleFileChange" multiple :disabled="form.processing"
-            accept="image/jpeg, image/png, image/webp, image/gif, image/bmp, image/tiff"
             class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" aria-label="Vybrať súbory na nahratie" />
 
         <progress v-if="form.progress" class="progress progress-secondary absolute bottom-0 left-0 w-full"

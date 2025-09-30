@@ -6,7 +6,8 @@ import { useUserStore } from '@/stores/userStore';
 import { File, FilesResponse } from '@/Classes/File';
 import { useFilesStore } from '@/stores/filesStore';
 import FilesControlPanel from './ControlPanel/FilesControlPanel.vue';
-import PhotoGalleryComp from './PhotoGalleryComp.vue';
+import FileGalleryComp from './FileGalleryComp.vue';
+import {Photo} from "@/Classes/Photo";
 
 const filesStore = useFilesStore();
 const userStore = useUserStore();
@@ -31,7 +32,12 @@ interface FileDeletedEvent {
 
 const { channel } = useEcho<FileUploadedEvent>(
     userChannel.value, "FileUploaded", (e) => {
-        const file = new File(e.file);
+        let file: File | null;
+        if (e.file.is_photo) {
+            file = new Photo(e.file);
+        } else {
+            file = new File(e.file);
+        }
         filesStore.newFileAdded(file);
     }
 );
@@ -72,7 +78,7 @@ onMounted(() => {
         </template>
         <template #default>
             <div class="flex flex-row">
-                <PhotoGalleryComp class="w-2/3" />
+                <FileGalleryComp class="w-2/3" />
                 <FilesControlPanel />
                 <!-- <DebugButton /> -->
             </div>

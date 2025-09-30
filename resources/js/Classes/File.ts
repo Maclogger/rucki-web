@@ -8,6 +8,7 @@ export interface FilesResponse {
     readable_size: string,
     created_at: string,
     updated_at: string,
+    is_photo: boolean,
 }
 
 export class File {

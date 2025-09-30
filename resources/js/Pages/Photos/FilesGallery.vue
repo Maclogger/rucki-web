@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ComputedRef, onMounted, onUpdated, ref } from 'vue';
 import PhotoComponent from './PhotoComponent.vue';
-import PhotoSkeleton from './PhotoSkeleton.vue';
+import FileSkeleton from './FileSkeleton.vue';
 import { useFilesStore } from '@/stores/filesStore';
 import { storeToRefs } from 'pinia';
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -19,11 +19,11 @@ interface FileItem {
     key: string
 }
 
-const makeid = (length: number) => {
-    var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
+const makeId = (length: number) => {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
@@ -44,7 +44,7 @@ const paginatedFiles: ComputedRef<FileItem[]> = computed(() => {
     if (currentPhotos.length < PHOTOS_PER_PAGE) {
         const skeletonsToAdd = PHOTOS_PER_PAGE - currentPhotos.length;
         for (let i = 0; i < skeletonsToAdd; i++) {
-            fileItems.push({ file: null, key: makeid(5) });
+            fileItems.push({ file: null, key: makeId(5) });
         }
     }
     return fileItems;
@@ -86,10 +86,10 @@ onUpdated(() => {
         <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4">
             <div id="all-photos-div" v-for="(photoItem) in paginatedFiles" :key="photoItem.key">
                 <template v-if="photoItem.file">
-                    <PhotoComponent :photo="photoItem.file" />
+                    <PhotoComponent :file="photoItem.file" />
                 </template>
                 <template v-else>
-                    <PhotoSkeleton />
+                    <FileSkeleton />
                 </template>
             </div>
         </div>
