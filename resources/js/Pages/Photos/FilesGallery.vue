@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ComputedRef, onMounted, onUpdated, ref } from 'vue';
-import PhotoComponent from './PhotoComponent.vue';
+import FileComponent from './FileComponent.vue';
 import FileSkeleton from './FileSkeleton.vue';
 import { useFilesStore } from '@/stores/filesStore';
 import { storeToRefs } from 'pinia';
@@ -86,7 +86,7 @@ onUpdated(() => {
         <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4">
             <div id="all-photos-div" v-for="(photoItem) in paginatedFiles" :key="photoItem.key">
                 <template v-if="photoItem.file">
-                    <PhotoComponent :file="photoItem.file" />
+                    <FileComponent :file="photoItem.file" />
                 </template>
                 <template v-else>
                     <FileSkeleton />

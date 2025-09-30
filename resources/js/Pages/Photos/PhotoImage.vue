@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { inject, onMounted, Ref, ref } from 'vue';
-import { File } from '@/Classes/File';
-import { ToastSeverity, useToastsStore } from '@/stores/toastsStore';
-import { Photo, PhotoStatus } from '@/Classes/Photo';
+import {inject, onMounted, Ref, ref} from 'vue';
+import {File} from '@/Classes/File';
+import {ToastSeverity, useToastsStore} from '@/stores/toastsStore';
+import {Photo, PhotoStatus} from '@/Classes/Photo';
 
 const file = inject<Ref<File>>("file")!;
 
@@ -47,9 +47,7 @@ onMounted(() => {
 
 
 <template>
-    <div v-if="file instanceof Photo">
-        <div class="bg-orange-400 w-full h-full">
-            <img ref="imageRef" :src="file.getFilePath()" class="w-full h-full object-center object-cover"  alt="imageRef"/>
-        </div>
+    <div class="bg-orange-400 w-full h-full">
+        <img ref="imageRef" :src="file.getFilePath()" class="w-full h-full object-center object-cover" alt="imageRef"/>
     </div>
 </template>
