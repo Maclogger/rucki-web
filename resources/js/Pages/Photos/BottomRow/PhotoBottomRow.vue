@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DownloadSinglePhotoButton from "./DownloadSinglePhotoButton.vue";
+import DownloadSingleFileButton from "./DownloadSingleFileButton.vue";
 import CopySinglePhotoButton from "./CopySinglePhotoButton.vue";
 import DeleteSinglePhotoButton from "./DeleteSinglePhotoButton.vue";
 </script>
@@ -7,7 +7,7 @@ import DeleteSinglePhotoButton from "./DeleteSinglePhotoButton.vue";
 
 <template>
     <div class="flex flex-row">
-        <DownloadSinglePhotoButton />
+        <DownloadSingleFileButton />
         <CopySinglePhotoButton />
         <DeleteSinglePhotoButton />
     </div>

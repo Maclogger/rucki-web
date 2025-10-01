@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, inject, Ref, ref } from 'vue';
+import {computed, inject, Ref, ref} from 'vue';
 import BottomRowButton from './BottomRowButton.vue';
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { ToastSeverity, useToastsStore } from '@/stores/toastsStore';
-import { File } from '@/Classes/File';
-import { Photo, PhotoStatus } from '@/Classes/Photo';
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import {ToastSeverity, useToastsStore} from '@/stores/toastsStore';
+import {File} from '@/Classes/File';
+import {Photo, PhotoStatus} from '@/Classes/Photo';
 
 const toastStore = useToastsStore();
 
@@ -29,7 +29,7 @@ const writeBlobToClipboard = (blob: Blob | null) => {
         return;
     }
 
-    const item = new ClipboardItem({ "image/png": blob });
+    const item = new ClipboardItem({"image/png": blob});
 
     navigator.clipboard.write([item]).then(() => {
         toastStore.displayToast({
@@ -67,13 +67,11 @@ const getColorClass = computed(() => {
 </script>
 
 <template>
-    <div v-if="file instanceof Photo">
-        <BottomRowButton :onClick="copyImageToClipboard" :disabled="file.status == PhotoStatus.LOADING"
-            class="hover:bg-my-white hover:text-primary" :class="getColorClass">
+    <BottomRowButton v-if="file instanceof Photo" :onClick="copyImageToClipboard" :disabled="file.status == PhotoStatus.LOADING"
+                     class="hover:bg-my-white hover:text-primary" :class="getColorClass">
             <span v-if="status == CopyButtonState.WRITING_TO_CLIPBOARD"
-                class="loading loading-spinner loading-xs"></span>
-            <font-awesome-icon v-else-if="status == CopyButtonState.COPIED" icon="fa-solid fa-check" />
-            <font-awesome-icon v-else icon="fa-solid fa-copy" />
-        </BottomRowButton>
-    </div>
+                  class="loading loading-spinner loading-xs"></span>
+        <font-awesome-icon v-else-if="status == CopyButtonState.COPIED" icon="fa-solid fa-check"/>
+        <font-awesome-icon v-else icon="fa-solid fa-copy"/>
+    </BottomRowButton>
 </template>

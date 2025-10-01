@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\FileDownloadController;
 use App\Http\Controllers\GithubController;
 use App\Http\Controllers\GithubRecordController;
 use App\Http\Controllers\LoginController;
@@ -34,5 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/get-files', [FilesController::class, "getFiles"]);
     Route::post('/delete-single-file', [FilesController::class, "deleteSingleFile"]);
     Route::post('/delete-multiple-files', [FilesController::class, "deleteMultipleFiles"]);
-    Route::get("/debug-button-pressed", [FilesController::class, "debugButtonPressed"]);
+    Route::get('/debug-button-pressed', [FilesController::class, "debugButtonPressed"]);
+    Route::get('/download/{fileId}', [FileDownloadController::class, "download"]);
+    Route::post('/download-multiple', [FileDownloadController::class, "downloadFilesInZip"]);
 });

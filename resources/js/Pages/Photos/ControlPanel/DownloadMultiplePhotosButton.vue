@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useFilesStore } from '@/stores/filesStore';
+import {useFilesStore} from '@/stores/filesStore';
 import ActionButton from './ActionButton.vue';
-import { File } from '@/Classes/File';
-import { useToastsStore, ToastSeverity } from '@/stores/toastsStore';
+import {File} from '@/Classes/File';
+import {useToastsStore, ToastSeverity} from '@/stores/toastsStore';
 import JSZip from 'jszip';
-import { Photo } from '@/Classes/Photo';
+import {Photo} from '@/Classes/Photo';
 
 const filesStore = useFilesStore();
 const toastStore = useToastsStore();
@@ -68,37 +68,38 @@ const handleMultipleDownload = async (selectedFiles: File[]) => {
     });
 }
 
-/**
- * Zabalí všetky vybrané fotky do jedného ZIP archívu a stiahne ho.
- */
 const handleZipDownload = async (selectedFiles: File[]) => {
-    const zip = new JSZip();
+    const ids = selectedFiles.map((file: File) => file.id);
+    window.axios.post("/download-multiple",
+        {fileIds: ids},
+        {responseType: 'blob'})
+        .then((response) => {
+            const filename = "rucki.zip";
+            const blob = new Blob([response.data], {type: 'application/zip'});
 
-    for (const file of selectedFiles) {
-        const photo = file as Photo;
-        const [canvas, toast] = photo.createCanvasWithImage();
-        if (toast) {
-            toastStore.displayToast(toast);
-            continue;
-        }
+            const url = window.URL.createObjectURL(blob);
 
-        const blob = await new Promise<Blob | null>(resolve => {
-            canvas!.toBlob(resolve, photo.mimeType);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+
+            link.click();
+
+            link.remove();
+            window.URL.revokeObjectURL(url);
+
+            useToastsStore().displayToast({
+                message: `ZIP archív '${filename}' sa začal sťahovať.`,
+                severity: ToastSeverity.SUCCESS,
+            });
+        })
+        .catch((error) => {
+            useToastsStore().displayToast({
+                message: "ZIP sa nepodarilo stiahnuť. " + error.message,
+                severity: ToastSeverity.ERROR,
+            });
         });
-
-        if (blob) {
-            // Pridáme súbor do zipu
-            zip.file(photo.originalName, blob);
-        }
-    }
-
-    const zipBlob = await zip.generateAsync({ type: "blob" });
-    downloadBlob(zipBlob, "súbory.zip");
-
-    toastStore.displayToast({
-        message: `ZIP archív s ${selectedFiles.length} súbormi bol stiahnutý.`,
-        severity: ToastSeverity.SUCCESS
-    });
 }
 
 const handleClick = async () => {
@@ -129,5 +130,5 @@ const handleClick = async () => {
 </script>
 
 <template>
-    <ActionButton icon="fa-solid fa-download" :sub-title="getNiceSubTitle()" :onClick="handleClick" />
+    <ActionButton icon="fa-solid fa-download" :sub-title="getNiceSubTitle()" :onClick="handleClick"/>
 </template>
