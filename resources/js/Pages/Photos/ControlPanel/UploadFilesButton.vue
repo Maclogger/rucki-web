@@ -18,15 +18,13 @@ const handleFileChange = (event: Event) => {
 const submit = () => {
     form.post("/files-upload", {
         onSuccess: () => {
-            const toast: ToastProps = {
+            useToastsStore().displayToast({
                 message: "Fotky boli úspešne nahraté",
                 severity: ToastSeverity.SUCCESS,
-            };
-            useToastsStore().displayToast(toast);
-
-            form.reset();
+            });
         },
         onError: (errors) => {
+            form.reset();
             console.error("Errors during photo upload:", errors);
             const toast: ToastProps = {
                 message: "Chyba pri nahrávaní fotiek",
@@ -36,6 +34,7 @@ const submit = () => {
         },
         onFinish: () => {
             form.files = [];
+            form.reset();
         }
     });
 }

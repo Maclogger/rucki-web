@@ -10,19 +10,7 @@ const isDownloaded = ref<boolean>(false);
 
 
 const handleClick = async () => {
-    const fileId = file.value.id;
-    const downloadUrl = `/download/${fileId}`;
-    const link = document.createElement('a');
-    link.href = downloadUrl;
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    useToastsStore().displayToast({
-        message: "Sťahovanie sa začalo.",
-        severity: ToastSeverity.SUCCESS,
-    });
+    file.value.download();
 }
 
 const getIcon = computed(() => {
