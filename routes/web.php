@@ -24,7 +24,11 @@ Route::get('/refresh-github-chart-data', [GithubController::class, "getInitialGi
 
 Route::get('/fetch-github-chart-data/{year}', [GithubController::class, "getGithubChartData"]);
 Route::inertia('/buffer', "Buffer/BufferPage");
-
+Route::get('/buffer/{code}', function ($code) {
+    return Inertia::render('Buffer/BufferPage', [
+        'code' => $code,
+    ]);
+});
 Route::middleware('auth')->group(function () {
     Route::get("/home", [HomeController::class, "index"])->name('home');
     Route::post("/logout", [LoginController::class, "logout"])->name('logout');
