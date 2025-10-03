@@ -23,10 +23,6 @@ class FilesController extends Controller
      */
     public function show($fileName)
     {
-        if (!Auth::check()) {
-            abort(403, 'Unauthorized');
-        }
-
         $photo = File::where('file_name', $fileName)
             ->where('id_user', Auth::id())
             ->first();
@@ -61,12 +57,6 @@ class FilesController extends Controller
      */
     public function uploadFiles(Request $request)
     {
-        if (!Auth::check()) {
-            return back()->withErrors([
-                'message' => "Attempt to upload files by unauthenticated user.",
-            ]);
-        }
-
         $request->validate([
             'files' => 'required|array',
             'files.*' => 'max:200000',

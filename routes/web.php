@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\BufferController;
 use App\Http\Controllers\FileDownloadController;
 use App\Http\Controllers\GithubController;
 use App\Http\Controllers\GithubRecordController;
@@ -27,6 +28,7 @@ Route::get('/buffer/{code}', function ($code) {
         'code' => $code,
     ]);
 });
+Route::post('buffer/files-upload', [BufferController::class, "uploadFiles"]);
 
 // AUTH
 Route::middleware('auth')->group(function () {

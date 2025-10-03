@@ -51,7 +51,6 @@ onUnmounted(() => {
 </script>
 
 <template>
-
     <div class="h-[100vh] flex flex-col justify-center items-center p-10">
         <div class="flex flex-col bg-primary-dark-transparent rounded-lg mx-auto gap-8 p-14">
             <div>
@@ -65,7 +64,7 @@ onUnmounted(() => {
                            :value="code.at(digitNumber - 1)"/>
             </div>
             <UploadFilesButton v-if="!wholeCodeIsTyped" :disabled="true"/>
-            <UploadFilesButton v-else/>
+            <UploadFilesButton v-else :bufferCode="code"/>
         </div>
     </div>
 </template>
