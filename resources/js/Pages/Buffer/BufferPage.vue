@@ -36,7 +36,10 @@ const wholeCodeIsTyped = computed(() => {
 onMounted(() => {
     window.addEventListener("keydown", handleKeyDown);
     if (props.code) {
-        code.value = props.code.toUpperCase();
+        code.value = props.code
+            .replace(/[^a-zA-Z0-9]/g, '')
+            .slice(0, NUMBER_OF_DIGITS)
+            .toUpperCase();
     }
 });
 

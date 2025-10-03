@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AppController;
-use App\Http\Controllers\BufferController;
 use App\Http\Controllers\FileDownloadController;
 use App\Http\Controllers\GithubController;
 use App\Http\Controllers\GithubRecordController;
@@ -13,22 +12,23 @@ use Inertia\Inertia;
 
 Route::get('/', [AppController::class, 'index'])->name('app.index');
 
-Route::get('/lietadlo', function () {
-    return Inertia::render('Lietadlo/Lietadlo');
-})->name('lietadlo');
+Route::inertia('/lietadlo', "Lietadlo/Lietadlo");
 
 Route::get('login', [LoginController::class, "index"])->name("loginIndex");
 Route::post('login', [LoginController::class, "login"])->name("login");
 
 Route::get('/refresh-github-chart-data', [GithubController::class, "getInitialGithubStoreData"]);
-
 Route::get('/fetch-github-chart-data/{year}', [GithubController::class, "getGithubChartData"]);
+
+// BUFFER
 Route::inertia('/buffer', "Buffer/BufferPage");
 Route::get('/buffer/{code}', function ($code) {
     return Inertia::render('Buffer/BufferPage', [
         'code' => $code,
     ]);
 });
+
+// AUTH
 Route::middleware('auth')->group(function () {
     Route::get("/home", [HomeController::class, "index"])->name('home');
     Route::post("/logout", [LoginController::class, "logout"])->name('logout');
