@@ -3,6 +3,12 @@ import { ToastProps, ToastSeverity, useToastsStore } from '@/stores/toastsStore'
 import { useForm } from '@inertiajs/vue3';
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
+const props = withDefaults(defineProps<{
+    uploadingFromBuffer?: boolean;
+}>(), {
+    uploadingFromBuffer: false,
+});
+
 const form = useForm({
     files: [] as File[],
 });
@@ -16,7 +22,8 @@ const handleFileChange = (event: Event) => {
 }
 
 const submit = () => {
-    form.post("/files-upload", {
+    const url = props.uploadingFromBuffer ? '/files/upload' : '/files/upload'; // TODO zmeniť na code
+    form.post(url, {
         onSuccess: () => {
             useToastsStore().displayToast({
                 message: "Fotky boli úspešne nahraté",
@@ -38,6 +45,7 @@ const submit = () => {
         }
     });
 }
+
 </script>
 
 <template>

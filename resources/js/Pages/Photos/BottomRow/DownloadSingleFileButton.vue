@@ -2,7 +2,6 @@
 import {computed, inject, ref, Ref} from 'vue';
 import BottomRowButton from './BottomRowButton.vue';
 import {File} from '@/Classes/File';
-import {ToastSeverity, useToastsStore} from '@/stores/toastsStore';
 import {Photo, PhotoStatus} from '@/Classes/Photo';
 
 const file = inject<Ref<File>>("file")!;

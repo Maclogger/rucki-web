@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\BufferController;
 use App\Http\Controllers\FileDownloadController;
 use App\Http\Controllers\GithubController;
 use App\Http\Controllers\GithubRecordController;
@@ -21,7 +22,8 @@ Route::post('login', [LoginController::class, "login"])->name("login");
 
 Route::get('/refresh-github-chart-data', [GithubController::class, "getInitialGithubStoreData"]);
 
-Route::get("/fetch-github-chart-data/{year}", [GithubController::class, "getGithubChartData"]);
+Route::get('/fetch-github-chart-data/{year}', [GithubController::class, "getGithubChartData"]);
+Route::inertia('/buffer', "Buffer/BufferPage");
 
 Route::middleware('auth')->group(function () {
     Route::get("/home", [HomeController::class, "index"])->name('home');

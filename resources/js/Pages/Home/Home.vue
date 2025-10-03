@@ -17,6 +17,10 @@ const handleFotkyClick = () => {
     router.get("/files");
 }
 
+const handleBufferClick = () => {
+    router.get("/buffer");
+}
+
 </script>
 
 <template>
@@ -25,7 +29,7 @@ const handleFotkyClick = () => {
             <div class="grid grid-cols-6 place-items-center gap-y-4 gap-x-4">
                 <SquareButton icon="fa-solid fa-image" :wip="false" :onClick="handleFotkyClick" label="Súbory" />
                 <GitHubFetchDataButton />
-                <SquareButton :wip="true" label="WIP" />
+                <SquareButton icon="fa-solid fa-file-arrow-up" :wip="false" label="Buffer" :onClick="handleBufferClick"/>
                 <SquareButton :wip="true" label="WIP" />
                 <SquareButton :wip="true" label="WIP" />
                 <SquareButton :wip="true" label="WIP" />

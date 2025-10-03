@@ -23,7 +23,7 @@ const getIcon = () => {
 }
 
 const isDisabled = (): boolean => {
-    return props.wip === true;
+    return props.wip;
 }
 
 const handleClick = (): void => {
