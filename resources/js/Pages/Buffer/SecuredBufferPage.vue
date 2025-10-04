@@ -5,7 +5,12 @@ import BufferComponent from "@/Pages/Buffer/BufferComponent.vue";
 </script>
 
 <template>
-    <AuthLayout>
-        <BufferComponent/>
+    <AuthLayout >
+        <template #headline>
+            <p class="text-2xl">Buffer</p>
+        </template>
+        <template #default>
+            <BufferComponent/>
+        </template>
     </AuthLayout>
 </template>

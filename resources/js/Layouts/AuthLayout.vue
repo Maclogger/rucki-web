@@ -42,15 +42,15 @@ const emoji = ref(EmojiHelper.getRandomEmoji());
                         <slot name="headline"/>
                     </div>
                     <div v-else>
-                        <h1 class="text-2xl p-0 m-0 h-full">
-                            <span class="p-0 font-normal">Vitaj </span>
+                        <h1 class="text-2xl p-0 m-0 h-full flex flex-row flex-nowrap items-center whitespace-nowrap">
+                            <span class="p-0 font-normal">Vitaj&nbsp;</span>
                             <span class="p-0 font-bold">{{ formatName() }}</span>
-                            <span class="p-0 ml-1 font-normal"> {{ emoji }}!</span>
+                            <span class="p-0 ml-1 font-normal mr-1">{{ emoji }}!</span>
                         </h1>
                     </div>
                 </div>
-                <button @click="onLogout()" class="btn btn-secondary text-lg">
-                    Odhlásiť sa
+                <button @click="onLogout()" class="btn btn-secondary">
+                    <span class="hidden sm:inline">Odhlásiť sa</span>
                     <font-awesome-icon icon="fa-solid fa-right-from-bracket"/>
                 </button>
             </div>

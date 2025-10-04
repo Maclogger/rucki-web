@@ -66,7 +66,7 @@ const displayKeyboard = () => {
 </script>
 
 <template>
-    <div class="flex flex-col md:justify-center items-center h-full p-6">
+    <div class="flex flex-col md:justify-center items-center h-full md:p-6">
         <!-- Skrytý input pre mobilné klávesnice -->
         <input
             ref="inputRef"
@@ -81,7 +81,7 @@ const displayKeyboard = () => {
         />
 
         <!-- Hlavná časť -->
-        <div class="flex flex-col bg-primary-dark-transparent rounded-lg mx-auto gap-8 p-6">
+        <div class="flex flex-col bg-primary-dark-transparent rounded-lg gap-8 p-6 md:w-min sm:w-full">
             <div>
                 <p class="text-3xl">Marekov Buffer {{ emoji }}</p>
                 <p class="text-lg">Zadaj kód</p>
