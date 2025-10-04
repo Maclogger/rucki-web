@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { User, useUserStore } from '@/stores/userStore';
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { computed, ComputedRef, provide } from 'vue';
-import { router } from '@inertiajs/vue3';
+import {User, useUserStore} from '@/stores/userStore';
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import {computed, ComputedRef, ref} from 'vue';
+import {router} from '@inertiajs/vue3';
+import {EmojiHelper} from "@/Classes/EmojiHelper";
 
 defineProps<{}>()
 
@@ -22,6 +23,8 @@ const formatName = () => {
     return user.value.username.charAt(0).toUpperCase() + user.value.username.slice(1);
 }
 
+const emoji = ref(EmojiHelper.getRandomEmoji());
+
 </script>
 
 <template>
@@ -32,25 +35,26 @@ const formatName = () => {
                 <div class="flex flex-row gap-3">
                     <div class="h-full">
                         <button class="btn btn-primary" @click="router.get('/home');">
-                            <font-awesome-icon icon="fa-solid fa-house text-2xl" />
+                            <font-awesome-icon icon="fa-solid fa-house text-2xl"/>
                         </button>
                     </div>
                     <div class="flex items-center" v-if="$slots.headline">
-                        <slot name="headline" />
+                        <slot name="headline"/>
                     </div>
                     <div v-else>
                         <h1 class="text-2xl p-0 m-0 h-full">
                             <span class="p-0 font-normal">Vitaj </span>
                             <span class="p-0 font-bold">{{ formatName() }}</span>
-                            <span class="p-0 font-normal"> 😜!</span>
+                            <span class="p-0 ml-1 font-normal"> {{ emoji }}!</span>
                         </h1>
                     </div>
                 </div>
                 <button @click="onLogout()" class="btn btn-secondary text-lg">
-                    Odhlásiť sa <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
+                    Odhlásiť sa
+                    <font-awesome-icon icon="fa-solid fa-right-from-bracket"/>
                 </button>
             </div>
-            <slot />
+            <slot/>
         </div>
     </div>
     <div v-else>

@@ -3,6 +3,7 @@
 import CodeDigit from "@/Pages/Buffer/CodeDigit.vue";
 import UploadFilesButton from "@/Pages/Photos/ControlPanel/UploadFilesButton.vue";
 import {computed, onMounted, onUnmounted, ref} from "vue";
+import {EmojiHelper} from "@/Classes/EmojiHelper";
 
 const NUMBER_OF_DIGITS = 4;
 const code = ref("");
@@ -32,21 +33,29 @@ const wholeCodeIsTyped = computed(() => {
     return code.value.length >= NUMBER_OF_DIGITS;
 })
 
+const setCodeFromUrl = (codeFromUrl: string) => {
+    code.value = codeFromUrl
+        .replace(/[^a-zA-Z0-9]/g, '')
+        .slice(0, NUMBER_OF_DIGITS)
+        .toUpperCase();
+}
+
+const emoji = ref(EmojiHelper.getRandomEmoji());
 
 onMounted(() => {
-    window.addEventListener("keydown", handleKeyDown);
     if (props.code) {
-        code.value = props.code
-            .replace(/[^a-zA-Z0-9]/g, '')
-            .slice(0, NUMBER_OF_DIGITS)
-            .toUpperCase();
+        setCodeFromUrl(props.code);
     }
+    window.addEventListener("keydown", handleKeyDown);
 });
 
 onUnmounted(() => {
     window.removeEventListener("keydown", handleKeyDown);
 });
 
+const handleUploadFinished = () => {
+    code.value = "";
+}
 
 </script>
 
@@ -54,8 +63,8 @@ onUnmounted(() => {
     <div class="h-[100vh] flex flex-col justify-center items-center p-10">
         <div class="flex flex-col bg-primary-dark-transparent rounded-lg mx-auto gap-8 p-14">
             <div>
-                <p class="text-3xl">Marekov Buffer</p>
-                <p class="text-lg">Zadajte kód</p>
+                <p class="text-3xl">Marekov Buffer {{ emoji }}</p>
+                <p class="text-lg">Zadaj kód</p>
             </div>
             <div class="flex flex-row gap-4">
                 <CodeDigit v-for="digitNumber in NUMBER_OF_DIGITS"
@@ -64,7 +73,7 @@ onUnmounted(() => {
                            :value="code.at(digitNumber - 1)"/>
             </div>
             <UploadFilesButton v-if="!wholeCodeIsTyped" :disabled="true"/>
-            <UploadFilesButton v-else :bufferCode="code"/>
+            <UploadFilesButton v-else :bufferCode="code" @uploadFinished="handleUploadFinished"/>
         </div>
     </div>
 </template>

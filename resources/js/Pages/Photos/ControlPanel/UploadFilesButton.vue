@@ -7,6 +7,9 @@ const props = defineProps<{
     bufferCode?: string;
 }>();
 
+const emit = defineEmits(['uploadFinished']);
+
+
 const form = useForm({
     files: [] as File[],
     bufferCode: props.bufferCode,
@@ -21,7 +24,7 @@ const handleFileChange = (event: Event) => {
 }
 
 const submit = () => {
-    const url = props.bufferCode ? 'files-upload' : "/files/upload";
+    const url = props.bufferCode ? '/buffer/files-upload' : "/files/upload";
     form.post(url, {
         onSuccess: () => {
             useToastsStore().displayToast({
@@ -33,7 +36,7 @@ const submit = () => {
             form.reset();
             console.error("Errors during photo upload:", errors);
             const toast: ToastProps = {
-                message: "Chyba pri nahrávaní fotiek",
+                message: "Chyba pri nahrávaní súborov",
                 severity: ToastSeverity.ERROR,
             };
             useToastsStore().displayToast(toast);
@@ -41,6 +44,7 @@ const submit = () => {
         onFinish: () => {
             form.files = [];
             form.reset();
+            emit('uploadFinished');
         }
     });
 }
