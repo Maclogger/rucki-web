@@ -1,11 +1,11 @@
 <script setup lang="ts">
 
+import AuthLayout from "@/Layouts/AuthLayout.vue";
 import BufferComponent from "@/Pages/Buffer/BufferComponent.vue";
 </script>
 
 <template>
-    <div class="h-[100vh] md:container md:mx-auto">
+    <AuthLayout>
         <BufferComponent/>
-    </div>
+    </AuthLayout>
 </template>
-

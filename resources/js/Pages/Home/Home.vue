@@ -18,7 +18,7 @@ const handleFotkyClick = () => {
 }
 
 const handleBufferClick = () => {
-    router.get("/buffer");
+    router.get("/buffer-secured");
 }
 
 

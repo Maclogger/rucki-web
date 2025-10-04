@@ -13,19 +13,29 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $username = env("WEB_USERNAME");
-        $password = env("WEB_PASSWORD");
+        $this->createAccountBasedOnEnvVariables("BUFFER_CODE_ACCOUNT_USERNAME", "BUFFER_CODE_ACCOUNT_PASSWORD");
+        $this->createAccountBasedOnEnvVariables("WEB_USERNAME", "WEB_PASSWORD");
+    }
+
+    private function createAccountBasedOnEnvVariables(string $envUsernameKey, string $envPasswordKey): void
+    {
+        $username = env($envUsernameKey);
+        $password = env($envPasswordKey);
 
         if ($username == null || $password == null) {
-            Log::info("User was not created, env variables could not be find.");
+            Log::info("Account was not created, .env variables [$envUsernameKey, $envPasswordKey] could not be found.");
             return;
         }
 
-        $username = new User([
+        $this->createUser($username, $password);
+    }
+
+    private function createUser($username, $password): void
+    {
+        $user = new User([
             "username" => $username,
             "password" => $password,
         ]);
-
-        $username->save();
+        $user->save();
     }
 }
