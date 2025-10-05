@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\BufferCode;
 use Illuminate\Http\Request;
-use function Symfony\Component\String\s;
 
 class BufferController extends Controller
 {

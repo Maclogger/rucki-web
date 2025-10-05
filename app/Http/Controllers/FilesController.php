@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\FileDeleted;
 use App\Events\FileUploaded;
 use App\Models\File;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,8 +24,12 @@ class FilesController extends Controller
      */
     public function show($fileName)
     {
+        $userIds = [
+            Auth::id(),
+            User::where("username", env("BUFFER_CODE_ACCOUNT_USERNAME"))->first()->id
+        ];
         $photo = File::where('file_name', $fileName)
-            ->where('id_user', Auth::id())
+            ->whereIn('id_user',  $userIds)
             ->first();
 
         if (!$photo) {
@@ -131,7 +136,11 @@ class FilesController extends Controller
         // 2) Try to create the DB record. If this fails, attempt to remove the stored file to avoid orphaned files.
         try {
             $file = new File();
-            $file->id_user = Auth::id();
+            $author = $this->getAuthor();
+            if ($author == null) {
+                throw new Exception("Failed to store uploaded file. Author could not be set.");
+            }
+            $file->id_user = $author->id;
             $file->file_name = $uniqueFileName;
             $file->original_name = $originalName;
             $file->mime_type = $mimeType;
@@ -155,6 +164,29 @@ class FilesController extends Controller
         // 3) Both storage and DB succeeded; dispatch event and return the model
         FileUploaded::dispatch($file);
         return $file;
+    }
+
+
+    private function getAuthor(): User | null
+    {
+        $loggedUser = Auth::user();
+        if ($loggedUser) {
+            return $loggedUser;
+        }
+
+        $bufferCodeAccountUsernameKey = "BUFFER_CODE_ACCOUNT_USERNAME";
+        $bufferCodeAccountUsername = env($bufferCodeAccountUsernameKey);
+        if ($bufferCodeAccountUsername == null) {
+            Log::error("$bufferCodeAccountUsernameKey was not FOUND in .env file.");
+            return null;
+        }
+        $bufferCodeAccount = User::where("username", $bufferCodeAccountUsername)->first();
+        if ($bufferCodeAccount == null) {
+            Log::error("BufferCodeUser was not FOUND in DB. Username=$bufferCodeAccountUsername");
+            return null;
+        }
+
+        return $bufferCodeAccount;
     }
 
     public function getFiles()
@@ -219,4 +251,5 @@ class FilesController extends Controller
     public function debugButtonPressed()
     {
     }
+
 }

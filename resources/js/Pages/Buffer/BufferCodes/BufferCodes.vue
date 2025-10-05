@@ -37,7 +37,7 @@ const handleEnabledCheck = (code: BufferCode) => {
             <p class="text-2xl">Buffer kódy</p>
         </template>
         <template #default>
-            <div class="flex gap-4 flex-wrap">
+            <div class="flex gap-4 flex-wrap justify-center">
                 <NewBufferCodeForm/>
                 <div class="bg-primary-dark-transparent rounded-xl w-full h-100 p-4 max-w-90">
                     <div class="flex flex-row justify-between mb-3 ml-4 items-center">

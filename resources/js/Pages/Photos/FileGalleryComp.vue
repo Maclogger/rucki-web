@@ -8,14 +8,9 @@ const filesStore = useFilesStore();
 
 const { files, status: filesStoreFetchStatus } = storeToRefs(filesStore);
 
-const debugButtonPressed = () => {
-    console.log("debugButtonPressed");
-}
-
 </script>
 
 <template>
-    <button class="btn btn-primary absolute top-0 left-0" @click="debugButtonPressed()">DEBUG</button>
     <div v-bind="$attrs" class="pr-4 w-full">
         <div v-if="filesStoreFetchStatus == FetchStatus.LOADING"
             class="bg-primary-dark-transparent rounded-xl h-full flex justify-center items-center">
