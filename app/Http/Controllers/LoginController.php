@@ -23,8 +23,7 @@ class LoginController extends Controller
 
         Log::info("User" . $request->username . " was logged in successfully.");
 
-        return Inertia::location(route("home")); // this will do the full RELOAD of the page so the user is correctly handled by the Inertia
-        //return redirect()->intended(route("home")); // this will act as a SPA, but the user would not be loaded
+        return Inertia::location("/home");
     }
 
     public function logout(Request $request)
