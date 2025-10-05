@@ -24,7 +24,7 @@ const handleFileChange = (event: Event) => {
 }
 
 const submit = () => {
-    const url = props.bufferCode ? '/buffer/files-upload' : "/files/upload";
+    const url = props.bufferCode ? '/buffer/files-upload' : "/files-upload";
     form.post(url, {
         onSuccess: () => {
             useToastsStore().displayToast({
