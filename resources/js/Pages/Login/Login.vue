@@ -23,14 +23,14 @@ const submit = () => {
         <div class="card card-md xl:w-1/4 lg:w-1/3 md:w-2/3 bg-primary-dark-transparent">
             <div class="card-body w-full">
                 <form @submit.prevent="submit">
-                    <h1 class="card-title text-[2em] mb-2">Admin Login</h1>
-                    <label for="username">Username</label>
+                    <h1 class="card-title text-[2em] mb-2">Prihlásenie</h1>
+                    <label for="username">Meno</label>
                     <input v-model="form.username" id="username" class="input w-full mb-2" />
 
-                    <label for="password">Password</label>
+                    <label for="password">Heslo</label>
                     <input v-model="form.password" id="password" type="password" class="input w-full" />
 
-                    <button class="btn btn-primary mt-4 w-full" type="submit">Login</button>
+                    <button class="btn btn-primary mt-4 w-full" type="submit">Prihlásiť sa</button>
                 </form>
             </div>
         </div>

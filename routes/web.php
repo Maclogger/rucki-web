@@ -33,6 +33,7 @@ Route::post('buffer/files-upload', [BufferController::class, "uploadFiles"]);
 // AUTH
 Route::middleware('auth')->group(function () {
     Route::inertia('/buffer-secured', "Buffer/SecuredBufferPage");
+    Route::inertia('/github-secured', "GitHub/GitHubPage");
     Route::get("/home", [HomeController::class, "index"])->name('home');
     Route::post("/logout", [LoginController::class, "logout"])->name('logout');
     Route::post("/fetch-github-contributions", [GithubRecordController::class, "__invoke"]);
