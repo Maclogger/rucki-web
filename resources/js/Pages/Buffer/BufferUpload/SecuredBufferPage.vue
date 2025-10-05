@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import AuthLayout from "@/Layouts/AuthLayout.vue";
-import BufferComponent from "@/Pages/Buffer/BufferComponent.vue";
+import BufferComponent from "@/Pages/Buffer/BufferUpload/BufferComponent.vue";
 </script>
 
 <template>

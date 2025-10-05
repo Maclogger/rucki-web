@@ -1,15 +1,7 @@
 <script setup lang="ts">
 import SquareButton from "@/Pages/Home/SquareButton.vue";
-import {onMounted} from 'vue';
-import {useGithubStore} from '@/stores/githubStore';
 import {router} from '@inertiajs/vue3';
 import AuthLayout from "@/Layouts/AuthLayout.vue";
-
-const gitHubStore = useGithubStore();
-
-onMounted(() => {
-    gitHubStore.refresh();
-});
 
 const handleFotkyClick = () => {
     router.get("/files");
@@ -23,6 +15,10 @@ const handleGitHubClick = () => {
     router.get("/github-secured");
 }
 
+const handleBufferCodesClick = () => {
+    router.get("/buffer-codes");
+}
+
 
 </script>
 
@@ -33,7 +29,7 @@ const handleGitHubClick = () => {
                 <SquareButton icon="fa-solid fa-image" :wip="false" :onClick="handleFotkyClick" label="Súbory"/>
                 <SquareButton :wip="false" :onClick="handleGitHubClick" label="GitHub" icon="fa-brands fa-github"/>
                 <SquareButton icon="fa-solid fa-file-arrow-up" :wip="false" label="Buffer" :onClick="handleBufferClick"/>
-                <SquareButton :wip="true" label="WIP"/>
+                <SquareButton :wip="false" label="Buffer kódy" icon="fa-solid fa-key" :onClick="handleBufferCodesClick"/>
                 <SquareButton :wip="true" label="WIP"/>
                 <SquareButton :wip="true" label="WIP"/>
                 <SquareButton :wip="true" label="WIP"/>

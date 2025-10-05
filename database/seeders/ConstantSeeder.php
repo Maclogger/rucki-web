@@ -22,5 +22,6 @@ class ConstantSeeder extends Seeder
         Constant::createAndSavePair('dateFormat', "dd.MM.yyyy");
         Constant::createAndSavePair('githubYearFrom', 2017);
         Constant::createAndSavePair('githubDefaultYearToSelect', 2025); // if value == -1 then current year will be used
+        Constant::createAndSavePair('bufferCodeLength', 4);
     }
 }

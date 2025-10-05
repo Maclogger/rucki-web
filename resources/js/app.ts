@@ -12,10 +12,10 @@ import { createPinia } from 'pinia';
 
 import 'tippy.js/dist/tippy.css';
 import 'viewerjs/dist/viewer.css';
-import AppLayout from "@/Layouts/AppLayout.vue";
 import { ToastProps, ToastSeverity, useToastsStore } from "@/stores/toastsStore";
 import { useUserStore } from './stores/userStore';
 import { configureEcho } from '@laravel/echo-vue';
+import AppLayout from "@/Layouts/AppLayout.vue";
 
 configureEcho({
     broadcaster: 'reverb',

@@ -8,17 +8,15 @@ use Illuminate\Foundation\Application;
 
 class AppController extends Controller
 {
-    public function index()
+    public function getPublicStoreData()
     {
         $constantPairs = ConstantController::getConstantPairs();
-
-        return Inertia::render('AppPage', [
+        return [
             'can_login' => Route::has('login'),
             'can_register' => Route::has('register'),
             'laravel_version' => Application::VERSION,
             'php_version' => PHP_VERSION,
             'constant_pairs' => $constantPairs,
-            'github_store' => new GithubController()->getInitialGithubStoreData(),
-        ]);
+        ];
     }
 }

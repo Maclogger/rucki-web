@@ -1,12 +1,17 @@
 <script setup lang="ts">
 
-import CodeDigit from "@/Pages/Buffer/CodeDigit.vue";
+import CodeDigit from "@/Pages/Buffer/BufferUpload/CodeDigit.vue";
 import UploadFilesButton from "@/Pages/Photos/ControlPanel/UploadFilesButton.vue";
 import {computed, onMounted, onUnmounted, ref} from "vue";
 import {EmojiHelper} from "@/Classes/EmojiHelper";
+import {usePublicStore} from "@/stores/publicStore";
 
-const NUMBER_OF_DIGITS = 4;
 const code = ref("");
+const publicStore = usePublicStore();
+
+const bufferCodeLength = computed(() => {
+    return parseInt(publicStore.getConstant("bufferCodeLength") ?? "4");
+})
 
 const props = defineProps({
     code: String,
@@ -29,13 +34,13 @@ const addNewLetter = (key: string) => {
 }
 
 const wholeCodeIsTyped = computed(() => {
-    return code.value.length >= NUMBER_OF_DIGITS;
+    return code.value.length >= bufferCodeLength.value;
 })
 
 const setCodeFromUrl = (codeFromUrl: string) => {
     code.value = codeFromUrl
         .replace(/[^a-zA-Z0-9]/g, '')
-        .slice(0, NUMBER_OF_DIGITS)
+        .slice(0, bufferCodeLength.value)
         .toUpperCase();
 }
 
@@ -81,13 +86,13 @@ const displayKeyboard = () => {
         />
 
         <!-- Hlavná časť -->
-        <div class="flex flex-col bg-primary-dark-transparent rounded-lg gap-8 p-6 md:w-min sm:w-full">
+        <div class="flex flex-col bg-primary-dark-transparent rounded-lg gap-8 p-6">
             <div>
                 <p class="text-3xl">Marekov Buffer {{ emoji }}</p>
                 <p class="text-lg">Zadaj kód</p>
             </div>
-            <div class="flex flex-row gap-4">
-                <CodeDigit v-for="digitNumber in NUMBER_OF_DIGITS"
+            <div class="flex flex-row lg:gap-4 gap-2 ">
+                <CodeDigit v-for="digitNumber in bufferCodeLength"
                            :digit="digitNumber"
                            :focused="digitNumber == code.length + 1"
                            :value="code.at(digitNumber - 1)"

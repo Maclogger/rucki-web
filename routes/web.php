@@ -6,13 +6,11 @@ use App\Http\Controllers\FileDownloadController;
 use App\Http\Controllers\GithubController;
 use App\Http\Controllers\GithubRecordController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FilesController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', [AppController::class, 'index'])->name('app.index');
-
+Route::inertia('/', "AppPage");
 Route::inertia('/lietadlo', "Lietadlo/Lietadlo");
 
 Route::get('login', [LoginController::class, "index"])->name("loginIndex");
@@ -22,19 +20,25 @@ Route::get('/refresh-github-chart-data', [GithubController::class, "getInitialGi
 Route::get('/fetch-github-chart-data/{year}', [GithubController::class, "getGithubChartData"]);
 
 // BUFFER
-Route::inertia('/buffer', "Buffer/BufferPage");
+Route::inertia('/buffer', "Buffer/BufferUpload/BufferPage");
 Route::get('/buffer/{code}', function ($code) {
-    return Inertia::render('Buffer/BufferPage', [
+    return Inertia::render('Buffer/BufferUpload/BufferPage', [
         'code' => $code,
     ]);
 });
 Route::post('buffer/files-upload', [BufferController::class, "uploadFiles"]);
+Route::get('/fetch-public-store', [AppController::class, "getPublicStoreData"]);
 
 // AUTH
 Route::middleware('auth')->group(function () {
-    Route::inertia('/buffer-secured', "Buffer/SecuredBufferPage");
+    Route::inertia('/buffer-codes', "Buffer/BufferCodes/BufferCodes");
+    Route::get('/fetch-buffer-codes', [BufferController::class, "getBufferCodes"]);
+    Route::post('/new-buffer-code', [BufferController::class, "store"]);
+    Route::post('/delete-buffer-code', [BufferController::class, "delete"]);
+    Route::post('/update-buffer-code', [BufferController::class, "update"]);
+    Route::inertia('/buffer-secured', "Buffer/BufferUpload/SecuredBufferPage");
     Route::inertia('/github-secured', "GitHub/GitHubPage");
-    Route::get("/home", [HomeController::class, "index"])->name('home');
+    Route::inertia('/home', "Home/Home");
     Route::post("/logout", [LoginController::class, "logout"])->name('logout');
     Route::post("/fetch-github-contributions", [GithubRecordController::class, "__invoke"]);
     Route::inertia('/files', "Photos/FilesPage");

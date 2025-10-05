@@ -14,7 +14,7 @@ const toasts = computed(() => {
 </script>
 
 <template>
-    <div v-if="toasts.size > 0" class="toast toast-top toast-end">
+    <div v-if="toasts.size > 0" class="toast toast-top toast-end z-10">
         <div v-for="(toastKey) in toasts.keys()">
             <ToastItem :key="toastKey" :id-of-toast-in-store="toastKey" />
         </div>
