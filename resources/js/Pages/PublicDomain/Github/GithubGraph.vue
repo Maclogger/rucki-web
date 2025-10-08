@@ -95,9 +95,10 @@ const matrix = computed(() => {
 </script>
 
 <template>
-    <div class="flex flex-col gap-1 overflow-y-auto py-2 ">
+    <!-- ensure the graph keeps its intrinsic width so parent can scroll horizontally -->
+    <div class="flex flex-col gap-1 py-2 min-w-max">
         <div class="flex gap-1">
-            <div v-for="week in weekCount">
+            <div v-for="weekIndex in weekCount" :key="`legend-${weekIndex}`">
                 <GithubLegendFakeTile />
             </div>
         </div>
