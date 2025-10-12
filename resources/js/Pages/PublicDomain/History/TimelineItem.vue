@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import {ref, onMounted, onUnmounted} from 'vue';
 
-const props = withDefaults(defineProps<{
-    threshold?: number
-}>(), {
-    threshold: 50
-});
 
+const threshold = 50;
 const hrRef = ref<HTMLElement | null>(null);
 const isInTopHalf = ref(false);
 
@@ -16,7 +12,7 @@ const checkPosition = () => {
     const rect = hrRef.value.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
     const elementCenter = rect.top + (rect.height / 2);
-    const thresholdPosition = viewportHeight * (props.threshold / 100);
+    const thresholdPosition = viewportHeight * (threshold / 100);
 
     isInTopHalf.value = elementCenter < thresholdPosition;
 };
