@@ -1,1 +1,0 @@
-import{d as t,E as s,c,a as n,f as a}from"./app-CILYoJyI.js";const l={class:"bg-orange-400 w-full h-full"},r=["src"],f=t({__name:"Photo",setup(_){const e=s("photo"),o=()=>`/photos-show/${e.file_name}`;return(h,i)=>(n(),c("div",l,[a("img",{src:o(),class:"w-full h-full object-center object-cover"},null,8,r)]))}});export{f as _};

@@ -1,1 +1,0 @@
-import{_ as e}from"./BottomRowButton.vue_vue_type_script_setup_true_lang-Dk612KuS.js";import{d as a,e as r,a as n}from"./app-CILYoJyI.js";const _=a({__name:"CopySinglePhotoButton",setup(t){const o=()=>{console.log("Copied")};return(c,s)=>(n(),r(e,{icon:"fa-solid fa-copy",onClick:o,class:"bg-primary-dark-transparent hover:bg-my-white hover:text-primary"}))}});export{_};
