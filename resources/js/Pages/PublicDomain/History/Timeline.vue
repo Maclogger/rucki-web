@@ -18,7 +18,7 @@ import TimeLineItemContent from "@/Pages/PublicDomain/History/TimeLineItemConten
                                      img-src="/images/assets/fri.png"
                                      position="left">
                     <p>
-                        Tu som naučil základy toho, čo milujem 💜 - <strong>PROGRAMOVANIE</strong>.
+                        Tu som sa naučil základy toho, čo milujem 💜 - <strong>PROGRAMOVANIE</strong>.
                     </p>
                 </TimeLineItemContent>
             </template>
@@ -35,7 +35,7 @@ import TimeLineItemContent from "@/Pages/PublicDomain/History/TimeLineItemConten
                                      img-class="bg-white px-4 h-[7rem]"
                                      position="right">
                     <p>
-                        Jeden z mojich prvých projektov bol <strong>firemný web</strong> pre spoločnosť GlowWay s.r.o., ktorú
+                        Jeden z mojich prvých projektov bol <strong>firemný web</strong> pre spoločnosť GlowWay s.r.o., ktorý
                         som vytvoril pomocou technológie <strong>Wordpress, CSS a trochu JavaScriptu</strong>.
                     </p>
                 </TimeLineItemContent>
@@ -52,8 +52,9 @@ import TimeLineItemContent from "@/Pages/PublicDomain/History/TimeLineItemConten
                                      img-src="/images/icons/flutter.svg"
                                      position="left">
                     <p>
-                        Ako moja bakalárska práca vznikla <strong>mobilná aplikácia v Flutteri</strong> na evidenciu a správu pacientov a
-                        ich vyšetrení. Aplikácia bola navrhnutá s dôrazom na <strong>bezpečnosť</strong>.
+                        V rámci mojej bakalárskej práce som vytvoril <strong>mobilnú aplikáciu vo Flutteri</strong>
+                        na evidenciu pacientov a správu ich vyšetrení. Pri návrhu aplikácie bol kľúčový dôraz kladený
+                        na <strong>bezpečnosť a ochranu citlivých údajov</strong>.
                     </p>
                 </TimeLineItemContent>
             </template>
@@ -63,16 +64,15 @@ import TimeLineItemContent from "@/Pages/PublicDomain/History/TimeLineItemConten
                 <font-awesome-icon icon="fa-solid fa-briefcase" class="text-2xl"/>
             </template>
             <template #right>
-                <TimeLineItemContent time="2021 - súčasnosť"
+                <TimeLineItemContent time="2021 - 2025"
                                      headline="InfoConsulting Slovakia s. r. o."
                                      url="https://infoconsulting.com/"
                                      img-src="/images/assets/ic.png"
                                      position="right">
                     <p>
-                        Venoval som sa spravovaniu komplexného <strong>ERP systému</strong> a vykonávaniu jeho úprav podľa
-                        požiadaviek klienta.<br/>
-                        Backend: <strong>Oracle PL/SQL.</strong>
-                        Frontend: <strong>.NET Framework - C#.</strong>
+                        Ako <strong>Developer</strong> som pracoval na vývoji a správe komplexného <strong>ERP systému</strong>
+                        podľa požiadaviek klientov.<br/>
+                        Backend: <strong>Oracle PL/SQL</strong> | Frontend: <strong>.NET Framework (C#)</strong>
                     </p>
                 </TimeLineItemContent>
             </template>
@@ -97,4 +97,3 @@ import TimeLineItemContent from "@/Pages/PublicDomain/History/TimeLineItemConten
         </TimelineItem>
     </ul>
 </template>
-
