@@ -6,6 +6,7 @@ const props = defineProps<{
     headline: string
     url: string
     imgSrc?: string
+    imgClass?: string
     position: 'left' | 'right'
 }>();
 
@@ -15,8 +16,8 @@ const props = defineProps<{
 
 <template>
     <time v-if="props.time" class="font-mono italic">{{props.time}}</time>
-    <div class="mt-4 flex gap-4 md:flex-nowrap flex-wrap" :class="props.position === 'left' ? 'md:flex-row-reverse' : ''">
-        <img v-if="props.imgSrc" :src="props.imgSrc" class="rounded-2xl  h-[6rem]" :alt="props.headline">
+    <div class="mt-4 flex gap-4 lg:flex-nowrap flex-wrap" :class="props.position === 'left' ? 'md:flex-row-reverse' : ''">
+        <img v-if="props.imgSrc" :src="props.imgSrc" class="rounded-2xl  h-[6rem]" :alt="props.headline" :class="props.imgClass ?? ''">
         <div>
             <a :href="props.url" target="_blank" class="text-xl font-bold link">
                 {{props.headline}}
