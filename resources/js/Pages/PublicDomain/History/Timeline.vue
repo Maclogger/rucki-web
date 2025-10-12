@@ -12,13 +12,15 @@ import TimeLineItemContent from "@/Pages/PublicDomain/History/TimeLineItemConten
                 <font-awesome-icon icon="fa-solid fa-school" class="text-2xl"/>
             </template>
             <template #left>
-                <TimeLineItemContent time="2021 - súčasnosť"
-                                     headline="Žilinská univerzita v Žiline - Fakulta riadenia a informatiky"
-                                     url="https://www.fri.uniza.sk/"
-                                     img-src="/images/assets/fri.png"
+                <TimeLineItemContent time="2020"
+                                     headline="Webová stránka - GlowWay s.r.o."
+                                     url="https://www.glowway.de/"
+                                     img-src="/images/assets/glowway.png"
+                                     img-class="bg-white px-4 h-[7rem]"
                                      position="left">
                     <p>
-                        Tu som sa naučil základy toho, čo milujem 💜 - <strong>PROGRAMOVANIE</strong>.
+                        Jeden z mojich prvých projektov bol <strong>firemný web</strong> pre spoločnosť GlowWay s.r.o., ktorý
+                        som vytvoril pomocou technológie <strong>Wordpress, CSS a trochu JavaScriptu</strong>.
                     </p>
                 </TimeLineItemContent>
             </template>
@@ -28,15 +30,13 @@ import TimeLineItemContent from "@/Pages/PublicDomain/History/TimeLineItemConten
                 <font-awesome-icon icon="fa-solid fa-school" class="text-2xl"/>
             </template>
             <template #right>
-                <TimeLineItemContent time="2020"
-                                     headline="Webová stránka - GlowWay s.r.o."
-                                     url="https://www.glowway.de/"
-                                     img-src="/images/assets/glowway.png"
-                                     img-class="bg-white px-4 h-[7rem]"
+                <TimeLineItemContent time="2021 - súčasnosť"
+                                     headline="Žilinská univerzita v Žiline - Fakulta riadenia a informatiky"
+                                     url="https://www.fri.uniza.sk/"
+                                     img-src="/images/assets/fri.png"
                                      position="right">
                     <p>
-                        Jeden z mojich prvých projektov bol <strong>firemný web</strong> pre spoločnosť GlowWay s.r.o., ktorý
-                        som vytvoril pomocou technológie <strong>Wordpress, CSS a trochu JavaScriptu</strong>.
+                        Tu som sa naučil základy toho, čo milujem 💜 - <strong>PROGRAMOVANIE</strong>.
                     </p>
                 </TimeLineItemContent>
             </template>
@@ -64,7 +64,7 @@ import TimeLineItemContent from "@/Pages/PublicDomain/History/TimeLineItemConten
                 <font-awesome-icon icon="fa-solid fa-briefcase" class="text-2xl"/>
             </template>
             <template #right>
-                <TimeLineItemContent time="2021 - 2025"
+                <TimeLineItemContent time="2024 - 2025"
                                      headline="InfoConsulting Slovakia s. r. o."
                                      url="https://infoconsulting.com/"
                                      img-src="/images/assets/ic.png"
