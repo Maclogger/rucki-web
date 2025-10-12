@@ -69,7 +69,6 @@ const matrix = computed(() => {
 
             if (currentDate.getFullYear() === selected_year) {
                 m[row][col].date = new Date(currentDate);
-                // Správne inkrementovanie dátumu
                 currentDate.setDate(currentDate.getDate() + 1);
             }
         }

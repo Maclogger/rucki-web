@@ -10,10 +10,13 @@ import GitHubTitle from "@/Pages/PublicDomain/Github/GitHubTitle.vue";
 <template>
 
     <div class="container h-screen flex flex-col gap-8 mx-auto justify-center">
-        <div class="flex flex-wrap md:gap-12 md:flex-nowrap content-between justify-between p-4">
+        <div
+            class="flex flex-wrap md:gap-12 md:flex-nowrap md:content-between p-4 justify-center md:justify-start">
             <GitHubTitle class="mb-8 md:my-0"/>
             <GithubGraphComp class="overflow-hidden"/>
         </div>
+
+        <p class="text-2xl pl-4">Moje ⭐ repozitáre</p>
         <div class="flex md:gap-16 md:flex-nowrap flex-wrap">
             <GitHubTopRepositories/>
         </div>
