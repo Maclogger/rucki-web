@@ -4,7 +4,7 @@ const publicStore = usePublicStore();
 </script>
 
 <template>
-    <div class="min-h-[84vh] flex flex-col items-center justify-center py-9 md:flex-row md:justify-center">
+    <div class="min-h-[85vh] flex flex-col items-center justify-center py-9 md:flex-row md:justify-center">
 
         <div class="w-full md:w-6/12 h-auto md:h-full flex items-center justify-center md:justify-end text-center md:text-right">
             <div class="flex flex-col mb-12 md:me-24 md:mb-0">

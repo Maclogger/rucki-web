@@ -40,6 +40,6 @@ onUnmounted(() => {
         <div v-if="$slots.right" class="timeline-end mb-10 md:text-start">
             <slot name="right"/>
         </div>
-        <hr ref="hrRef" :class="{ 'bg-primary': isInTopHalf }" class="transition-colors duration-400"/>
+        <hr ref="hrRef" :class="{ 'bg-white': isInTopHalf }" class="transition-colors duration-400"/>
     </li>
 </template>

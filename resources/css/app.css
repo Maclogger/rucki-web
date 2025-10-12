@@ -37,8 +37,6 @@
     --text-color: #2A2A2A;
 }
 
-
-
 .tippy-box[data-theme~='tomato'] {
     background-color: #605DFF;
     color: white;
