@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Constant;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ConstantSeeder extends Seeder
@@ -23,5 +22,6 @@ class ConstantSeeder extends Seeder
         Constant::createAndSavePair('dateFormat', "dd.MM.yyyy");
         Constant::createAndSavePair('githubYearFrom', 2017);
         Constant::createAndSavePair('githubDefaultYearToSelect', 2025); // if value == -1 then current year will be used
+        Constant::createAndSavePair('bufferCodeLength', 4);
     }
 }

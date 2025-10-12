@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, onMounted, onUnmounted, watch} from "vue";
+import { computed, onMounted, onUnmounted, watch } from "vue";
 import { toNicelyFormattedDate } from "@/utils/dateHelper";
 import tippy from "tippy.js"; // Importujeme typy
 import { vysklonuj } from "@/utils/sklonovac";
@@ -148,13 +148,8 @@ onUnmounted(() => {
 
 <template>
     <div class="grid-container">
-        <div
-            :id="cellId"
-            class="cell relative w-4 h-4 rounded-sm"
-            :class="cellBgClass"
-        ></div>
+        <div :id="cellId" class="cell relative w-4 h-4 rounded-sm" :class="cellBgClass"> </div>
     </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

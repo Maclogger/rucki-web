@@ -10,6 +10,15 @@ use Illuminate\Support\Carbon;
  * @property int $contributions_count Počet príspevkov za daný deň.
  * @property Carbon $created_at Čas vytvorenia záznamu.
  * @property Carbon $updated_at Čas poslednej aktualizácie záznamu.
+ * @property-read float $year_level
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GithubRecord newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GithubRecord newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GithubRecord query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GithubRecord whereContributionsCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GithubRecord whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GithubRecord whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GithubRecord whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class GithubRecord extends Model
 {

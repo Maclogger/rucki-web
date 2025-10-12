@@ -1,16 +1,25 @@
 import '../css/app.css';
 import './bootstrap';
 
-import {createInertiaApp} from '@inertiajs/vue3';
-import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers';
-import {createApp, DefineComponent, h} from 'vue';
-import {ZiggyVue} from '../../vendor/tightenco/ziggy';
+import { createInertiaApp, router } from '@inertiajs/vue3';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { createApp, DefineComponent, h } from 'vue';
+import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
 import './plugins/fontawesome';
 
-import {createPinia} from 'pinia';
+import { createPinia } from 'pinia';
 
 import 'tippy.js/dist/tippy.css';
+import 'viewerjs/dist/viewer.css';
+import { ToastProps, ToastSeverity, useToastsStore } from "@/stores/toastsStore";
+import { useUserStore } from './stores/userStore';
+import { configureEcho } from '@laravel/echo-vue';
+import AppLayout from "@/Layouts/AppLayout.vue";
+
+configureEcho({
+    broadcaster: 'reverb',
+});
 
 const pinia = createPinia();
 
@@ -18,21 +27,48 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) =>
-        resolvePageComponent(
+    resolve: (name) => {
+        const page = resolvePageComponent(
             `./Pages/${name}.vue`,
             import.meta.glob<DefineComponent>('./Pages/**/*.vue'),
-        ),
-    setup({el, App, props, plugin}) {
-        const app = createApp({render: () => h(App, props)})
+        );
+
+        page.then((module) => {
+            module.default.layout = module.default.layout || AppLayout;
+        });
+
+        return page;
+    },
+    setup({ el, App, props, plugin }) {
+        const app = createApp({
+            render: () => h(App, props),
+            mounted(): any {
+            }
+        })
             .use(plugin)
             .use(ZiggyVue)
-            .use(pinia)
-            .mount(el)
-        ;
+            .use(pinia);
+
+        const userStore = useUserStore();
+        if (props.initialPage.props.auth && props.initialPage.props.auth.user) {
+            userStore.setUser(props.initialPage.props.auth.user);
+        }
+
+        app.mount(el);
     },
     progress: {
         color: '#4B5563',
     },
-}).then(() => {});
+}).then(() => {
+    router.on('error', (event) => {
+        const store = useToastsStore();
+        Object.values(event.detail.errors).forEach((errorMsg) => {
+            const toast: ToastProps = {
+                message: errorMsg,
+                severity: ToastSeverity.ERROR,
+            }
+            store.displayToast(toast);
+        });
+    });
+});
 

@@ -1,4 +1,5 @@
 import {defineStore} from 'pinia';
+import {ToastSeverity, useToastsStore} from "@/stores/toastsStore";
 
 export interface PublicStoreState {
     can_login: boolean;
@@ -14,7 +15,6 @@ export interface ConstantPair {
     type_name: string,
 }
 
-
 export const usePublicStore = defineStore("publicStore", {
     state: (): PublicStoreState => {
         return {
@@ -27,8 +27,18 @@ export const usePublicStore = defineStore("publicStore", {
     },
 
     actions: {
-        setState(newState: PublicStoreState) {
-            this.$patch(newState);
+        refresh() {
+            window.axios("/fetch-public-store")
+                .then((response) => {
+                    const data: PublicStoreState = response.data;
+                    this.$patch(data);
+                })
+                .catch((error) => {
+                    useToastsStore().displayToast({
+                        message: `Nepodarilo sa získať údaje z PublicStore. ${error.message}`,
+                        severity: ToastSeverity.ERROR,
+                    });
+                });
         },
 
         getConstant(constantKey: string): any | null {

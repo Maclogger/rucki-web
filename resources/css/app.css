@@ -31,13 +31,11 @@
     --color-my-github-green: #22C55E;
     --color-primary: #605DFF;
     --color-primary-dark: #3737bf;
-    --color-primary-dark-transparent: rgba(86,86,177,0.23);
+    --color-primary-dark-transparent: rgba(86, 86, 177, 0.23);
     --color-primary-light: #8988eb;
     --color-primary-light-ultra: #c4c3f6;
     --text-color: #2A2A2A;
 }
-
-
 
 .tippy-box[data-theme~='tomato'] {
     background-color: #605DFF;
@@ -46,7 +44,7 @@
 
 
 .btn-primary:hover {
-    color: black;
+    color: var(--color-primary);
     border-color: #F5F5F5;
     background-color: #F5F5F5;
 }
@@ -70,6 +68,23 @@
     color: var(--color-my-white);
 }
 
+.btn-error {
+    color: var(--color-my-white);
+    border: none;
+}
+
+.btn-error:hover {
+    background-color: var(--color-my-white);
+    color: var(--color-error);
+}
+
+.btn-error:disabled {
+    color: #616880;
+}
 
 
 @tailwind utilities;
+
+body {
+    overflow-x: hidden;
+}
