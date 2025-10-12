@@ -13,7 +13,7 @@ import TimeLineItemContent from "@/Pages/PublicDomain/History/TimeLineItemConten
             </template>
             <template #left>
                 <TimeLineItemContent time="2017 - 2021"
-                                     headline="Gymnázium Vavrinca Benedikta Nedožerského(Prievidza)"
+                                     headline="Gymnázium Vavrinca Benedikta Nedožerského v Prievidzi"
                                      url="https://www.gympd.sk/" position="left"/>
             </template>
         </TimelineItem>

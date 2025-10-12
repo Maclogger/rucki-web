@@ -10,19 +10,19 @@ const props = defineProps<{
 }>();
 
 
+
 </script>
 
 <template>
     <time v-if="props.time" class="font-mono italic">{{props.time}}</time>
-    <div class="mt-4 flex gap-4">
-        <img v-if="props.imgSrc && props.position == 'right'" :src="props.imgSrc" class="rounded-2xl  h-[6rem]" alt="InfoConsulting">
+    <div class="mt-4 flex gap-4 md:flex-nowrap flex-wrap" :class="props.position === 'left' ? 'md:flex-row-reverse' : ''">
+        <img v-if="props.imgSrc" :src="props.imgSrc" class="rounded-2xl  h-[6rem]" :alt="props.headline">
         <div>
             <a :href="props.url" target="_blank" class="text-xl font-bold link">
                 {{props.headline}}
             </a>
             <slot/>
         </div>
-        <img v-if="props.imgSrc && props.position == 'left'" :src="props.imgSrc" class="rounded-2xl  h-[6rem]" alt="InfoConsulting">
     </div>
 </template>
 
