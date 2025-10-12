@@ -9,7 +9,7 @@ import GitHubTitle from "@/Pages/PublicDomain/Github/GitHubTitle.vue";
 
 <template>
 
-    <div class="container h-screen flex flex-col gap-8 mx-auto justify-center">
+    <div class="container flex flex-col gap-8 mx-auto justify-center">
         <div
             class="flex flex-wrap md:gap-12 md:flex-nowrap md:content-between p-4 justify-center md:justify-start">
             <GitHubTitle class="mb-8 md:my-0"/>
