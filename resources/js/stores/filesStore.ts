@@ -116,22 +116,6 @@ export const useFilesStore = defineStore("filesStore", {
                 });
         },
 
-        newFileAdded(file: File) {
-            const existingFileIndex = this.files.findIndex(f => f.id === file.id);
-            const fileExistsAlready = existingFileIndex >= 0;
-            if (fileExistsAlready) {
-                file.selected = this.files[existingFileIndex].selected;
-                this.files[existingFileIndex] = file;
-            } else {
-                this.files.unshift(file);
-            }
-            this.refreshedAt = new Date();
-        },
-
-        fileDeleted(fileId: number) {
-            this.files = this.files.filter(f => f.id != fileId);
-        },
-
         deleteSelectedFiles() {
             const originalFiles = this.files;
             const idsOfFilesToDelete = this.files.filter(f => f.selected).map(f => f.id);

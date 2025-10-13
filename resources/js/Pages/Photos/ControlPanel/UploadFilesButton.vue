@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ToastProps, ToastSeverity, useToastsStore } from '@/stores/toastsStore';
-import { useForm } from '@inertiajs/vue3';
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import {ToastProps, ToastSeverity, useToastsStore} from '@/stores/toastsStore';
+import {useForm} from '@inertiajs/vue3';
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import {computed, ref} from "vue";
 
 const props = defineProps<{
     bufferCode?: string;
@@ -14,6 +15,8 @@ const form = useForm({
     files: [] as File[],
     bufferCode: props.bufferCode,
 });
+
+const inputRef = ref<HTMLInputElement | null>(null);
 
 const handleFileChange = (event: Event) => {
     const target = event.target as HTMLInputElement;
@@ -49,19 +52,47 @@ const submit = () => {
     });
 }
 
+const openFileDialog = () => {
+    inputRef.value?.click();
+}
+
+defineExpose({
+    openFileDialog
+})
+
+const active = computed(() => {
+    return props.bufferCode != undefined && props.bufferCode.length >= 4;
+});
+
+
+// Dynamické len to, čo sa mení podľa props
+const borderClass = computed(() =>
+    active.value
+        ? "border-my-white ring-2 ring-my-white scale-102 animate-pulse"
+        : "border-gray-300 dark:border-gray-700"
+);
+
+const buttonColor = computed(() =>
+    form.processing || (props.bufferCode != undefined && !active.value)
+        ? "btn-disabled"
+        : "btn-primary cursor-pointer"
+);
+
 </script>
 
 <template>
-    <div class="btn btn-primary rounded-xl flex flex-row gap-6 h-24 p-4 relative overflow-hidden cursor-pointer">
+    <div class="btn rounded-xl flex flex-row gap-6 h-24 p-4 relative transition-all duration-200
+                 overflow-hidden" :class="borderClass + ' ' + buttonColor">
         <div class="text-md p-0 m-0 flex flex-row gap-6">
-            <font-awesome-icon icon="fa-solid fa-upload" class="m-0 p-0 text-2xl" />
+            <font-awesome-icon icon="fa-solid fa-upload" class="m-0 p-0 text-2xl"/>
             <p class="m-0 p-0 text-lg">Nahrať súbory</p>
         </div>
 
-        <input type="file" @change="handleFileChange" multiple :disabled="form.processing"
-            class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" aria-label="Vybrať súbory na nahratie" />
+        <input ref="inputRef" type="file" @change="handleFileChange" multiple
+               :disabled="form.processing || (props.bufferCode != undefined && !active)"
+               class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" aria-label="Vybrať súbory na nahratie"/>
 
         <progress v-if="form.progress" class="progress progress-secondary absolute bottom-0 left-0 w-full"
-            :value="form.progress.percentage" max="100" />
+                  :value="form.progress.percentage" max="100"/>
     </div>
 </template>

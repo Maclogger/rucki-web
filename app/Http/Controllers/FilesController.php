@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\FileDeleted;
-use App\Events\FileUploaded;
 use App\Models\File;
 use App\Models\User;
 use Exception;
@@ -161,8 +159,6 @@ class FilesController extends Controller
             throw $e;
         }
 
-        // 3) Both storage and DB succeeded; dispatch event and return the model
-        FileUploaded::dispatch($file);
         return $file;
     }
 
@@ -245,7 +241,6 @@ class FilesController extends Controller
         }
 
         $file->delete();
-        FileDeleted::dispatch($file->id, $file->id_user);
     }
 
     public function debugButtonPressed()

@@ -23,6 +23,10 @@ const handleKeyDown = (event: KeyboardEvent) => {
         addNewLetter(key.toUpperCase());
     } else if (key === "Backspace") {
         code.value = code.value.slice(0, -1);
+    } else if (key == "Enter") {
+        if (code.value.length >= bufferCodeLength.value) {
+            uploadFileButton.value?.openFileDialog();
+        }
     }
 }
 
@@ -68,6 +72,8 @@ const displayKeyboard = () => {
     inputRef.value?.focus();
 }
 
+const uploadFileButton = ref<InstanceType<typeof UploadFilesButton> | null>(null);
+
 </script>
 
 <template>
@@ -86,10 +92,11 @@ const displayKeyboard = () => {
         />
 
         <!-- Hlavná časť -->
-        <div class="flex flex-col bg-primary-dark-transparent rounded-lg gap-8 p-6">
+        <div
+            class="flex flex-col bg-gradient-to-br border-white border-2 from-primary/60 to-primary-dark-transparent/100 rounded-lg gap-8 p-6">
             <div>
                 <p class="text-3xl">Marekov Buffer {{ emoji }}</p>
-                <p class="text-lg">Zadaj kód</p>
+                <p class="text-lg">Zadajte kód</p>
             </div>
             <div class="flex flex-row lg:gap-4 gap-2 ">
                 <CodeDigit v-for="digitNumber in bufferCodeLength"
@@ -99,8 +106,7 @@ const displayKeyboard = () => {
                            @click="displayKeyboard"
                 />
             </div>
-            <UploadFilesButton v-if="!wholeCodeIsTyped" :disabled="true"/>
-            <UploadFilesButton v-else :bufferCode="code" @uploadFinished="handleUploadFinished"/>
+            <UploadFilesButton ref="uploadFileButton" :bufferCode="code" @uploadFinished="handleUploadFinished"/>
         </div>
     </div>
 </template>
