@@ -4,6 +4,7 @@ import './bootstrap';
 import { createInertiaApp, router } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createApp, DefineComponent, h } from 'vue';
+// noinspection ES6PreferShortImport
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
 import './plugins/fontawesome';
@@ -14,12 +15,7 @@ import 'tippy.js/dist/tippy.css';
 import 'viewerjs/dist/viewer.css';
 import { ToastProps, ToastSeverity, useToastsStore } from "@/stores/toastsStore";
 import { useUserStore } from './stores/userStore';
-import { configureEcho } from '@laravel/echo-vue';
 import AppLayout from "@/Layouts/AppLayout.vue";
-
-configureEcho({
-    broadcaster: 'reverb',
-});
 
 const pinia = createPinia();
 
