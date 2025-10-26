@@ -18,7 +18,6 @@ const { getSelectedFiles: selectedFiles, areAllFilesSelected } = storeToRefs(fil
             <p class="text-2xl">Súbory</p>
         </template>
         <template #default>
-
         </template>
     </AuthLayout>
 </template>

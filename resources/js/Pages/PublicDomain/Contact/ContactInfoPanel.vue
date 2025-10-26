@@ -17,6 +17,6 @@ import ContactRow from "@/Pages/PublicDomain/Contact/ContactRow.vue";
         <ContactRow headline="Email" icon="fa-solid fa-envelope" value="marek@rucki.sk"  href="mailto:marek@rucki.sk"/>
         <ContactRow headline="Aktuálne bydlisko" icon="fa-solid fa-location-dot"
                     value="Žilina" href="https://maps.app.goo.gl/dxj9sqUpHG44Vqro6"/>
-        <ContactRow headline="GitHub" icon="fa-brands fa-github" value="Maclogger" href="https://github.com/Maclogger"/>
+        <ContactRow headline="GitHub" icon="fa-brands fa-github" value="Marek Rucki" href="https://github.com/Maclogger"/>
     </div>
 </template>
