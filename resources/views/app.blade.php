@@ -10,6 +10,10 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/profile_pic_small_circle.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/profile_pic_small_circle.png') }}">
+
     <!-- Scripts -->
     @routes
     @vite(['resources/js/app.ts', "resources/js/Pages/{$page['component']}.vue"])
