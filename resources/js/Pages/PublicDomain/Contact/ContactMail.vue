@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ToastProps, ToastSeverity, useToastsStore } from '@/stores/toastsStore';
+import { ToastSeverity, useToastsStore } from '@/stores/toastsStore';
 import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({
@@ -11,6 +11,7 @@ const form = useForm({
 
 const submit = () => {
     form.post('/contact', {
+        preserveScroll: true,
         onSuccess: () => {
             useToastsStore().displayToast({
                 message: "Správa bola úspešne odoslaná",
@@ -20,11 +21,6 @@ const submit = () => {
         },
         onError: (errors) => {
             console.error("Errors during message send:", errors);
-            const toast: ToastProps = {
-                message: "Chyba pri odosielaní správy",
-                severity: ToastSeverity.ERROR,
-            };
-            useToastsStore().displayToast(toast);
         },
     });
 }

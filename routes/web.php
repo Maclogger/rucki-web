@@ -30,7 +30,8 @@ Route::get('/buffer/{code}', function ($code) {
 Route::post('buffer/files-upload', [BufferController::class, "uploadFiles"]);
 Route::get('/fetch-public-store', [AppController::class, "getPublicStoreData"]);
 
-Route::post('/contact', [ContactMailController::class, "sendContactMail"]);
+Route::post('/contact', [ContactMailController::class, "sendContactMail"])
+    ->middleware('throttle:contact');
 
 // AUTH
 Route::middleware('auth')->group(function () {
