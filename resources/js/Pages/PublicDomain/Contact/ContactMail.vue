@@ -42,7 +42,7 @@ const submit = () => {
 
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend text-lg">Váš Email</legend>
-                    <input type="email" v-model="form.email" placeholder="ja.novak@example.com" class="input w-full text-lg" required/>
+                    <input type="email" v-model="form.email" placeholder="jozef.novak@example.com" class="input w-full text-lg" required/>
                 </fieldset>
 
                 <fieldset class="fieldset">
