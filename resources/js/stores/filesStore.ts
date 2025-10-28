@@ -245,9 +245,16 @@ export const useFilesStore = defineStore("filesStore", {
 
             try {
                 await window.axios.post("/delete-single-file", { id: file.id });
-                console.log("Successfully deleted file.");
+                useToastsStore().displayToast({
+                    message: "Súbor bol úspešne vymazaný.",
+                    severity: ToastSeverity.SUCCESS,
+                });
+
             } catch (error) {
-                console.error("File could not be deleted!");
+                useToastsStore().displayToast({
+                    message: "Súbor sa nepodarilo zmazať!",
+                    severity: ToastSeverity.ERROR,
+                });
                 this.restoreState(originalState);
             }
         },

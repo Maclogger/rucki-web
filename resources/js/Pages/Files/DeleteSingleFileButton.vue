@@ -6,11 +6,15 @@ import { File } from '@/Classes/File';
 const filesStore = useFilesStore();
 
 const props = defineProps<{
-    file: File
+    file: File,
+    afterClick?: () => void,
 }>();
 
 const handleClick = () => {
     filesStore.deleteSingleFile(props.file);
+    if (props.afterClick) {
+        props.afterClick();
+    }
 }
 
 </script>

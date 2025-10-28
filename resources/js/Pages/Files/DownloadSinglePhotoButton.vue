@@ -6,6 +6,7 @@ import {File} from '@/Classes/File';
 
 const props = defineProps<{
     file: File
+    afterClick?: () => void
 }>();
 
 const isDownloaded = ref<boolean>(false);
@@ -13,6 +14,9 @@ const isDownloaded = ref<boolean>(false);
 
 const handleClick = async () => {
     props.file.download();
+    if (props.afterClick) {
+        props.afterClick();
+    }
 }
 
 const getIcon = computed(() => {
