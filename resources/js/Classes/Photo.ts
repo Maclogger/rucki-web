@@ -9,6 +9,7 @@ export enum PhotoStatus {
 
 export class Photo extends File {
     status: PhotoStatus;
+    thumbnailName: string | null;
     imgElement: HTMLImageElement | null;
 
     constructor(data: FilesResponse);
@@ -20,10 +21,12 @@ export class Photo extends File {
             // takže stačí predať data do konštruktora predka.
             super(data);
             this.status = PhotoStatus.LOADING;
+            this.thumbnailName = data.thumbnail_name ?? null;
             this.imgElement = null;
         } else { // Existujúci objekt Photo (camelCase)
             super(data);
             this.status = data.status;
+            this.thumbnailName = data.thumbnailName;
             this.imgElement = data.imgElement;
         }
 
@@ -34,6 +37,14 @@ export class Photo extends File {
 
     getFilePath(): string {
         return `/photos-show/${this.fileName}`;
+    }
+
+    getThumbnailPath(): string {
+        // If thumbnail exists, use it, otherwise fallback to original
+        if (this.thumbnailName) {
+            return `/photos-thumbnail/${this.fileName}`;
+        }
+        return this.getFilePath();
     }
 
     createCanvasWithImage(): [HTMLCanvasElement, null] | [null, ToastProps] {

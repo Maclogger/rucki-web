@@ -49,6 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::get("/photos-show/{fileName}", [FilesController::class, 'show'])
         ->where('fileName', '.*')
         ->name('photos.show');
+    Route::get("/photos-thumbnail/{fileName}", [FilesController::class, 'showThumbnail'])
+        ->where('fileName', '.*')
+        ->name('photos.thumbnail');
     Route::post('files-upload', [FilesController::class, "uploadFiles"]);
     Route::get('/get-files', [FilesController::class, "getFiles"]);
     Route::get('/get-latest-files', [FilesController::class, "getLatestFiles"]);

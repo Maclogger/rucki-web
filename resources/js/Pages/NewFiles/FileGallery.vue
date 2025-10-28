@@ -5,13 +5,10 @@ import {storeToRefs} from "pinia";
 import GridLayout from "@/Layouts/GridLayout.vue";
 import {Photo} from "@/Classes/Photo";
 import FileIcon from "@/Pages/NewFiles/FileIcon.vue";
-import {onBeforeUnmount, useTemplateRef} from "vue";
+import {useTemplateRef} from "vue";
 import {useInfiniteScroll} from "@vueuse/core";
-import {usePublicStore} from "@/stores/publicStore";
-import {watch} from "vue";
 
 const filesStore = useFilesStore();
-const publicStore = usePublicStore();
 
 const {getVisibleFiles: visibleFiles} = storeToRefs(filesStore);
 
@@ -31,21 +28,6 @@ useInfiniteScroll(
     }
 );
 
-watch(() => publicStore.isLoaded, (loaded) => {
-    if (loaded) {
-        const pollingPageSize = publicStore.getConstant("galleryPollingPageSize");
-        filesStore.setPollingPageSize(pollingPageSize);
-        const pollingIntervalSeconds = publicStore.getConstant("galleryPollingIntervalSeconds");
-        filesStore.startPolling(pollingIntervalSeconds);
-    }
-}, { immediate: true })
-
-onBeforeUnmount(() => {
-    // Stop polling when component is unmounted
-    filesStore.stopPolling();
-});
-
-
 </script>
 
 <template>
@@ -53,8 +35,8 @@ onBeforeUnmount(() => {
         <GridLayout>
             <button v-for="file in visibleFiles" :key="file.id"
                     class="btn flex flex-col w-full h-full aspect-square rounded-xl p-0 m-0 overflow-hidden">
-                <!-- TOP ROW Selection -->
-                <img v-if="file instanceof Photo" class="w-full h-full object-cover" :src="file.getFilePath()" alt="Photo">
+                <!-- Use thumbnail for gallery view -->
+                <img v-if="file instanceof Photo" class="w-full h-full object-cover" :src="file.getThumbnailPath()" :alt="file.originalName" loading="lazy">
                 <FileIcon v-else :file="file" class="w-full h-full"/>
             </button>
         </GridLayout>

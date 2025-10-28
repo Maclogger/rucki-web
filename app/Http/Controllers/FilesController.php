@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Utilities\ImageHelper;
 use App\Models\File;
 use App\Models\User;
 use Exception;
@@ -49,6 +50,46 @@ class FilesController extends Controller
             ->header('Content-Type', $type)
             ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
             ->header('Pragma', 'no-cache');
+    }
+
+    /**
+     * Display a thumbnail for a file.
+     * Accessible only by authenticated users.
+     */
+    public function showThumbnail($fileName)
+    {
+        $userIds = [
+            Auth::id(),
+            User::where("username", env("BUFFER_CODE_ACCOUNT_USERNAME"))->first()->id
+        ];
+
+        $file = File::where('file_name', $fileName)
+            ->whereIn('id_user', $userIds)
+            ->first();
+
+        if (!$file) {
+            Log::warning("Access attempt to non-existent or unauthorized file thumbnail: '" . $fileName . "' by user ID: " . Auth::id());
+            abort(404);
+        }
+
+        // If thumbnail doesn't exist, return original file
+        if (!$file->thumbnail_name) {
+            return $this->show($fileName);
+        }
+
+        $thumbnailPath = 'thumbnails/' . $file->thumbnail_name;
+
+        if (!Storage::disk('local')->exists($thumbnailPath)) {
+            Log::warning("Thumbnail not found on disk, returning original: '" . $thumbnailPath . "'");
+            return $this->show($fileName);
+        }
+
+        $thumbnail = Storage::disk('local')->get($thumbnailPath);
+        $type = Storage::disk('local')->mimeType($thumbnailPath);
+
+        return response($thumbnail, 200)
+            ->header('Content-Type', $type)
+            ->header('Cache-Control', 'public, max-age=31536000'); // Cache for 1 year since thumbnails don't change
     }
 
     /**
@@ -143,13 +184,34 @@ class FilesController extends Controller
             $file->original_name = $originalName;
             $file->mime_type = $mimeType;
             $file->size = $size;
-            $file->save();            // Cleanup stored file to avoid orphaned files
+
+            // Generate thumbnail if it's an image
+            if (ImageHelper::isImage($mimeType)) {
+                $thumbnailFileName = 'thumb_' . $uniqueFileName;
+                $thumbnailDirectory = 'thumbnails';
+                $thumbnailPath = $thumbnailDirectory . '/' . $thumbnailFileName;
+
+                $thumbnailGenerated = ImageHelper::generateThumbnail($filePath, $thumbnailPath);
+
+                if ($thumbnailGenerated) {
+                    $file->thumbnail_name = $thumbnailFileName;
+                    Log::info("Thumbnail generated for file: $uniqueFileName");
+                } else {
+                    Log::warning("Failed to generate thumbnail for file: $uniqueFileName");
+                }
+            }
+
+            $file->save();
 
         } catch (Exception $e) {
             // Cleanup stored file to avoid orphaned files
             try {
                 if (Storage::disk('local')->exists($filePath)) {
                     Storage::disk('local')->delete($filePath);
+                }
+                // Also cleanup thumbnail if it was generated
+                if (isset($thumbnailPath) && Storage::disk('local')->exists($thumbnailPath)) {
+                    Storage::disk('local')->delete($thumbnailPath);
                 }
             } catch (Exception $cleanupEx) {
                 Log::error("Failed to cleanup stored file after DB failure: $filePath", ['exception' => $cleanupEx]);
@@ -275,6 +337,15 @@ class FilesController extends Controller
             Log::info("Fotografia súbor zmazaný: $filePath");
         } else {
             Log::warning("Fotografia súbor nenájdený na zmazanie: $filePath");
+        }
+
+        // Delete thumbnail if it exists
+        if ($file->thumbnail_name) {
+            $thumbnailPath = 'thumbnails/' . $file->thumbnail_name;
+            if (Storage::disk('local')->exists($thumbnailPath)) {
+                Storage::disk('local')->delete($thumbnailPath);
+                Log::info("Thumbnail zmazaný: $thumbnailPath");
+            }
         }
 
         $file->delete();

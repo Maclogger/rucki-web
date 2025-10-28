@@ -3,17 +3,35 @@
 import AuthLayout from "@/Layouts/AuthLayout.vue";
 import StickyHeader from "@/Pages/NewFiles/StickyHeader.vue";
 import FileGallery from "@/Pages/NewFiles/FileGallery.vue";
-import {onMounted} from "vue";
+import {onBeforeUnmount, onMounted, watch} from "vue";
 import {useFilesStore} from "@/stores/filesStore";
 import {storeToRefs} from "pinia";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import {usePublicStore} from "@/stores/publicStore";
 
-const fileStore = useFilesStore();
+const filesStore = useFilesStore();
+const publicStore = usePublicStore();
 
-const {getVisibleFiles: visibleFiles} = storeToRefs(fileStore);
+const {getVisibleFiles: visibleFiles} = storeToRefs(filesStore);
 
 onMounted(() => {
-    fileStore.fetchInitialData();
+    filesStore.fetchInitialData();
+});
+
+
+// After public store is loaded, get polling settings and start polling
+watch(() => publicStore.isLoaded, (loaded) => {
+    if (loaded) {
+        const pollingPageSize = publicStore.getConstant("galleryPollingPageSize");
+        filesStore.setPollingPageSize(pollingPageSize);
+        const pollingIntervalSeconds = publicStore.getConstant("galleryPollingIntervalSeconds");
+        filesStore.startPolling(pollingIntervalSeconds);
+    }
+}, { immediate: true }) // immediate is here because the public store might already be loaded
+
+
+onBeforeUnmount(() => {
+    filesStore.stopPolling();
 });
 
 </script>
