@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::inertia('/home', "Home/Home");
     Route::post("/logout", [LoginController::class, "logout"])->name('logout');
     Route::post("/fetch-github-contributions", [GithubRecordController::class, "__invoke"]);
-    Route::inertia('/new_files', "NewFiles/NewFilesPage");
+    Route::inertia('/new_files', "Files/NewFilesPage");
     Route::get("/photos-show/{fileName}", [FilesController::class, 'show'])
         ->where('fileName', '.*')
         ->name('photos.show');

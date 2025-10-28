@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
 import AuthLayout from "@/Layouts/AuthLayout.vue";
-import StickyHeader from "@/Pages/NewFiles/StickyHeader.vue";
-import FileGallery from "@/Pages/NewFiles/FileGallery.vue";
+import StickyHeader from "@/Pages/Files/StickyHeader.vue";
+import FileGallery from "@/Pages/Files/FileGallery.vue";
 import {onBeforeUnmount, onMounted, watch} from "vue";
 import {useFilesStore} from "@/stores/filesStore";
 import {storeToRefs} from "pinia";

@@ -1,14 +1,7 @@
 import { ToastProps, ToastSeverity } from "@/stores/toastsStore";
 import { File, FilesResponse } from "./File";
 
-export enum PhotoStatus {
-    LOADING, // when the <img> tag is loading the photo
-    LOADED,
-}
-
-
 export class Photo extends File {
-    status: PhotoStatus;
     thumbnailName: string | null;
     imgElement: HTMLImageElement | null;
 
@@ -20,12 +13,10 @@ export class Photo extends File {
             // Predpokladáme, že FilesResponse obsahuje všetky potrebné dáta pre Photo,
             // takže stačí predať data do konštruktora predka.
             super(data);
-            this.status = PhotoStatus.LOADING;
             this.thumbnailName = data.thumbnail_name ?? null;
             this.imgElement = null;
         } else { // Existujúci objekt Photo (camelCase)
             super(data);
-            this.status = data.status;
             this.thumbnailName = data.thumbnailName;
             this.imgElement = data.imgElement;
         }
