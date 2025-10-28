@@ -165,11 +165,9 @@ export const useFilesStore = defineStore("filesStore", {
             }
 
             try {
-                const response = await window.axios.get("/get-latest-files", {
-                    params: {
-                        since: this.lastCheckedAt.toISOString(),
-                        limit: this.perPage
-                    }
+                const response = await window.axios.post("/get-latest-files", {
+                    since: this.lastCheckedAt.toISOString(),
+                    limit: this.perPage
                 });
 
                 this.handleNewFilesResponse(response.data);
