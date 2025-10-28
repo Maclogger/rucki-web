@@ -26,8 +26,14 @@ export const usePublicStore = defineStore("publicStore", {
         };
     },
 
+    getters: {
+        isLoaded(state): boolean {
+            return state.laravel_version !== null && state.php_version !== null;
+        },
+    },
+
     actions: {
-        refresh() {
+        async refresh() {
             window.axios("/fetch-public-store")
                 .then((response) => {
                     const data: PublicStoreState = response.data;
@@ -42,12 +48,7 @@ export const usePublicStore = defineStore("publicStore", {
         },
 
         getConstant(constantKey: string): any | null {
-            for (const value of this.constant_pairs) {
-                if (value.key == constantKey) {
-                    return value.value;
-                }
-            }
-            return null;
+            return this.constant_pairs.find((value => value.key == constantKey)).value;
         },
 
         getFullName(): string {
