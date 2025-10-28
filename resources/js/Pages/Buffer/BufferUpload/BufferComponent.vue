@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import CodeDigit from "@/Pages/Buffer/BufferUpload/CodeDigit.vue";
-import UploadFilesButton from "@/Pages/Photos/ControlPanel/UploadFilesButton.vue";
+import UploadFilesButton from "@/Pages/Buffer/BufferUpload/UploadFilesButton.vue";
 import {computed, onMounted, onUnmounted, ref} from "vue";
 import {EmojiHelper} from "@/Classes/EmojiHelper";
 import {usePublicStore} from "@/stores/publicStore";

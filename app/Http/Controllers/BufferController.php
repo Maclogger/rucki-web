@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\BufferCode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class BufferController extends Controller
 {
-
     public function uploadFiles(Request $request)
     {
+        Log::info("Prišlo na server: ");
+        Log::info($request);
         $request->validate([
             'bufferCode' => 'required|string',
             'files' => 'required|array',

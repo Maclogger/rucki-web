@@ -21,7 +21,7 @@ class LoginController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
-        Log::info("User" . $request->username . " was logged in successfully.");
+        Log::info("User " . $request->username . " was logged in successfully.");
 
         return Inertia::location("/home");
     }

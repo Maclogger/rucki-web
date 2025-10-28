@@ -27,7 +27,7 @@ Route::get('/buffer/{code}', function ($code) {
         'code' => $code,
     ]);
 });
-Route::post('buffer/files-upload', [BufferController::class, "uploadFiles"]);
+Route::post('/buffer/files-upload', [BufferController::class, "uploadFiles"]);
 Route::get('/fetch-public-store', [AppController::class, "getPublicStoreData"]);
 
 Route::post('/contact', [ContactMailController::class, "sendContactMail"])
