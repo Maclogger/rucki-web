@@ -5,8 +5,12 @@ import StickyHeader from "@/Pages/NewFiles/StickyHeader.vue";
 import FileGallery from "@/Pages/NewFiles/FileGallery.vue";
 import {onMounted} from "vue";
 import {useFilesStore} from "@/stores/filesStore";
+import {storeToRefs} from "pinia";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 const fileStore = useFilesStore();
+
+const {getVisibleFiles: visibleFiles} = storeToRefs(fileStore);
 
 onMounted(() => {
     fileStore.refresh();
@@ -21,7 +25,13 @@ onMounted(() => {
         </template>
         <template #default>
             <StickyHeader class="mb-4"/>
-            <FileGallery/>
+
+            <FileGallery v-if="visibleFiles.length > 0" />
+            <div v-else
+                 class="bg-primary-dark-transparent rounded-xl h-96 flex flex-col items-center justify-center gap-2">
+                <font-awesome-icon icon="fa-solid fa-ban" class="text-3xl text-red-500" />
+                <p class="p-0 m-0">Nenašli sa žiadne záznamy.</p>
+            </div>
         </template>
     </AuthLayout>
 </template>
