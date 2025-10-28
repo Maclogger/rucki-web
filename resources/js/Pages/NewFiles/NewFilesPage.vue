@@ -20,7 +20,7 @@ onMounted(() => {
             <p class="text-2xl">Súbory</p>
         </template>
         <template #default>
-            <StickyHeader/>
+            <StickyHeader class="mb-4"/>
             <FileGallery/>
         </template>
     </AuthLayout>

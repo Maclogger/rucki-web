@@ -33,11 +33,13 @@ watch(showFilesFilter, (newValue: boolean) => {
 
 <template>
     <div class="bg-primary-dark-transparent rounded-xl h-18">
-        <div class="h-full flex flex-row justify-between content-between gap-8">
+        <div class="h-full flex flex-row justify-between content-between gap-8 px-4">
             <div class="flex items-center">
-                <font-awesome-icon icon="fa-solid fa-filter" class="text-xl text-my-white pl-4"/>
+                <button class="btn btn-primary">
+                    <font-awesome-icon icon="fa-solid fa-filter" class=""/>
+                </button>
             </div>
-            <div class="flex items-center content-between gap-2 pr-4">
+            <div class="flex items-center content-between gap-2">
                 <input v-model="showPicturesFilter" class="btn" type="checkbox" name="frameworks" aria-label="Obrázky"/>
                 <input v-model="showFilesFilter" class="btn" type="checkbox" name="frameworks" aria-label="Súbory"/>
             </div>

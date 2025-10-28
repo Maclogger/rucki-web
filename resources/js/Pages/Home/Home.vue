@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import SquareButton from "@/Pages/Home/SquareButton.vue";
-import { router } from '@inertiajs/vue3';
+import {router} from '@inertiajs/vue3';
 import AuthLayout from "@/Layouts/AuthLayout.vue";
+import GridLayout from "@/Layouts/GridLayout.vue";
 
 interface ButtonConfig {
     label: string;
@@ -11,16 +12,16 @@ interface ButtonConfig {
 }
 
 const buttons: ButtonConfig[] = [
-    { label: "Súbory", icon: "fa-solid fa-image", url: "/files" },
-    { label: "GitHub", icon: "fa-brands fa-github", url: "/github-secured" },
-    { label: "Buffer", icon: "fa-solid fa-file-arrow-up", url: "/buffer-secured" },
-    { label: "Buffer kódy", icon: "fa-solid fa-key", url: "/buffer-codes" },
-    { label: "Nové Súbory", icon: "fa-solid fa-image", url: "/new_files" },
-    { label: "WIP", wip: true },
-    { label: "WIP", wip: true },
-    { label: "WIP", wip: true },
-    { label: "WIP", wip: true },
-    { label: "WIP", wip: true },
+    {label: "Súbory", icon: "fa-solid fa-image", url: "/files"},
+    {label: "GitHub", icon: "fa-brands fa-github", url: "/github-secured"},
+    {label: "Buffer", icon: "fa-solid fa-file-arrow-up", url: "/buffer-secured"},
+    {label: "Buffer kódy", icon: "fa-solid fa-key", url: "/buffer-codes"},
+    {label: "Nové Súbory", icon: "fa-solid fa-image", url: "/new_files"},
+    {label: "WIP", wip: true},
+    {label: "WIP", wip: true},
+    {label: "WIP", wip: true},
+    {label: "WIP", wip: true},
+    {label: "WIP", wip: true},
 ];
 
 const handleClick = (button: ButtonConfig) => {
@@ -33,7 +34,7 @@ const handleClick = (button: ButtonConfig) => {
 <template>
     <AuthLayout>
         <template #default>
-            <div class="grid lg:grid-cols-6 md:grid-cols-4 grid-cols-2 place-items-center gap-y-4 gap-x-4">
+            <GridLayout>
                 <SquareButton
                     v-for="(button, idx) in buttons"
                     :key="idx"
@@ -42,7 +43,7 @@ const handleClick = (button: ButtonConfig) => {
                     :onClick="() => handleClick(button)"
                     :label="button.label"
                 />
-            </div>
+            </GridLayout>
         </template>
     </AuthLayout>
 </template>
