@@ -37,9 +37,9 @@ const handleEnabledCheck = (code: BufferCode) => {
             <p class="text-2xl">Buffer kódy</p>
         </template>
         <template #default>
-            <div class="flex gap-4 flex-wrap justify-center">
-                <NewBufferCodeForm/>
-                <div class="bg-primary-dark-transparent rounded-xl w-full h-100 p-4 max-w-90">
+            <div class="md:flex flex-wrap gap-4 justify-center">
+                <NewBufferCodeForm />
+                <div class="bg-primary-dark-transparent rounded-xl w-full h-100 p-4 md:max-w-90 mt-4 md:mt-0">
                     <div class="flex flex-row justify-between mb-3 ml-4 items-center">
                         <p class="text-xl font-semibold ">Existujúce kódy</p>
                         <button class="btn btn-primary" @click="refreshBufferCodeStore">
