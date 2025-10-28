@@ -53,12 +53,29 @@ const writeBlobToClipboard = (blob: Blob | null) => {
 const copyImageToClipboard = async () => {
     if (status.value == CopyButtonState.WRITING_TO_CLIPBOARD) return;
     status.value = CopyButtonState.WRITING_TO_CLIPBOARD;
-    const [canvas, errorToast] = props.photo.createCanvasWithImage();
-    if (errorToast) {
-        toastStore.displayToast(errorToast);
-        return;
-    }
-    canvas.toBlob(writeBlobToClipboard, 'image/png');
+
+    // Načítame originálnu fotku (nie thumbnail)
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+
+    img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d')!;
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob(writeBlobToClipboard, 'image/png');
+    };
+
+    img.onerror = () => {
+        toastStore.displayToast({
+            message: 'Nepodarilo sa načítať obrázok.',
+            severity: ToastSeverity.ERROR,
+        });
+        status.value = CopyButtonState.ENABLED;
+    };
+
+    img.src = props.photo.getFilePath();
 }
 
 const getColorClass = computed(() => {
