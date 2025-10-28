@@ -11,6 +11,7 @@ class File extends Model
     protected $fillable = [
         'id_user',
         'file_name',
+        'thumbnail_name',
         'original_name',
         'mime_type',
         'size',

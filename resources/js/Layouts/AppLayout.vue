@@ -9,7 +9,7 @@ import ToastLayout from "@/Layouts/ToastLayout.vue";
 const gitHubStore = useGithubStore();
 const publicStore = usePublicStore();
 
-onMounted(() => {
+onMounted( () => {
     publicStore.refresh();
     gitHubStore.refresh();
 });

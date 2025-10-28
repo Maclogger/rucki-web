@@ -43,9 +43,10 @@ class GithubController extends Controller
     {
         $lastUpdate = new Carbon(Constant::findByKey('githubLastUpdate'));
         $selectedYear = $this->getSelectedYear();
-        $firstYear = Constant::findByKey("gitHubYearFrom");
 
-        $yearsToLoad = [2025];
+        $firstYear = (int)Constant::findByKey("gitHubYearFrom");
+        $currentYear = Carbon::now()->year;
+        $yearsToLoad = $firstYear > $currentYear ? [] : range($firstYear, $currentYear);
 
         $dataByYear = [];
         foreach ($yearsToLoad as $year) {

@@ -27,10 +27,11 @@ Route::get('/buffer/{code}', function ($code) {
         'code' => $code,
     ]);
 });
-Route::post('buffer/files-upload', [BufferController::class, "uploadFiles"]);
+Route::post('/buffer/files-upload', [BufferController::class, "uploadFiles"]);
 Route::get('/fetch-public-store', [AppController::class, "getPublicStoreData"]);
 
-Route::post('/contact', [ContactMailController::class, "sendContactMail"]);
+Route::post('/contact', [ContactMailController::class, "sendContactMail"])
+    ->middleware('throttle:contact');
 
 // AUTH
 Route::middleware('auth')->group(function () {
@@ -44,12 +45,16 @@ Route::middleware('auth')->group(function () {
     Route::inertia('/home', "Home/Home");
     Route::post("/logout", [LoginController::class, "logout"])->name('logout');
     Route::post("/fetch-github-contributions", [GithubRecordController::class, "__invoke"]);
-    Route::inertia('/files', "Photos/FilesPage");
+    Route::inertia('/new_files', "Files/NewFilesPage");
     Route::get("/photos-show/{fileName}", [FilesController::class, 'show'])
         ->where('fileName', '.*')
         ->name('photos.show');
+    Route::get("/photos-thumbnail/{fileName}", [FilesController::class, 'showThumbnail'])
+        ->where('fileName', '.*')
+        ->name('photos.thumbnail');
     Route::post('files-upload', [FilesController::class, "uploadFiles"]);
     Route::get('/get-files', [FilesController::class, "getFiles"]);
+    Route::post('/get-latest-files', [FilesController::class, "getLatestFiles"]);
     Route::post('/delete-single-file', [FilesController::class, "deleteSingleFile"]);
     Route::post('/delete-multiple-files', [FilesController::class, "deleteMultipleFiles"]);
     Route::get('/debug-button-pressed', [FilesController::class, "debugButtonPressed"]);

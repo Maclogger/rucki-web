@@ -25,3 +25,5 @@ Thumbs.db
 yarn-error.log
 _ide_helper.php
 /public/build/
+/composer.lock
+/package-lock.json

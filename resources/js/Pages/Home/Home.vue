@@ -2,41 +2,48 @@
 import SquareButton from "@/Pages/Home/SquareButton.vue";
 import {router} from '@inertiajs/vue3';
 import AuthLayout from "@/Layouts/AuthLayout.vue";
+import GridLayout from "@/Layouts/GridLayout.vue";
 
-const handleFotkyClick = () => {
-    router.get("/files");
+interface ButtonConfig {
+    label: string;
+    icon?: string;
+    url?: string;
+    wip?: boolean;
 }
 
-const handleBufferClick = () => {
-    router.get("/buffer-secured");
-}
+const buttons: ButtonConfig[] = [
+    {label: "Web", icon: "fa-solid fa-earth-europe", url: "/"},
+    {label: "GitHub", icon: "fa-brands fa-github", url: "/github-secured"},
+    {label: "Súbory", icon: "fa-solid fa-image", url: "/new_files"},
+    {label: "Buffer", icon: "fa-solid fa-file-arrow-up", url: "/buffer-secured"},
+    {label: "Buffer kódy", icon: "fa-solid fa-key", url: "/buffer-codes"},
+    {label: "WIP", wip: true},
+    {label: "WIP", wip: true},
+    {label: "WIP", wip: true},
+    {label: "WIP", wip: true},
+    {label: "WIP", wip: true},
+];
 
-const handleGitHubClick = () => {
-    router.get("/github-secured");
-}
-
-const handleBufferCodesClick = () => {
-    router.get("/buffer-codes");
-}
-
+const handleClick = (button: ButtonConfig) => {
+    if (button.wip) return;
+    if (button.url) router.get(button.url);
+};
 
 </script>
 
 <template>
     <AuthLayout>
         <template #default>
-            <div class="grid lg:grid-cols-6 md:grid-cols-4 grid-cols-2 place-items-center gap-y-4 gap-x-4">
-                <SquareButton icon="fa-solid fa-image" :wip="false" :onClick="handleFotkyClick" label="Súbory"/>
-                <SquareButton :wip="false" :onClick="handleGitHubClick" label="GitHub" icon="fa-brands fa-github"/>
-                <SquareButton icon="fa-solid fa-file-arrow-up" :wip="false" label="Buffer" :onClick="handleBufferClick"/>
-                <SquareButton :wip="false" label="Buffer kódy" icon="fa-solid fa-key" :onClick="handleBufferCodesClick"/>
-                <SquareButton :wip="true" label="WIP"/>
-                <SquareButton :wip="true" label="WIP"/>
-                <SquareButton :wip="true" label="WIP"/>
-                <SquareButton :wip="true" label="WIP"/>
-                <SquareButton :wip="true" label="WIP"/>
-                <SquareButton :wip="true" label="WIP"/>
-            </div>
+            <GridLayout>
+                <SquareButton
+                    v-for="(button, idx) in buttons"
+                    :key="idx"
+                    :icon="button.icon"
+                    :wip="button.wip ?? false"
+                    :onClick="() => handleClick(button)"
+                    :label="button.label"
+                />
+            </GridLayout>
         </template>
     </AuthLayout>
 </template>

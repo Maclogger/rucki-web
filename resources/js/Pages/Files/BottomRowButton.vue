@@ -17,8 +17,8 @@ const handleClick = (): void => {
 </script>
 
 <template>
-    <button class="btn flex-1 rounded-none border-none" :class="props.class ?? ''" @click="handleClick"
-        :disabled="props.disabled">
+    <button class="btn border-none" :class="props.class ?? ''" @click="handleClick"
+            :disabled="props.disabled">
         <font-awesome-icon v-if="props.icon" :icon="props.icon" />
         <slot />
     </button>

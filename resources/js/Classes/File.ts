@@ -14,6 +14,7 @@ export interface FilesResponse {
     created_at: string,
     updated_at: string,
     is_photo: boolean,
+    thumbnail_name?: string | null,
 }
 
 export class File {
@@ -59,6 +60,10 @@ export class File {
 
     toggleSelection(): void {
         this.selected = !this.selected;
+    }
+
+    isSelected(): boolean {
+        return this.selected;
     }
 
     getFilePath(): string {

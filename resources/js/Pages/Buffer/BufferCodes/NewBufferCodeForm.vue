@@ -37,9 +37,7 @@ const submitIsDisabled = () => {
 </script>
 
 <template>
-    <div
-        class="w-full h-full rounded-xl bg-primary-dark-transparent px-4 pb-4 pt-1 flex flex-col gap-4 max-w-90 overflow-hidden">
-
+    <div class="w-full h-full rounded-xl bg-primary-dark-transparent px-4 pb-4 pt-1 flex flex-col gap-4 md:max-w-90 overflow-hidden">
         <form @submit.prevent="submit">
             <fieldset class="fieldset bg-base-100 border-base-300 rounded-box border p-4 gap-4 w-full">
                 <legend class="fieldset-legend text-lg">Nový kód</legend>
