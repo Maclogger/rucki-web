@@ -30,7 +30,7 @@ const fileExtension = computed(() => {
 </script>
 
 <template>
-    <div class="h-full w-full flex flex-col items-center justify-center p-2 bg-[#3E435D] gap-1">
+    <div class="h-full w-full flex flex-col items-center justify-center p-2 bg-[#3E435D] gap-1 rounded-lg">
         <div class="flex flex-col gap-1">
             <font-awesome-icon icon="fa-regular fa-file" class="text-6xl "/>
             <div class="badge badge-primary text-lg p-3">{{ fileExtension }}</div>

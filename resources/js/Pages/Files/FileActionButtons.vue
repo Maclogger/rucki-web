@@ -14,10 +14,12 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div class="mt-4 flex flex-col gap-2 justify-end">
-        <DownloadSinglePhotoButton :file="file"/>
-        <CopySinglePhotoButton v-if="file instanceof Photo" :photo="file"/>
-        <DeleteSingleFileButtonButton :file="file"/>
+    <div class="mt-4 flex flex-col gap-2">
+        <div class="grid grid-cols-1 gap-2" :class="file instanceof Photo ? 'md:grid-cols-3' : 'md:grid-cols-2'">
+            <DownloadSinglePhotoButton :file="file"/>
+            <CopySinglePhotoButton v-if="file instanceof Photo" :photo="file"/>
+            <DeleteSingleFileButtonButton :file="file"/>
+        </div>
         <button @click="() => {props.onClose();}"
                 class="btn p-0 border-none bg-primary-dark-transparent hover:bg-my-white hover:text-primary hover">
             <font-awesome-icon icon="fa-solid fa-xmark" />
