@@ -18,7 +18,6 @@ export interface FilesStoreState {
     refreshedAt: Date;
     status: FetchStatus;
     websocketConnection: boolean;
-    currentPage: number;
 }
 
 
@@ -29,20 +28,22 @@ export const useFilesStore = defineStore("filesStore", {
             refreshedAt: new Date(),
             status: FetchStatus.LOADING,
             websocketConnection: false,
-            currentPage: 1,
         };
     },
 
     getters: {
         getSelectedCount(state): number {
-            return state.files.filter(f => f.selected).length;
+            return state.files.filter(f => f.isSelected()).length;
         },
         getSelectedFiles(state): File[] {
-            return state.files.filter(f => f.selected);
+            return state.files.filter(f => f.isSelected());
         },
         areAllFilesSelected(state): boolean {
-            return state.files.length > 0 && state.files.every(file => file.selected);
+            return state.files.length > 0 && state.files.every(file => file.isSelected());
         },
+        getVisibleFiles(state): File[] {
+            return state.files.filter(f => f.isVisible());
+        }
     },
 
     actions: {
@@ -92,12 +93,45 @@ export const useFilesStore = defineStore("filesStore", {
         },
 
         toggleSelectAll() {
-            let newSelection: boolean = true;
-            if (this.areAllFilesSelected) {
-                newSelection = false;
-            }
-            this.files.forEach(f => {
-                f.selected = newSelection;
+            // TODO: Zmazať, nebude sa používať:
+            // let newSelection: boolean = true;
+            // if (this.areAllFilesSelected) {
+            //     newSelection = false;
+            // }
+            // this.files.forEach(f => {
+            //     f.selected = newSelection;
+            // });
+        },
+
+        enablePicturesFilter(){
+            this.files.forEach(file => {
+                if (file instanceof Photo) {
+                    file.setVisible();
+                }
+            });
+        },
+
+        disablePicturesFilter() {
+            this.files.forEach(file => {
+                if (file instanceof Photo) {
+                    file.setHidden();
+                }
+            });
+        },
+
+        enableFilesFilter(){
+            this.files.forEach(file => {
+                if (!(file instanceof Photo)) {
+                    file.setVisible();
+                }
+            });
+        },
+
+        disableFilesFilter() {
+            this.files.forEach(file => {
+                if (!(file instanceof Photo)) {
+                    file.setHidden();
+                }
             });
         },
 
@@ -118,8 +152,8 @@ export const useFilesStore = defineStore("filesStore", {
 
         deleteSelectedFiles() {
             const originalFiles = this.files;
-            const idsOfFilesToDelete = this.files.filter(f => f.selected).map(f => f.id);
-            this.files = this.files.filter(f => !f.selected);
+            const idsOfFilesToDelete = this.files.filter(f => f.isSelected()).map(f => f.id);
+            this.files = this.files.filter(f => !f.isSelected());
 
             window.axios.post(
                 "/delete-multiple-files",

@@ -1,14 +1,16 @@
 <script setup lang="ts">
 
 import AuthLayout from "@/Layouts/AuthLayout.vue";
-import {storeToRefs} from "pinia";
+import StickyHeader from "@/Pages/NewFiles/StickyHeader.vue";
+import FileGallery from "@/Pages/NewFiles/FileGallery.vue";
+import {onMounted} from "vue";
 import {useFilesStore} from "@/stores/filesStore";
 
-const filesStore = useFilesStore();
+const fileStore = useFilesStore();
 
-const { getSelectedFiles: selectedFiles, areAllFilesSelected } = storeToRefs(filesStore);
-
-
+onMounted(() => {
+    fileStore.refresh();
+});
 
 </script>
 
@@ -18,6 +20,8 @@ const { getSelectedFiles: selectedFiles, areAllFilesSelected } = storeToRefs(fil
             <p class="text-2xl">Súbory</p>
         </template>
         <template #default>
+            <StickyHeader/>
+            <FileGallery/>
         </template>
     </AuthLayout>
 </template>
