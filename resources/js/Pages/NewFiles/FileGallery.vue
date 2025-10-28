@@ -6,7 +6,7 @@ import {storeToRefs} from "pinia";
 import GridLayout from "@/Layouts/GridLayout.vue";
 import {Photo} from "@/Classes/Photo";
 import FileIcon from "@/Pages/NewFiles/FileIcon.vue";
-import {useTemplateRef} from "vue";
+import {onBeforeUnmount, onMounted, useTemplateRef} from "vue";
 import {useInfiniteScroll} from "@vueuse/core";
 
 const filesStore = useFilesStore();
@@ -19,14 +19,25 @@ useInfiniteScroll(
     el,
     async ()=> {
         console.log("Loading more...");
+        await filesStore.loadMoreFiles();
     },
     {
         distance: 5,
         canLoadMore: (): boolean => {
-            return true;
+            return filesStore.hasMore;
         }
     }
 );
+
+onMounted(() => {
+    // Start polling for new files every 30 seconds
+    filesStore.startPolling(30);
+});
+
+onBeforeUnmount(() => {
+    // Stop polling when component is unmounted
+    filesStore.stopPolling();
+});
 
 
 </script>

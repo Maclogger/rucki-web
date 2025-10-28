@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
         ->name('photos.show');
     Route::post('files-upload', [FilesController::class, "uploadFiles"]);
     Route::get('/get-files', [FilesController::class, "getFiles"]);
+    Route::get('/get-latest-files', [FilesController::class, "getLatestFiles"]);
     Route::post('/delete-single-file', [FilesController::class, "deleteSingleFile"]);
     Route::post('/delete-multiple-files', [FilesController::class, "deleteMultipleFiles"]);
     Route::get('/debug-button-pressed', [FilesController::class, "debugButtonPressed"]);

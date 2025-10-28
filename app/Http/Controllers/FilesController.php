@@ -185,13 +185,50 @@ class FilesController extends Controller
         return $bufferCodeAccount;
     }
 
-    public function getFiles()
+    public function getFiles(Request $request)
     {
-        $files = File::orderBy('created_at', 'desc')->get();
+        $perPage = $request->input('per_page', 20);
+        $page = $request->input('page', 1);
 
-        return [
-            'files' => $files,
-        ];
+        $files = File::orderBy('created_at', 'desc')
+            ->paginate($perPage, ['*'], 'page', $page);
+
+        return response()->json([
+            'files' => $files->items(),
+            'pagination' => [
+                'current_page' => $files->currentPage(),
+                'last_page' => $files->lastPage(),
+                'per_page' => $files->perPage(),
+                'total' => $files->total(),
+                'has_more' => $files->hasMorePages(),
+            ]
+        ]);
+    }
+
+    /**
+     * Get the latest files with a timestamp check
+     * Used for polling to check for new files
+     */
+    public function getLatestFiles(Request $request)
+    {
+        $request->validate([
+            'since' => 'required|date',
+            'limit' => 'integer|min:1|max:100'
+        ]);
+
+        $since = $request->input('since');
+        $limit = $request->input('limit', 20);
+
+        $newFiles = File::where('created_at', '>', $since)
+            ->orderBy('created_at', 'desc')
+            ->limit($limit)
+            ->get();
+
+        return response()->json([
+            'files' => $newFiles,
+            'count' => $newFiles->count(),
+            'checked_at' => now()->toISOString(),
+        ]);
     }
 
     public function deleteSingleFile(Request $request)
