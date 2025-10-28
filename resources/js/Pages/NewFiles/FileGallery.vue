@@ -31,7 +31,7 @@ useInfiniteScroll(
 </script>
 
 <template>
-    <div ref="el" class="bg-primary-dark-transparent p-4 rounded-xl h-[75vh] overflow-y-scroll">
+    <div ref="el" class="rounded-xl h-[75vh] overflow-y-scroll">
         <GridLayout>
             <button v-for="file in visibleFiles" :key="file.id"
                     class="btn flex flex-col w-full h-full aspect-square rounded-xl p-0 m-0 overflow-hidden">

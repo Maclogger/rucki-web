@@ -34,8 +34,9 @@ const submit = () => {
     }
     form.post(url, {
         onSuccess: () => {
+            form.reset();
             useToastsStore().displayToast({
-                message: "Fotky boli úspešne nahraté",
+                message: "Súbory boli úspešne nahraté",
                 severity: ToastSeverity.SUCCESS,
             });
         },

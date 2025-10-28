@@ -48,7 +48,11 @@ export const usePublicStore = defineStore("publicStore", {
         },
 
         getConstant(constantKey: string): any | null {
-            return this.constant_pairs.find((value => value.key == constantKey)).value;
+            const found = this.constant_pairs.find((value => value.key == constantKey));
+            if (found) {
+                return found.value;
+            }
+            return null;
         },
 
         getFullName(): string {
