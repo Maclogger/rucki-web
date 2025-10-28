@@ -17,7 +17,7 @@ const props = defineProps<{
     <div class="mt-4 flex flex-col gap-2">
         <div class="grid grid-cols-1 gap-2" :class="file instanceof Photo ? 'md:grid-cols-3' : 'md:grid-cols-2'">
             <DownloadSinglePhotoButton :file="file" :afterClick="() => {props.onClose();}" />
-            <CopySinglePhotoButton v-if="file instanceof Photo" :photo="file"/>
+            <CopySinglePhotoButton v-if="file instanceof Photo" :photo="file" :afterClick="() => {props.onClose();}" />
             <DeleteSingleFileButtonButton :file="file" :afterClick="() => {props.onClose();}"/>
         </div>
         <button @click="() => {props.onClose();}"

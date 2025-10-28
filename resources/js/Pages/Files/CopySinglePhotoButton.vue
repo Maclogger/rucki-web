@@ -9,14 +9,13 @@ const toastStore = useToastsStore();
 
 const props = defineProps<{
     photo: Photo
+    afterClick?: () => void,
 }>();
 
 
-const COPIED_DELAY: number = 2_000; // in ms, time after the button is in COPIED state
 enum CopyButtonState {
-    ENABLED, // when the image is ready to be copied
-    WRITING_TO_CLIPBOARD, // when the image is being loaded to clipboard
-    COPIED, // after the image is copied succesfully, for COPIED_DELAY ms this state will be used
+    ENABLED,
+    LOADING,
 }
 
 const status = ref<CopyButtonState>(CopyButtonState.ENABLED);
@@ -27,6 +26,7 @@ const writeBlobToClipboard = (blob: Blob | null) => {
             message: `Nepodarilo sa previesť canvas na Blob.`,
             severity: ToastSeverity.ERROR,
         });
+        status.value = CopyButtonState.ENABLED;
         return;
     }
 
@@ -37,10 +37,8 @@ const writeBlobToClipboard = (blob: Blob | null) => {
             message: "Obrázok bol skopírovaný do schránky.",
             severity: ToastSeverity.SUCCESS,
         });
-        status.value = CopyButtonState.COPIED;
-        setTimeout(() => {
-            status.value = CopyButtonState.ENABLED;
-        }, COPIED_DELAY);
+        status.value = CopyButtonState.ENABLED;
+        props.afterClick?.();
     }).catch(err => {
         toastStore.displayToast({
             message: `Nepodarilo sa skopírovať obrázok do schránky: ${err.message}`,
@@ -51,8 +49,8 @@ const writeBlobToClipboard = (blob: Blob | null) => {
 }
 
 const copyImageToClipboard = async () => {
-    if (status.value == CopyButtonState.WRITING_TO_CLIPBOARD) return;
-    status.value = CopyButtonState.WRITING_TO_CLIPBOARD;
+    if (status.value == CopyButtonState.LOADING) return;
+    status.value = CopyButtonState.LOADING;
 
     // Načítame originálnu fotku (nie thumbnail)
     const img = new Image();
@@ -79,7 +77,7 @@ const copyImageToClipboard = async () => {
 }
 
 const getColorClass = computed(() => {
-    return status.value == CopyButtonState.COPIED ? "bg-success" : "bg-primary-dark-transparent";
+    return "bg-primary-dark-transparent";
 });
 
 </script>
@@ -87,9 +85,8 @@ const getColorClass = computed(() => {
 <template>
     <BottomRowButton :onClick="copyImageToClipboard"
                      class="hover:bg-my-white hover:text-primary" :class="getColorClass">
-        <span v-if="status == CopyButtonState.WRITING_TO_CLIPBOARD"
+        <span v-if="status == CopyButtonState.LOADING"
               class="loading loading-spinner loading-xs"></span>
-        <font-awesome-icon v-else-if="status == CopyButtonState.COPIED" icon="fa-solid fa-check"/>
         <font-awesome-icon v-else icon="fa-solid fa-copy"/>
         Kopírovať
     </BottomRowButton>
