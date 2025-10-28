@@ -17,7 +17,8 @@ export interface FilesStoreState {
     files: File[];
     refreshedAt: Date;
     status: FetchStatus;
-    websocketConnection: boolean;
+    displayPhotos: boolean;
+    displayFiles: boolean;
 }
 
 
@@ -27,27 +28,36 @@ export const useFilesStore = defineStore("filesStore", {
             files: [],
             refreshedAt: new Date(),
             status: FetchStatus.LOADING,
-            websocketConnection: false,
+            displayPhotos: true,
+            displayFiles: true,
         };
     },
 
     getters: {
         getSelectedCount(state): number {
-            return state.files.filter(f => f.isSelected()).length;
+            return state.files.filter(f => f.selected).length;
         },
         getSelectedFiles(state): File[] {
-            return state.files.filter(f => f.isSelected());
+            return state.files.filter(f => f.selected);
         },
         areAllFilesSelected(state): boolean {
             return state.files.length > 0 && state.files.every(file => file.isSelected());
         },
         getVisibleFiles(state): File[] {
-            return state.files.filter(f => f.isVisible());
+            return state.files.filter(f => {
+                if (state.displayPhotos && f instanceof Photo) {
+                    return true;
+                }
+                if (state.displayFiles && !(f instanceof Photo)) {
+                    return true;
+                }
+                return false;
+            });
         }
     },
 
     actions: {
-        async refresh() {
+        async fetchInitialData() {
             this.files = [];
             this.status = FetchStatus.LOADING;
 
@@ -92,47 +102,11 @@ export const useFilesStore = defineStore("filesStore", {
             }
         },
 
-        toggleSelectAll() {
-            // TODO: Zmazať, nebude sa používať:
-            // let newSelection: boolean = true;
-            // if (this.areAllFilesSelected) {
-            //     newSelection = false;
-            // }
-            // this.files.forEach(f => {
-            //     f.selected = newSelection;
-            // });
+        setPhotosFilter(newValue: boolean) {
+            this.displayPhotos = newValue;
         },
-
-        enablePicturesFilter(){
-            this.files.forEach(file => {
-                if (file instanceof Photo) {
-                    file.setVisible();
-                }
-            });
-        },
-
-        disablePicturesFilter() {
-            this.files.forEach(file => {
-                if (file instanceof Photo) {
-                    file.setHidden();
-                }
-            });
-        },
-
-        enableFilesFilter(){
-            this.files.forEach(file => {
-                if (!(file instanceof Photo)) {
-                    file.setVisible();
-                }
-            });
-        },
-
-        disableFilesFilter() {
-            this.files.forEach(file => {
-                if (!(file instanceof Photo)) {
-                    file.setHidden();
-                }
-            });
+        setFilesFilter(newValue: boolean) {
+            this.displayFiles = newValue;
         },
 
         async deleteSingleFile(file: File) {
@@ -152,8 +126,8 @@ export const useFilesStore = defineStore("filesStore", {
 
         deleteSelectedFiles() {
             const originalFiles = this.files;
-            const idsOfFilesToDelete = this.files.filter(f => f.isSelected()).map(f => f.id);
-            this.files = this.files.filter(f => !f.isSelected());
+            const idsOfFilesToDelete = this.files.filter(f => f.selected).map(f => f.id);
+            this.files = this.files.filter(f => !f.selected);
 
             window.axios.post(
                 "/delete-multiple-files",

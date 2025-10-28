@@ -13,7 +13,7 @@ const fileStore = useFilesStore();
 const {getVisibleFiles: visibleFiles} = storeToRefs(fileStore);
 
 onMounted(() => {
-    fileStore.refresh();
+    fileStore.fetchInitialData();
 });
 
 </script>

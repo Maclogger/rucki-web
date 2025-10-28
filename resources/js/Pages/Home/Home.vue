@@ -12,7 +12,6 @@ interface ButtonConfig {
 }
 
 const buttons: ButtonConfig[] = [
-    {label: "Súbory", icon: "fa-solid fa-image", url: "/files"},
     {label: "GitHub", icon: "fa-brands fa-github", url: "/github-secured"},
     {label: "Buffer", icon: "fa-solid fa-file-arrow-up", url: "/buffer-secured"},
     {label: "Buffer kódy", icon: "fa-solid fa-key", url: "/buffer-codes"},

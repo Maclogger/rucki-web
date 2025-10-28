@@ -2,31 +2,20 @@
 
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {useFilesStore} from "@/stores/filesStore";
-import {storeToRefs} from "pinia";
 import {ref, watch} from "vue";
 
 
 const filesStore = useFilesStore();
 
-const { getVisibleFiles: visibleFiles } = storeToRefs(filesStore);
-
 const showPicturesFilter = ref(true);
 const showFilesFilter = ref(true);
 
 watch(showPicturesFilter, (newValue: boolean) => {
-    if (newValue) {
-        filesStore.enablePicturesFilter();
-    } else {
-        filesStore.disablePicturesFilter();
-    }
+    filesStore.setPhotosFilter(newValue);
 });
 
 watch(showFilesFilter, (newValue: boolean) => {
-    if (newValue) {
-        filesStore.enableFilesFilter();
-    } else {
-        filesStore.disableFilesFilter();
-    }
+    filesStore.setFilesFilter(newValue);
 });
 
 </script>

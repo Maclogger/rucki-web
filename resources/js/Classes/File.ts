@@ -16,12 +16,6 @@ export interface FilesResponse {
     is_photo: boolean,
 }
 
-export enum FileState {
-    HIDDEN = "HIDDEN",
-    VISIBLE = "VISIBLE",
-    SELECTED = "SELECTED",
-}
-
 export class File {
     id: number;
     fileName: string;
@@ -32,7 +26,7 @@ export class File {
     readableSize: string;
     createdAt: Date;
     updatedAt: Date;
-    fileState: FileState;
+    selected: boolean;
 
     constructor(data: FilesResponse);
     constructor(data: File);
@@ -48,7 +42,7 @@ export class File {
             this.readableSize = data.readable_size;
             this.createdAt = new Date(data.created_at);
             this.updatedAt = new Date(data.updated_at);
-            this.fileState = FileState.VISIBLE;
+            this.selected = false;
         } else {
             this.id = data.id;
             this.fileName = data.fileName;
@@ -59,55 +53,20 @@ export class File {
             this.readableSize = data.readableSize;
             this.createdAt = data.createdAt;
             this.updatedAt = data.updatedAt;
-            this.fileState = FileState.VISIBLE;
+            this.selected = data.selected;
         }
     }
 
     toggleSelection(): void {
-        switch (this.fileState) {
-            case FileState.HIDDEN: {
-                throw new Error("Cannot toggle selection on a HIDDEN file!");
-            }
-            case FileState.VISIBLE: {
-                this.fileState = FileState.SELECTED;
-                break;
-            }
-            case FileState.SELECTED: {
-                this.fileState = FileState.VISIBLE;
-                break;
-            }
-        }
-    }
-
-    isVisible(): boolean {
-        return this.fileState === FileState.VISIBLE || this.fileState === FileState.SELECTED;
+        this.selected = !this.selected;
     }
 
     isSelected(): boolean {
-        return this.fileState === FileState.SELECTED;
-    }
-
-    isHidden(): boolean {
-        return this.fileState === FileState.HIDDEN;
+        return this.selected;
     }
 
     getFilePath(): string {
         return `/files-show/${this.fileName}`;
-    }
-
-    setVisible(): void {
-        this.fileState = FileState.VISIBLE;
-    }
-
-    setSelected(): void {
-        if (this.fileState === FileState.HIDDEN) {
-            throw new Error("Cannot select a HIDDEN file!");
-        }
-        this.fileState = FileState.SELECTED;
-    }
-
-    setHidden(): void {
-        this.fileState = FileState.HIDDEN;
     }
 
     static clickOnUrl(url: string, filename?: string, newTab: boolean = false): void {
