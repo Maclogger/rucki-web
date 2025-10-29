@@ -268,28 +268,28 @@ class FilesController extends Controller
     }
 
     /**
-     * Get the latest files with a timestamp check
+     * Get the latest files with an ID check
      * Used for polling to check for new files
      */
     public function getLatestFiles(Request $request)
     {
         $request->validate([
-            'since' => 'required|date',
+            'after_id' => 'required|integer|min:0',
             'limit' => 'integer|min:1|max:100'
         ]);
 
-        $since = $request->input('since');
+        $afterId = $request->input('after_id');
         $limit = $request->input('limit', 20);
 
-        $newFiles = File::where('created_at', '>', $since)
-            ->orderBy('created_at', 'desc')
+        $newFiles = File::where('id', '>', $afterId)
+            ->orderBy('id', 'desc')
             ->limit($limit)
             ->get();
 
         return response()->json([
             'files' => $newFiles,
             'count' => $newFiles->count(),
-            'checked_at' => now()->toISOString(),
+            'last_checked_id' => $newFiles->isEmpty() ? $afterId : $newFiles->first()->id,
         ]);
     }
 

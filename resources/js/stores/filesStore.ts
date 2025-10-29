@@ -2,6 +2,7 @@ import {defineStore} from 'pinia';
 import {ToastSeverity, useToastsStore} from './toastsStore';
 import {File, FilesResponse} from '@/Classes/File';
 import {Photo} from '@/Classes/Photo';
+import {vysklonuj} from "@/utils/sklonovac";
 
 export enum FetchStatus {
     LOADING,
@@ -23,7 +24,7 @@ export interface FilesStoreState {
     hasMore: boolean;
     // Polling
     pollingInterval: number | null;
-    lastCheckedAt: Date | null;
+    lastCheckedId: number;
 }
 
 function mapResponseToFile(fileResponse: FilesResponse): File {
@@ -53,7 +54,7 @@ export const useFilesStore = defineStore("filesStore", {
             hasMore: false,
             // Polling
             pollingInterval: null,
-            lastCheckedAt: null,
+            lastCheckedId: 0,
         };
     },
 
@@ -131,6 +132,10 @@ export const useFilesStore = defineStore("filesStore", {
                 this.files.push(...newFiles);
             } else {
                 this.files = newFiles;
+                // Set lastCheckedId to the highest ID from loaded files
+                if (newFiles.length > 0) {
+                    this.lastCheckedId = Math.max(...newFiles.map(f => f.id));
+                }
             }
 
             this.updatePaginationData(data.pagination);
@@ -160,13 +165,9 @@ export const useFilesStore = defineStore("filesStore", {
         // ========== Polling Methods ==========
 
         async checkForNewFiles() {
-            if (!this.lastCheckedAt) {
-                return;
-            }
-
             try {
                 const response = await window.axios.post("/get-latest-files", {
-                    since: this.lastCheckedAt.toISOString(),
+                    after_id: this.lastCheckedId,
                     limit: this.perPage
                 });
 
@@ -178,21 +179,31 @@ export const useFilesStore = defineStore("filesStore", {
 
         handleNewFilesResponse(data: any) {
             if (!data || !data.files || data.count === 0) {
-                this.lastCheckedAt = new Date();
+                if (data && data.last_checked_id) {
+                    this.lastCheckedId = data.last_checked_id;
+                }
                 return;
             }
 
             const newFiles = mapResponseToFiles(data.files);
             this.files.unshift(...newFiles);
             this.total += data.count;
-            this.lastCheckedAt = new Date();
+            this.lastCheckedId = data.last_checked_id;
 
             this.notifyNewFiles(data.count);
         },
 
         notifyNewFiles(count: number) {
+            let message = vysklonuj(count,
+                "Bol pridaný",
+                "Boli pridané",
+                "Bolo pridaných",
+                true
+            );
+            message += " " + vysklonuj(count, "súbor", "súbory", "súborov", false) + ".";
+
             useToastsStore().displayToast({
-                message: `Pridané ${count} nové súbory`,
+                message: message,
                 severity: ToastSeverity.SUCCESS,
             });
         },
@@ -242,7 +253,7 @@ export const useFilesStore = defineStore("filesStore", {
             this.decrementTotal();
 
             try {
-                await window.axios.post("/delete-single-file", { id: file.id });
+                await window.axios.post("/delete-single-file", {id: file.id});
                 useToastsStore().displayToast({
                     message: "Súbor bol úspešne vymazaný.",
                     severity: ToastSeverity.SUCCESS,
@@ -265,7 +276,7 @@ export const useFilesStore = defineStore("filesStore", {
             this.decrementTotal(idsToDelete.length);
 
             try {
-                await window.axios.post("/delete-multiple-files", { ids: idsToDelete });
+                await window.axios.post("/delete-multiple-files", {ids: idsToDelete});
                 console.log("Successfully deleted files.");
             } catch (error) {
                 console.error("Files could not be deleted!");
@@ -289,7 +300,6 @@ export const useFilesStore = defineStore("filesStore", {
 
         updateTimestamps() {
             this.refreshedAt = new Date();
-            this.lastCheckedAt = new Date();
         },
 
         canLoadMore(): boolean {
