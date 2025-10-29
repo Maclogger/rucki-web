@@ -57,6 +57,19 @@ class ImageHelper
                 return false;
             }
 
+            // Handle EXIF orientation for images (especially from mobile devices)
+            if ($type === IMAGETYPE_JPEG && function_exists('exif_read_data')) {
+                $exif = @exif_read_data($fullOriginalPath);
+                if ($exif !== false && !empty($exif['Orientation'])) {
+                    $source = self::correctImageOrientation($source, $exif['Orientation']);
+
+                    // After rotation, we may need to swap width and height
+                    if (in_array($exif['Orientation'], [5, 6, 7, 8])) {
+                        [$width, $height] = [$height, $width];
+                    }
+                }
+            }
+
             // Calculate new dimensions maintaining aspect ratio
             $ratio = min($maxWidth / $width, $maxHeight / $height);
 
@@ -139,6 +152,55 @@ class ImageHelper
     public static function isImage(string $mimeType): bool
     {
         return str_starts_with(strtolower($mimeType), 'image/');
+    }
+
+    /**
+     * Correct image orientation based on EXIF data
+     *
+     * @param \GdImage $image The GD image resource
+     * @param int $orientation EXIF orientation value (1-8)
+     * @return \GdImage Corrected image resource
+     */
+    private static function correctImageOrientation($image, int $orientation)
+    {
+        switch ($orientation) {
+            case 2:
+                // Flip horizontal
+                imageflip($image, IMG_FLIP_HORIZONTAL);
+                break;
+            case 3:
+                // Rotate 180 degrees
+                $image = imagerotate($image, 180, 0);
+                break;
+            case 4:
+                // Flip vertical
+                imageflip($image, IMG_FLIP_VERTICAL);
+                break;
+            case 5:
+                // Rotate 90 degrees clockwise and flip horizontal
+                $image = imagerotate($image, -90, 0);
+                imageflip($image, IMG_FLIP_HORIZONTAL);
+                break;
+            case 6:
+                // Rotate 90 degrees clockwise (most common for iPhone)
+                $image = imagerotate($image, -90, 0);
+                break;
+            case 7:
+                // Rotate 90 degrees counter-clockwise and flip horizontal
+                $image = imagerotate($image, 90, 0);
+                imageflip($image, IMG_FLIP_HORIZONTAL);
+                break;
+            case 8:
+                // Rotate 90 degrees counter-clockwise
+                $image = imagerotate($image, 90, 0);
+                break;
+            case 1:
+            default:
+                // No rotation needed
+                break;
+        }
+
+        return $image;
     }
 
     /**
