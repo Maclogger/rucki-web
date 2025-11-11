@@ -8,6 +8,7 @@ use App\Http\Controllers\GithubController;
 use App\Http\Controllers\GithubRecordController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\FilesController;
+use App\Http\Controllers\QrCodeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -61,3 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/download/{fileId}', [FileDownloadController::class, "download"]);
     Route::post('/download-multiple', [FileDownloadController::class, "downloadFilesInZip"]);
 });
+
+// QR Codes
+Route::get('/qr/{uuid}', [QrCodeController::class, 'show']);
+
