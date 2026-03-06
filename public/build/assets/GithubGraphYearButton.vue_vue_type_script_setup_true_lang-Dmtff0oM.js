@@ -1,0 +1,1 @@
+import{d as n,S as o,c,t as i,y as u,o as l}from"./app-FebD1TaQ.js";const m=n({__name:"GithubGraphYearButton",props:{year:{}},setup(r){const e=r,t=o(),a=()=>t.selected_year===e.year,s=()=>{e.year&&t.setNewSelectedYear(e.year)};return(p,y)=>(l(),c("button",{onClick:s,class:u(["github-year-button btn",a()?"btn-primary":"btn-neutral"])},i(e.year),3))}});export{m as _};

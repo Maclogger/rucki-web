@@ -46,7 +46,7 @@ export const usesBufferCodesStore = defineStore("bufferCodesStore", {
                 });
         },
 
-        createNewBufferCode(form: InertiaForm<{ code: string, enabled: false }>) {
+        createNewBufferCode(form: InertiaForm<{ code: string, enabled: boolean }>) {
             this.bufferCodes.push();
             form.post("/new-buffer-code", {
                 onSuccess: () => {
