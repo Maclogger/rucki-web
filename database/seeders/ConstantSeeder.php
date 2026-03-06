@@ -16,7 +16,7 @@ class ConstantSeeder extends Seeder
         Constant::createAndSavePair('titul', "Bc.");
         Constant::createAndSavePair('meno', "Marek");
         Constant::createAndSavePair('priezvisko', "Rucki");
-        Constant::createAndSavePair('rola', "Junior Developer");
+        Constant::createAndSavePair('rola', "Software Developer");
         Constant::createAndSavePair('nickname', "Maclogger");
         Constant::createAndSavePair('dateAndTimeFormat', "dd.MM.yyyy HH:mm");
         Constant::createAndSavePair('dateFormat', "dd.MM.yyyy");
@@ -25,5 +25,15 @@ class ConstantSeeder extends Seeder
         Constant::createAndSavePair('bufferCodeLength', 4);
         Constant::createAndSavePair('galleryPollingIntervalSeconds', 2);
         Constant::createAndSavePair('galleryPollingPageSize', 5);
+
+        Constant::createAndSavePair('phoneNumber', "+421 918 024 666");
+
+        Constant::createAndSavePair('mail', "marek@rucki.sk");
+
+        Constant::createAndSavePair('currentLocation', "Žilina");
+        Constant::createAndSavePair('currentLocationLink', "https://maps.app.goo.gl/dxj9sqUpHG44Vqro6");
+
+        Constant::createAndSavePair('githubUserName', "Marek Rucki");
+        Constant::createAndSavePair('gitHubLink', "https://github.com/Maclogger");
     }
 }
