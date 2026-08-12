@@ -4,11 +4,12 @@ use App\Http\Controllers\AppController;
 use App\Http\Controllers\BufferController;
 use App\Http\Controllers\ContactMailController;
 use App\Http\Controllers\FileDownloadController;
+use App\Http\Controllers\FilesController;
 use App\Http\Controllers\GithubController;
 use App\Http\Controllers\GithubRecordController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\FilesController;
 use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\WebRecordingsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -66,3 +67,5 @@ Route::middleware('auth')->group(function () {
 // QR Codes
 Route::get('/qr/{uuid}', [QrCodeController::class, 'show']);
 
+// WebRecorder
+Route::post("/store-web-recorder-batch", [WebRecordingsController::class, "newBatchReceived"]);
