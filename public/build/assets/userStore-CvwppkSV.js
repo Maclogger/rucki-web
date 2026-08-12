@@ -1,0 +1,1 @@
+import{i as e}from"./dist-CvrivuHD.js";import{n as t}from"./pinia-DQ6HfL__.js";var n=t(`userStore`,{state(){return{user:null}},getters:{isLoggedIn:e=>!!e.user,getUser:e=>e.user},actions:{setUser(e){this.user=e},logout(){this.user&&e.post(route(`logout`),{},{onFinish:()=>{this.setUser(null)},onError:()=>{console.error(`Logout did not work.`)}})}}});export{n as t};

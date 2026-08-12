@@ -1,0 +1,1 @@
+var e=class e{static EMOJIS=`😂.🤣.😜.😎.🤪.😇.🤩.😅.😊.🧸.😏.😋.😝.😛.😆.😁.😃.😄.😉.😇.🐶.🐱.🐭.🐹.🐰.🦊.🐻.🐼.🐨.🐯.🦁.🐮.🐷.🐸.🐵.🙈.🙉.🐔.🐧.😺.🐦.🐤.🦆.🦉.🐝.🐞.🦋.🐢.🐬.😸.🥰.😍.😻.😽.😸.😺.😹.😻.😼.😽`.split(`.`);static getRandomEmoji(){let t=e.EMOJIS;return t[Math.floor(Math.random()*t.length)]}};export{e as t};

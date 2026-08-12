@@ -1,0 +1,1 @@
+var e=(e,t,n,r,i)=>{let a=``;return(i==null||!i)&&(a+=e+` `),e==1?a+t:e==2||e==3||e==4?a+n:a+r};export{e as t};

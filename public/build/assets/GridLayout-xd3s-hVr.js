@@ -1,0 +1,1 @@
+import{s as e,w as t,x as n}from"./runtime-core.esm-bundler-NgM7rWk2.js";import{t as r}from"./_plugin-vue_export-helper-BDNMzG2s.js";var i={},a={class:`grid lg:grid-cols-6 md:grid-cols-4 grid-cols-2 place-items-center gap-y-4 gap-x-4`};function o(r,i){return n(),e(`div`,a,[t(r.$slots,`default`)])}var s=r(i,[[`render`,o]]);export{s as t};
