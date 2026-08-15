@@ -1,16 +1,11 @@
 import {defineStore} from "pinia";
 import axios from "axios";
-import dayjs, {Dayjs} from "dayjs";
 import {getSessionId, getVisitorId} from "@/utils/userIdManager";
-
-const INTERVAL_SECONDS = 5;
-
 
 export interface WebRecorderStoreState {
     batchOfEvents: any[];
     visitorId: string;
     sessionId: string;
-    nextBatchScheduledTime: Dayjs;
 }
 
 export const useWebRecorderStore = defineStore('webRecorderStore', {
@@ -19,16 +14,15 @@ export const useWebRecorderStore = defineStore('webRecorderStore', {
             batchOfEvents: [],
             visitorId: getVisitorId(),
             sessionId: getSessionId(),
-            nextBatchScheduledTime: dayjs().add(INTERVAL_SECONDS, 'seconds'),
         }
     },
 
     actions: {
-        init() {
-            this.scheduleNextBatch();
+        pushEvent(event: any) {
+            this.batchOfEvents.push(event);
         },
 
-        async saveBatchToDatabase() {
+        async flush() {
             if (this.batchOfEvents.length === 0) {
                 return;
             }
@@ -42,30 +36,10 @@ export const useWebRecorderStore = defineStore('webRecorderStore', {
                     sessionId: this.sessionId,
                     events,
                 });
-            } catch (error) {
+            } catch {
+                // Unsent events belong at the front of the queue, the order has to be preserved
                 this.batchOfEvents.unshift(...events);
-                throw error;
             }
-        },
-
-        pushEvent(event: any) {
-            this.batchOfEvents.push(event);
-        },
-
-        async finishRecording() {
-            await this.saveBatchToDatabase();
-        },
-
-        scheduleNextBatch() {
-            this.nextBatchScheduledTime = dayjs().add(INTERVAL_SECONDS, 'seconds');
-            setTimeout(async () => {
-                const store = useWebRecorderStore();
-                try {
-                    await store.saveBatchToDatabase();
-                } finally {
-                    store.scheduleNextBatch();
-                }
-            }, INTERVAL_SECONDS * 1_000)
         },
     }
 

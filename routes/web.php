@@ -9,7 +9,9 @@ use App\Http\Controllers\GithubController;
 use App\Http\Controllers\GithubRecordController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\WebRecordingBatchController;
 use App\Http\Controllers\WebRecordingsController;
+use App\Http\Middleware\RawInputRoutes;
 use App\Models\WrSession;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -65,7 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/download-multiple', [FileDownloadController::class, "downloadFilesInZip"]);
     Route::inertia('/web-recordings', "Recordings/WebRecordingsPage", [
         'sessions' => Inertia::scroll(
-            fn() => WrSession::query()
+            fn () => WrSession::query()
                 ->with('visitor')
                 ->withCount('events')
                 ->latest()
@@ -79,4 +81,5 @@ Route::middleware('auth')->group(function () {
 Route::get('/qr/{uuid}', [QrCodeController::class, 'show']);
 
 // WebRecorder
-Route::post("/store-web-recorder-batch", [WebRecordingsController::class, "newBatchReceived"]);
+// The constant keeps this path in sync with the one RawInputRoutes exempts from input mangling
+Route::post(RawInputRoutes::WEB_RECORDER_BATCH, WebRecordingBatchController::class);

@@ -2,75 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\WebRecordingBatchRequest;
-use App\Models\WrSession;
-use App\Models\WrVisitor;
-use App\Models\WrWebRecordingEvent;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Throwable;
+use App\Services\WebRecordingService;
+use Illuminate\Http\JsonResponse;
 
+/**
+ * Reading recordings for the admin pages. Incoming batches are handled by WebRecordingBatchController.
+ */
 class WebRecordingsController extends Controller
 {
+    public function __construct(private readonly WebRecordingService $webRecordings) {}
 
-    public function newBatchReceived(WebRecordingBatchRequest $request)
+    public function fetchEvents(string $idSession): JsonResponse
     {
-        $validated = $request->validated();
-        $sessionId = $validated['sessionId'];
-        $visitorId = $validated['visitorId'];
-        $batchOfEvents = $validated['events'];
-
-        try {
-            $this->newBatchReceivedImpl($visitorId, $sessionId, $batchOfEvents);
-        } catch (Throwable $e) {
-            Log::error("Error processing new batch of events: " . $e->getMessage(), ['exception' => $e]);
-        }
-    }
-
-    /**
-     * @throws Throwable
-     */
-    private function newBatchReceivedImpl(string $visitorId, string $sessionId, array $batchOfEvents)
-    {
-        DB::beginTransaction();
-
-        $visitor = WrVisitor::firstOrCreate([
-            'id_visitor' => $visitorId,
-        ]);
-
-        $session = WrSession::firstOrCreate([
-            'id_session' => $sessionId,
-            'id_visitor' => $visitor->id_visitor,
-        ]);
-
-        foreach ($batchOfEvents as $event) {
-            WrWebRecordingEvent::create([
-                'id_session' => $session->id_session,
-                'event' => $event,
-            ]);
-        }
-
-        DB::commit();
-    }
-
-    public function fetchEvents(string $idSession)
-    {
-        $events = WrWebRecordingEvent::where('id_session', $idSession)->get();
-
-        if (!$events) {
-            return response()->json([
-                'events' => []
-            ]);
-        }
-
-        $rrWebEvents = $events->map(function (WrWebRecordingEvent $event) {
-            return $event->event;
-        });
-
-
         return response()->json([
-            'events' => $rrWebEvents
+            'events' => $this->webRecordings->eventsForSession($idSession),
         ]);
     }
-
 }

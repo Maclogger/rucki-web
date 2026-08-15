@@ -56,13 +56,13 @@ export const usePublicStore = defineStore("publicStore", {
         },
 
         getFullName(): string {
-            if (!this.constant_pairs) return "";
-
-            const titul = this.getConstant("titul");
-            const meno = this.getConstant("meno");
-            const priezvisko = this.getConstant("priezvisko");
-
-            return titul + " " + meno + " " + priezvisko;
+            // Until the constants are loaded getConstant returns null - without filtering
+            // them out the concatenation would render the literal text "null null null"
+            return [
+                this.getConstant("titul"),
+                this.getConstant("meno"),
+                this.getConstant("priezvisko"),
+            ].filter(Boolean).join(" ");
         }
     },
 });

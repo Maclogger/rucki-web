@@ -8,7 +8,7 @@ import axios from "axios";
 import rrwebPlayer from 'rrweb-player';
 import 'rrweb-player/dist/style.css';
 
-// rrweb-player si výšku ovládacieho panela pripočítava k `height` props-e
+// rrweb-player adds the controller bar height on top of the `height` prop
 const CONTROLLER_HEIGHT = 80;
 
 const props = defineProps<{
@@ -39,7 +39,7 @@ watch(() => props.session, async (session) => {
         const target = stage.value!;
         target.innerHTML = '';
 
-        // Prehrávač má fixné inline rozmery v px, takže mu ich musíme dopočítať zo stage-u
+        // The player has fixed inline sizes in px, so they have to be derived from the stage
         player = new rrwebPlayer({
             target,
             props: {
@@ -101,7 +101,7 @@ onBeforeUnmount(() => player?.pause());
 
 <style>
 
-/* .rr-player je float:left s bielym pozadím a tieňom – v modale to nechceme */
+/* .rr-player is float:left with a white background and a shadow - not wanted in the modal */
 #rrweb-modal .rr-player {
     float: none;
     background: transparent;
