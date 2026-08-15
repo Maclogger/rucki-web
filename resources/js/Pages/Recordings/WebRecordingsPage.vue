@@ -1,7 +1,5 @@
 <script setup lang="ts">
 
-import {Replayer} from "@rrweb/all";
-import {onMounted, ref} from "vue";
 import {Paginated} from "@/types";
 import {WrSession} from "@/Pages/Recordings/recordings.types";
 import AuthLayout from "@/Layouts/AuthLayout.vue";
