@@ -2,14 +2,14 @@
 
 import {WrSession} from "@/Pages/Recordings/recordings.types";
 import {toFormattedDate} from "@/utils/dateHelper";
-import {ref, watch} from "vue";
+import {watch} from "vue";
 import axios from "axios";
+import rrwebPlayer from 'rrweb-player';
+import 'rrweb-player/dist/style.css';
 
 const props = defineProps<{
     session: WrSession | null;
 }>();
-
-const events = ref<any[] | null>(null);
 
 watch(
     () => props.session,
@@ -17,9 +17,14 @@ watch(
         if (!props.session) {
             return;
         }
-        const fetchedEvents = await axios.get(`/web-recordings-fetch-events/${props.session.id_session}`);
-        console.log({fetchedEvents});
-        events.value = fetchedEvents.data.events;
+        const fetchedRrWebEvents = await axios.get(`/web-recordings-fetch-events/${props.session.id_session}`);
+
+        new rrwebPlayer({
+            target: document.getElementById('rrweb-root') as HTMLElement,
+            props: {
+                events: fetchedRrWebEvents.data.events,
+            },
+        });
     }
 )
 
@@ -60,7 +65,7 @@ watch(
                                 </div>
                             </div>
                             <div class="w-2/3 bg-black grow content-center">
-                                <p class="text-center">TODO: RRWeb Player</p>
+                                <div id="rrweb-root"/>
                             </div>
                         </div>
                     </div>

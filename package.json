@@ -36,6 +36,7 @@
         "dayjs": "^1.11.21",
         "gsap": "^3.15.0",
         "pinia": "^4.0.3",
+        "rrweb-player": "^2.1.1",
         "tailwindcss": "^4.3.3",
         "viewerjs": "^1.11.8",
         "vue-easy-lightbox": "^1.19.0",
