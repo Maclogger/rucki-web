@@ -10,296 +10,296 @@
       "_EmojiHelper-l82s0DdT.js"
     ]
   },
-  "_BottomRowButton-D4ew3zr5.js": {
-    "file": "assets/BottomRowButton-D4ew3zr5.js",
+  "_BottomRowButton-D3G8hUrY.js": {
+    "file": "assets/BottomRowButton-D3G8hUrY.js",
     "name": "BottomRowButton",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "_index.es-BzvWryUC.js",
-      "resources/js/app.ts"
+      "_index.es-BzvWryUC.js"
     ]
   },
-  "_BufferComponent-Cf9QpOe_.js": {
-    "file": "assets/BufferComponent-Cf9QpOe_.js",
+  "_BufferComponent-CzRXHgwB.js": {
+    "file": "assets/BufferComponent-CzRXHgwB.js",
     "name": "BufferComponent",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_publicStore-nnTVAmfV.js",
-      "resources/js/app.ts",
       "_EmojiHelper-l82s0DdT.js",
-      "_CodeDigit-s9YrOuS0.js",
-      "_UploadFilesButton-pISRos5n.js"
+      "_CodeDigit-DOOm_6B2.js",
+      "_UploadFilesButton-DTB3BJYC.js"
     ]
   },
-  "_CodeDigit-s9YrOuS0.js": {
-    "file": "assets/CodeDigit-s9YrOuS0.js",
+  "_CodeDigit-DOOm_6B2.js": {
+    "file": "assets/CodeDigit-DOOm_6B2.js",
     "name": "CodeDigit",
     "imports": [
-      "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "resources/js/app.ts"
+      "_axios-vXY0ndz_.js",
+      "_runtime-core.esm-bundler-NgM7rWk2.js"
     ]
   },
-  "_ContactInfoPanel-CT6d2Wdv.js": {
-    "file": "assets/ContactInfoPanel-CT6d2Wdv.js",
+  "_ContactInfoPanel-QTMec7-G.js": {
+    "file": "assets/ContactInfoPanel-QTMec7-G.js",
     "name": "ContactInfoPanel",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_publicStore-nnTVAmfV.js",
-      "resources/js/app.ts",
-      "_ContactRow-BnK_o_SJ.js"
+      "_ContactRow-Buie1Vwj.js"
     ]
   },
-  "_ContactMail-CaAlyk3U.js": {
-    "file": "assets/ContactMail-CaAlyk3U.js",
+  "_ContactMail-BRVk9gow.js": {
+    "file": "assets/ContactMail-BRVk9gow.js",
     "name": "ContactMail",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_dist-CvrivuHD.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_runtime-dom.esm-bundler-LJw5RmHd.js",
-      "_toastsStore-BlYSN40g.js",
-      "resources/js/app.ts"
+      "_toastsStore-BlYSN40g.js"
     ]
   },
-  "_ContactRow-BnK_o_SJ.js": {
-    "file": "assets/ContactRow-BnK_o_SJ.js",
+  "_ContactRow-Buie1Vwj.js": {
+    "file": "assets/ContactRow-Buie1Vwj.js",
     "name": "ContactRow",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "_index.es-BzvWryUC.js",
-      "resources/js/app.ts"
+      "_index.es-BzvWryUC.js"
     ]
   },
-  "_ContactSection-B8C086LB.js": {
-    "file": "assets/ContactSection-B8C086LB.js",
+  "_ContactSection-CxAH3HPE.js": {
+    "file": "assets/ContactSection-CxAH3HPE.js",
     "name": "ContactSection",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "resources/js/app.ts",
-      "_ContactInfoPanel-CT6d2Wdv.js",
-      "_ContactMail-CaAlyk3U.js"
+      "_ContactInfoPanel-QTMec7-G.js",
+      "_ContactMail-BRVk9gow.js"
     ]
   },
-  "_CopySinglePhotoButton-CMW0UCxF.js": {
-    "file": "assets/CopySinglePhotoButton-CMW0UCxF.js",
+  "_CopySinglePhotoButton-Cdb1KNsu.js": {
+    "file": "assets/CopySinglePhotoButton-Cdb1KNsu.js",
     "name": "CopySinglePhotoButton",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_index.es-BzvWryUC.js",
       "_toastsStore-BlYSN40g.js",
-      "resources/js/app.ts",
-      "_BottomRowButton-D4ew3zr5.js"
+      "_BottomRowButton-D3G8hUrY.js"
     ]
   },
-  "_DeleteSingleFileButton-mxnRfDYg.js": {
-    "file": "assets/DeleteSingleFileButton-mxnRfDYg.js",
+  "_DeleteSingleFileButton-ChXck2Q1.js": {
+    "file": "assets/DeleteSingleFileButton-ChXck2Q1.js",
     "name": "DeleteSingleFileButton",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "resources/js/app.ts",
-      "_BottomRowButton-D4ew3zr5.js",
+      "_BottomRowButton-D3G8hUrY.js",
       "_filesStore-CheXz-Ma.js"
     ]
   },
-  "_DownloadSinglePhotoButton-CNnFBX77.js": {
-    "file": "assets/DownloadSinglePhotoButton-CNnFBX77.js",
+  "_DownloadSinglePhotoButton-f38KQDQq.js": {
+    "file": "assets/DownloadSinglePhotoButton-f38KQDQq.js",
     "name": "DownloadSinglePhotoButton",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "resources/js/app.ts",
-      "_BottomRowButton-D4ew3zr5.js"
+      "_BottomRowButton-D3G8hUrY.js"
     ]
   },
   "_EmojiHelper-l82s0DdT.js": {
     "file": "assets/EmojiHelper-l82s0DdT.js",
     "name": "EmojiHelper"
   },
-  "_FileActionButtons-BeVTS2zt.js": {
-    "file": "assets/FileActionButtons-BeVTS2zt.js",
+  "_FileActionButtons-BFL_JAuv.js": {
+    "file": "assets/FileActionButtons-BFL_JAuv.js",
     "name": "FileActionButtons",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_index.es-BzvWryUC.js",
-      "resources/js/app.ts",
-      "_CopySinglePhotoButton-CMW0UCxF.js",
+      "_CopySinglePhotoButton-Cdb1KNsu.js",
       "_filesStore-CheXz-Ma.js",
-      "_DeleteSingleFileButton-mxnRfDYg.js",
-      "_DownloadSinglePhotoButton-CNnFBX77.js"
+      "_DeleteSingleFileButton-ChXck2Q1.js",
+      "_DownloadSinglePhotoButton-f38KQDQq.js"
     ]
   },
-  "_FileGallery-CU2Bsq5X.js": {
-    "file": "assets/FileGallery-CU2Bsq5X.js",
+  "_FileGallery-DaM5FvTb.js": {
+    "file": "assets/FileGallery-DaM5FvTb.js",
     "name": "FileGallery",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_pinia-DQ6HfL__.js",
-      "resources/js/app.ts",
       "_filesStore-CheXz-Ma.js",
       "_GridLayout-xd3s-hVr.js",
-      "_FileIcon-BYMaOCAM.js",
-      "_FileModal-B7reZAyK.js"
+      "_FileIcon-CIHUVBxS.js",
+      "_FileModal-5NT_B-48.js"
     ]
   },
-  "_FileIcon-BYMaOCAM.js": {
-    "file": "assets/FileIcon-BYMaOCAM.js",
+  "_FileIcon-CIHUVBxS.js": {
+    "file": "assets/FileIcon-CIHUVBxS.js",
     "name": "FileIcon",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "_index.es-BzvWryUC.js",
-      "resources/js/app.ts"
+      "_index.es-BzvWryUC.js"
     ]
   },
-  "_FileModal-B7reZAyK.js": {
-    "file": "assets/FileModal-B7reZAyK.js",
+  "_FileModal-5NT_B-48.js": {
+    "file": "assets/FileModal-5NT_B-48.js",
     "name": "FileModal",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "resources/js/app.ts",
       "_filesStore-CheXz-Ma.js",
-      "_FileActionButtons-BeVTS2zt.js",
-      "_FileIcon-BYMaOCAM.js"
-    ]
-  },
-  "_GameCanvas-D3UGQdMk.js": {
-    "file": "assets/GameCanvas-D3UGQdMk.js",
-    "name": "GameCanvas",
-    "imports": [
-      "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "resources/js/app.ts",
-      "__plugin-vue_export-helper-BDNMzG2s.js"
-    ],
-    "css": [
-      "assets/GameCanvas-DES_h2u_.css"
+      "_FileActionButtons-BFL_JAuv.js",
+      "_FileIcon-CIHUVBxS.js"
     ]
   },
   "_GameCanvas-DES_h2u_.css": {
     "file": "assets/GameCanvas-DES_h2u_.css",
     "src": "_GameCanvas-DES_h2u_.css"
   },
-  "_GitHubContributionText-CfL8xeBO.js": {
-    "file": "assets/GitHubContributionText-CfL8xeBO.js",
+  "_GameCanvas-DQAJbaFI.js": {
+    "file": "assets/GameCanvas-DQAJbaFI.js",
+    "name": "GameCanvas",
+    "imports": [
+      "_axios-vXY0ndz_.js",
+      "_runtime-core.esm-bundler-NgM7rWk2.js",
+      "__plugin-vue_export-helper-BDNMzG2s.js"
+    ],
+    "css": [
+      "assets/GameCanvas-DES_h2u_.css"
+    ]
+  },
+  "_GitHubContributionText-C61w8-g-.js": {
+    "file": "assets/GitHubContributionText-C61w8-g-.js",
     "name": "GitHubContributionText",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_pinia-DQ6HfL__.js",
       "_githubStore-Bg1wcO3I.js",
-      "resources/js/app.ts",
       "_sklonovac-B2sq-6Ty.js"
     ]
   },
-  "_GitHubRepository-6FWWPSVx.js": {
-    "file": "assets/GitHubRepository-6FWWPSVx.js",
+  "_GitHubRepository-BMxEALT8.js": {
+    "file": "assets/GitHubRepository-BMxEALT8.js",
     "name": "GitHubRepository",
     "imports": [
-      "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "resources/js/app.ts"
+      "_axios-vXY0ndz_.js",
+      "_runtime-core.esm-bundler-NgM7rWk2.js"
     ]
   },
-  "_GitHubTitle-Y5rullxQ.js": {
-    "file": "assets/GitHubTitle-Y5rullxQ.js",
+  "_GitHubTitle-BaO0rj1c.js": {
+    "file": "assets/GitHubTitle-BaO0rj1c.js",
     "name": "GitHubTitle",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "_index.es-BzvWryUC.js",
-      "resources/js/app.ts"
+      "_index.es-BzvWryUC.js"
     ]
   },
-  "_GitHubTopRepositories-GuCWIrKe.js": {
-    "file": "assets/GitHubTopRepositories-GuCWIrKe.js",
+  "_GitHubTopRepositories-CfbzjyLi.js": {
+    "file": "assets/GitHubTopRepositories-CfbzjyLi.js",
     "name": "GitHubTopRepositories",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "resources/js/app.ts",
-      "_GitHubRepository-6FWWPSVx.js"
+      "_GitHubRepository-BMxEALT8.js"
     ]
   },
-  "_GithubDaysLegend-CU1ODnvO.js": {
-    "file": "assets/GithubDaysLegend-CU1ODnvO.js",
+  "_GithubDaysLegend-DHOgv_Ix.js": {
+    "file": "assets/GithubDaysLegend-DHOgv_Ix.js",
     "name": "GithubDaysLegend",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "resources/js/app.ts",
-      "_GithubLegendFakeTile-CK8rghVS.js"
+      "_GithubLegendFakeTile-DNiqTVY5.js"
     ]
   },
-  "_GithubGraph-DTeVuu1m.js": {
-    "file": "assets/GithubGraph-DTeVuu1m.js",
+  "_GithubGraph-BQaOHrAc.js": {
+    "file": "assets/GithubGraph-BQaOHrAc.js",
     "name": "GithubGraph",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_githubStore-Bg1wcO3I.js",
-      "resources/js/app.ts",
-      "_GithubTile-B7whOFzS.js",
-      "_GithubLegendFakeTile-CK8rghVS.js"
+      "_GithubTile-Bor1370T.js",
+      "_GithubLegendFakeTile-DNiqTVY5.js"
     ]
   },
-  "_GithubGraphComp-Diva_IDD.js": {
-    "file": "assets/GithubGraphComp-Diva_IDD.js",
+  "_GithubGraphComp-CBlwRwQ9.js": {
+    "file": "assets/GithubGraphComp-CBlwRwQ9.js",
     "name": "GithubGraphComp",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "resources/js/app.ts",
-      "_GithubGraph-DTeVuu1m.js",
-      "_GithubGraphYears-CKvBp7hK.js",
-      "_GithubLegend-1_QflCA2.js",
-      "_GithubDaysLegend-CU1ODnvO.js",
-      "_GitHubContributionText-CfL8xeBO.js"
+      "_GithubGraph-BQaOHrAc.js",
+      "_GithubGraphYears-mPIJhrkp.js",
+      "_GithubLegend-Cm-1K_1e.js",
+      "_GithubDaysLegend-DHOgv_Ix.js",
+      "_GitHubContributionText-C61w8-g-.js"
     ]
   },
-  "_GithubGraphYearButton-CEnwBQW3.js": {
-    "file": "assets/GithubGraphYearButton-CEnwBQW3.js",
+  "_GithubGraphYearButton-CAi62tQg.js": {
+    "file": "assets/GithubGraphYearButton-CAi62tQg.js",
     "name": "GithubGraphYearButton",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "_githubStore-Bg1wcO3I.js",
-      "resources/js/app.ts"
+      "_githubStore-Bg1wcO3I.js"
     ]
   },
-  "_GithubGraphYears-CKvBp7hK.js": {
-    "file": "assets/GithubGraphYears-CKvBp7hK.js",
+  "_GithubGraphYears-mPIJhrkp.js": {
+    "file": "assets/GithubGraphYears-mPIJhrkp.js",
     "name": "GithubGraphYears",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_pinia-DQ6HfL__.js",
       "_githubStore-Bg1wcO3I.js",
-      "resources/js/app.ts",
-      "_GithubGraphYearButton-CEnwBQW3.js"
+      "_GithubGraphYearButton-CAi62tQg.js"
     ]
   },
-  "_GithubLegend-1_QflCA2.js": {
-    "file": "assets/GithubLegend-1_QflCA2.js",
+  "_GithubLegend-Cm-1K_1e.js": {
+    "file": "assets/GithubLegend-Cm-1K_1e.js",
     "name": "GithubLegend",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "resources/js/app.ts",
-      "_GithubLegendFakeTile-CK8rghVS.js"
+      "_GithubLegendFakeTile-DNiqTVY5.js"
     ]
   },
-  "_GithubLegendFakeTile-CK8rghVS.js": {
-    "file": "assets/GithubLegendFakeTile-CK8rghVS.js",
+  "_GithubLegendFakeTile-DNiqTVY5.js": {
+    "file": "assets/GithubLegendFakeTile-DNiqTVY5.js",
     "name": "GithubLegendFakeTile",
     "imports": [
-      "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "resources/js/app.ts"
+      "_axios-vXY0ndz_.js",
+      "_runtime-core.esm-bundler-NgM7rWk2.js"
     ]
   },
-  "_GithubSection-D3NYy33E.js": {
-    "file": "assets/GithubSection-D3NYy33E.js",
+  "_GithubSection-CSeeY7c2.js": {
+    "file": "assets/GithubSection-CSeeY7c2.js",
     "name": "GithubSection",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "resources/js/app.ts",
-      "_GithubGraphComp-Diva_IDD.js",
-      "_GitHubTopRepositories-GuCWIrKe.js",
-      "_GitHubTitle-Y5rullxQ.js"
+      "_GithubGraphComp-CBlwRwQ9.js",
+      "_GitHubTopRepositories-CfbzjyLi.js",
+      "_GitHubTitle-BaO0rj1c.js"
     ]
   },
-  "_GithubTile-B7whOFzS.js": {
-    "file": "assets/GithubTile-B7whOFzS.js",
+  "_GithubTile-Bor1370T.js": {
+    "file": "assets/GithubTile-Bor1370T.js",
     "name": "GithubTile",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_publicStore-nnTVAmfV.js",
-      "resources/js/app.ts",
       "_sklonovac-B2sq-6Ty.js"
     ]
   },
@@ -311,107 +311,120 @@
       "__plugin-vue_export-helper-BDNMzG2s.js"
     ]
   },
-  "_HistorySection-CTFwA_nj.css": {
-    "file": "assets/HistorySection-CTFwA_nj.css",
-    "src": "_HistorySection-CTFwA_nj.css"
-  },
-  "_HistorySection-DWy82byK.js": {
-    "file": "assets/HistorySection-DWy82byK.js",
+  "_HistorySection-3mG2Jkxo.js": {
+    "file": "assets/HistorySection-3mG2Jkxo.js",
     "name": "HistorySection",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "resources/js/app.ts",
-      "_Timeline-CYcyLMRw.js",
+      "_Timeline-3UJkJuEN.js",
       "__plugin-vue_export-helper-BDNMzG2s.js"
     ],
     "css": [
       "assets/HistorySection-CTFwA_nj.css"
     ]
   },
-  "_InitialScreen-CYKByhlO.js": {
-    "file": "assets/InitialScreen-CYKByhlO.js",
+  "_HistorySection-CTFwA_nj.css": {
+    "file": "assets/HistorySection-CTFwA_nj.css",
+    "src": "_HistorySection-CTFwA_nj.css"
+  },
+  "_InitialScreen-Dd5ReQAR.js": {
+    "file": "assets/InitialScreen-Dd5ReQAR.js",
     "name": "InitialScreen",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "_publicStore-nnTVAmfV.js",
-      "resources/js/app.ts"
+      "_publicStore-nnTVAmfV.js"
     ]
   },
-  "_NewBufferCodeForm-udmVLEcc.js": {
-    "file": "assets/NewBufferCodeForm-udmVLEcc.js",
+  "_NewBufferCodeForm-DNZD_FeM.js": {
+    "file": "assets/NewBufferCodeForm-DNZD_FeM.js",
     "name": "NewBufferCodeForm",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_dist-CvrivuHD.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_runtime-dom.esm-bundler-LJw5RmHd.js",
       "_index.es-BzvWryUC.js",
       "_pinia-DQ6HfL__.js",
       "_toastsStore-BlYSN40g.js",
-      "_publicStore-nnTVAmfV.js",
-      "resources/js/app.ts"
+      "_publicStore-nnTVAmfV.js"
     ]
   },
-  "_SquareButton-C4UiQ09q.js": {
-    "file": "assets/SquareButton-C4UiQ09q.js",
+  "_SquareButton-a2xUXXgW.js": {
+    "file": "assets/SquareButton-a2xUXXgW.js",
     "name": "SquareButton",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "_index.es-BzvWryUC.js",
-      "resources/js/app.ts"
+      "_index.es-BzvWryUC.js"
     ]
   },
-  "_StickyHeader-D3dnb35F.js": {
-    "file": "assets/StickyHeader-D3dnb35F.js",
+  "_StickyHeader-DbpdKIdi.js": {
+    "file": "assets/StickyHeader-DbpdKIdi.js",
     "name": "StickyHeader",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_runtime-dom.esm-bundler-LJw5RmHd.js",
       "_index.es-BzvWryUC.js",
-      "resources/js/app.ts",
       "_filesStore-CheXz-Ma.js"
     ]
   },
-  "_TimeLineItemContent-CwZCMfU7.js": {
-    "file": "assets/TimeLineItemContent-CwZCMfU7.js",
+  "_TimeLineItemContent-DoRzo6ss.js": {
+    "file": "assets/TimeLineItemContent-DoRzo6ss.js",
     "name": "TimeLineItemContent",
     "imports": [
-      "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "resources/js/app.ts"
+      "_axios-vXY0ndz_.js",
+      "_runtime-core.esm-bundler-NgM7rWk2.js"
     ]
   },
-  "_Timeline-CYcyLMRw.js": {
-    "file": "assets/Timeline-CYcyLMRw.js",
+  "_Timeline-3UJkJuEN.js": {
+    "file": "assets/Timeline-3UJkJuEN.js",
     "name": "Timeline",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_index.es-BzvWryUC.js",
-      "resources/js/app.ts",
-      "_TimelineItem-D0_fcsYM.js",
-      "_TimeLineItemContent-CwZCMfU7.js"
+      "_TimelineItem-gBXrrqvC.js",
+      "_TimeLineItemContent-DoRzo6ss.js"
     ]
   },
-  "_TimelineItem-D0_fcsYM.js": {
-    "file": "assets/TimelineItem-D0_fcsYM.js",
+  "_TimelineItem-gBXrrqvC.js": {
+    "file": "assets/TimelineItem-gBXrrqvC.js",
     "name": "TimelineItem",
     "imports": [
-      "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "resources/js/app.ts"
+      "_axios-vXY0ndz_.js",
+      "_runtime-core.esm-bundler-NgM7rWk2.js"
     ]
   },
-  "_UploadFilesButton-pISRos5n.js": {
-    "file": "assets/UploadFilesButton-pISRos5n.js",
+  "_UploadFilesButton-DTB3BJYC.js": {
+    "file": "assets/UploadFilesButton-DTB3BJYC.js",
     "name": "UploadFilesButton",
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_dist-CvrivuHD.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_index.es-BzvWryUC.js",
-      "_toastsStore-BlYSN40g.js",
-      "resources/js/app.ts"
+      "_toastsStore-BlYSN40g.js"
+    ]
+  },
+  "_WebRecorder-DrxyEXbW.js": {
+    "file": "assets/WebRecorder-DrxyEXbW.js",
+    "name": "WebRecorder",
+    "imports": [
+      "_axios-vXY0ndz_.js",
+      "_runtime-core.esm-bundler-NgM7rWk2.js",
+      "_pinia-DQ6HfL__.js"
     ]
   },
   "__plugin-vue_export-helper-BDNMzG2s.js": {
     "file": "assets/_plugin-vue_export-helper-BDNMzG2s.js",
     "name": "_plugin-vue_export-helper"
+  },
+  "_axios-vXY0ndz_.js": {
+    "file": "assets/axios-vXY0ndz_.js",
+    "name": "axios"
   },
   "_dist-CvrivuHD.js": {
     "file": "assets/dist-CvrivuHD.js",
@@ -490,20 +503,21 @@
     ]
   },
   "resources/js/Pages/AppPage.vue": {
-    "file": "assets/AppPage-11gskK6C.js",
+    "file": "assets/AppPage-D2JHQ-oN.js",
     "name": "AppPage",
     "src": "resources/js/Pages/AppPage.vue",
     "isDynamicEntry": true,
     "imports": [
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "_InitialScreen-CYKByhlO.js",
-      "_GithubSection-D3NYy33E.js",
-      "_HistorySection-DWy82byK.js",
-      "_ContactSection-B8C086LB.js"
+      "_InitialScreen-Dd5ReQAR.js",
+      "_GithubSection-CSeeY7c2.js",
+      "_HistorySection-3mG2Jkxo.js",
+      "_ContactSection-CxAH3HPE.js",
+      "_WebRecorder-DrxyEXbW.js"
     ]
   },
   "resources/js/Pages/Buffer/BufferCodes/BufferCodes.vue": {
-    "file": "assets/BufferCodes-77hxlnh4.js",
+    "file": "assets/BufferCodes-CTXboG0J.js",
     "name": "BufferCodes",
     "src": "resources/js/Pages/Buffer/BufferCodes/BufferCodes.vue",
     "isDynamicEntry": true,
@@ -511,32 +525,32 @@
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_index.es-BzvWryUC.js",
       "_AuthLayout-eZCg_NLb.js",
-      "_NewBufferCodeForm-udmVLEcc.js"
+      "_NewBufferCodeForm-DNZD_FeM.js"
     ]
   },
   "resources/js/Pages/Buffer/BufferUpload/BufferPage.vue": {
-    "file": "assets/BufferPage-Bx9CLMOU.js",
+    "file": "assets/BufferPage-BLsBxwkd.js",
     "name": "BufferPage",
     "src": "resources/js/Pages/Buffer/BufferUpload/BufferPage.vue",
     "isDynamicEntry": true,
     "imports": [
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "_BufferComponent-Cf9QpOe_.js"
+      "_BufferComponent-CzRXHgwB.js"
     ]
   },
   "resources/js/Pages/Buffer/BufferUpload/SecuredBufferPage.vue": {
-    "file": "assets/SecuredBufferPage-Bjw5URYY.js",
+    "file": "assets/SecuredBufferPage-Ci_IazeQ.js",
     "name": "SecuredBufferPage",
     "src": "resources/js/Pages/Buffer/BufferUpload/SecuredBufferPage.vue",
     "isDynamicEntry": true,
     "imports": [
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_AuthLayout-eZCg_NLb.js",
-      "_BufferComponent-Cf9QpOe_.js"
+      "_BufferComponent-CzRXHgwB.js"
     ]
   },
   "resources/js/Pages/Files/NewFilesPage.vue": {
-    "file": "assets/NewFilesPage-BrzRvbyb.js",
+    "file": "assets/NewFilesPage-DytZ-faY.js",
     "name": "NewFilesPage",
     "src": "resources/js/Pages/Files/NewFilesPage.vue",
     "isDynamicEntry": true,
@@ -547,12 +561,12 @@
       "_publicStore-nnTVAmfV.js",
       "_AuthLayout-eZCg_NLb.js",
       "_filesStore-CheXz-Ma.js",
-      "_FileGallery-CU2Bsq5X.js",
-      "_StickyHeader-D3dnb35F.js"
+      "_FileGallery-DaM5FvTb.js",
+      "_StickyHeader-DbpdKIdi.js"
     ]
   },
   "resources/js/Pages/GitHub/GitHubPage.vue": {
-    "file": "assets/GitHubPage-DO8cc3KN.js",
+    "file": "assets/GitHubPage-B61DZI0B.js",
     "name": "GitHubPage",
     "src": "resources/js/Pages/GitHub/GitHubPage.vue",
     "isDynamicEntry": true,
@@ -561,12 +575,12 @@
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_index.es-BzvWryUC.js",
       "_toastsStore-BlYSN40g.js",
-      "_GithubGraphComp-Diva_IDD.js",
+      "_GithubGraphComp-CBlwRwQ9.js",
       "_AuthLayout-eZCg_NLb.js"
     ]
   },
   "resources/js/Pages/Home/Home.vue": {
-    "file": "assets/Home-DgA7lYIh.js",
+    "file": "assets/Home-D9fspoFy.js",
     "name": "Home",
     "src": "resources/js/Pages/Home/Home.vue",
     "isDynamicEntry": true,
@@ -575,18 +589,18 @@
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_AuthLayout-eZCg_NLb.js",
       "_GridLayout-xd3s-hVr.js",
-      "_SquareButton-C4UiQ09q.js"
+      "_SquareButton-a2xUXXgW.js"
     ]
   },
   "resources/js/Pages/Lietadlo/Lietadlo.vue": {
-    "file": "assets/Lietadlo-DDo5ZGWB.js",
+    "file": "assets/Lietadlo-BFREusaA.js",
     "name": "Lietadlo",
     "src": "resources/js/Pages/Lietadlo/Lietadlo.vue",
     "isDynamicEntry": true,
     "imports": [
       "_dist-CvrivuHD.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
-      "_GameCanvas-D3UGQdMk.js"
+      "_GameCanvas-DQAJbaFI.js"
     ]
   },
   "resources/js/Pages/Login/Login.vue": {
@@ -615,11 +629,12 @@
     ]
   },
   "resources/js/app.ts": {
-    "file": "assets/app-CKF9eMJS.js",
+    "file": "assets/app-ChNwpYaF.js",
     "name": "app",
     "src": "resources/js/app.ts",
     "isEntry": true,
     "imports": [
+      "_axios-vXY0ndz_.js",
       "_dist-CvrivuHD.js",
       "_runtime-core.esm-bundler-NgM7rWk2.js",
       "_runtime-dom.esm-bundler-LJw5RmHd.js",
@@ -633,54 +648,55 @@
     "dynamicImports": [
       "resources/js/Pages/AppPage.vue",
       "resources/js/Pages/Buffer/BufferCodes/BufferCodes.vue",
-      "_NewBufferCodeForm-udmVLEcc.js",
-      "_BufferComponent-Cf9QpOe_.js",
+      "_NewBufferCodeForm-DNZD_FeM.js",
+      "_BufferComponent-CzRXHgwB.js",
       "resources/js/Pages/Buffer/BufferUpload/BufferPage.vue",
-      "_CodeDigit-s9YrOuS0.js",
+      "_CodeDigit-DOOm_6B2.js",
       "resources/js/Pages/Buffer/BufferUpload/SecuredBufferPage.vue",
-      "_UploadFilesButton-pISRos5n.js",
-      "_BottomRowButton-D4ew3zr5.js",
-      "_CopySinglePhotoButton-CMW0UCxF.js",
-      "_DeleteSingleFileButton-mxnRfDYg.js",
-      "_DownloadSinglePhotoButton-CNnFBX77.js",
-      "_FileActionButtons-BeVTS2zt.js",
-      "_FileGallery-CU2Bsq5X.js",
-      "_FileIcon-BYMaOCAM.js",
-      "_FileModal-B7reZAyK.js",
+      "_UploadFilesButton-DTB3BJYC.js",
+      "_BottomRowButton-D3G8hUrY.js",
+      "_CopySinglePhotoButton-Cdb1KNsu.js",
+      "_DeleteSingleFileButton-ChXck2Q1.js",
+      "_DownloadSinglePhotoButton-f38KQDQq.js",
+      "_FileActionButtons-BFL_JAuv.js",
+      "_FileGallery-DaM5FvTb.js",
+      "_FileIcon-CIHUVBxS.js",
+      "_FileModal-5NT_B-48.js",
       "resources/js/Pages/Files/NewFilesPage.vue",
-      "_StickyHeader-D3dnb35F.js",
+      "_StickyHeader-DbpdKIdi.js",
       "resources/js/Pages/GitHub/GitHubPage.vue",
       "resources/js/Pages/Home/Home.vue",
-      "_SquareButton-C4UiQ09q.js",
-      "_InitialScreen-CYKByhlO.js",
-      "_GameCanvas-D3UGQdMk.js",
+      "_SquareButton-a2xUXXgW.js",
+      "_InitialScreen-Dd5ReQAR.js",
+      "_GameCanvas-DQAJbaFI.js",
       "resources/js/Pages/Lietadlo/Lietadlo.vue",
       "resources/js/Pages/Login/Login.vue",
-      "_ContactInfoPanel-CT6d2Wdv.js",
-      "_ContactMail-CaAlyk3U.js",
-      "_ContactRow-BnK_o_SJ.js",
-      "_ContactSection-B8C086LB.js",
-      "_GitHubContributionText-CfL8xeBO.js",
-      "_GitHubRepository-6FWWPSVx.js",
-      "_GitHubTitle-Y5rullxQ.js",
-      "_GitHubTopRepositories-GuCWIrKe.js",
-      "_GithubDaysLegend-CU1ODnvO.js",
-      "_GithubGraph-DTeVuu1m.js",
-      "_GithubGraphComp-Diva_IDD.js",
-      "_GithubGraphYearButton-CEnwBQW3.js",
-      "_GithubGraphYears-CKvBp7hK.js",
-      "_GithubLegend-1_QflCA2.js",
-      "_GithubLegendFakeTile-CK8rghVS.js",
-      "_GithubSection-D3NYy33E.js",
-      "_GithubTile-B7whOFzS.js",
-      "_HistorySection-DWy82byK.js",
-      "_TimeLineItemContent-CwZCMfU7.js",
-      "_Timeline-CYcyLMRw.js",
-      "_TimelineItem-D0_fcsYM.js",
+      "_ContactInfoPanel-QTMec7-G.js",
+      "_ContactMail-BRVk9gow.js",
+      "_ContactRow-Buie1Vwj.js",
+      "_ContactSection-CxAH3HPE.js",
+      "_GitHubContributionText-C61w8-g-.js",
+      "_GitHubRepository-BMxEALT8.js",
+      "_GitHubTitle-BaO0rj1c.js",
+      "_GitHubTopRepositories-CfbzjyLi.js",
+      "_GithubDaysLegend-DHOgv_Ix.js",
+      "_GithubGraph-BQaOHrAc.js",
+      "_GithubGraphComp-CBlwRwQ9.js",
+      "_GithubGraphYearButton-CAi62tQg.js",
+      "_GithubGraphYears-mPIJhrkp.js",
+      "_GithubLegend-Cm-1K_1e.js",
+      "_GithubLegendFakeTile-DNiqTVY5.js",
+      "_GithubSection-CSeeY7c2.js",
+      "_GithubTile-Bor1370T.js",
+      "_HistorySection-3mG2Jkxo.js",
+      "_TimeLineItemContent-DoRzo6ss.js",
+      "_Timeline-3UJkJuEN.js",
+      "_TimelineItem-gBXrrqvC.js",
+      "_WebRecorder-DrxyEXbW.js",
       "resources/js/Pages/QrCode/QrCodePage.vue"
     ],
     "css": [
-      "assets/app-Bt200wmt.css"
+      "assets/app-AyvHe_jJ.css"
     ]
   }
 }

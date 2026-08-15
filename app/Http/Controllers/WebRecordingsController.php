@@ -18,7 +18,7 @@ class WebRecordingsController extends Controller
         $validated = $request->validated();
         $sessionId = $validated['sessionId'];
         $visitorId = $validated['visitorId'];
-        $batchOfEvents = $validated['batchOfEvents'];
+        $batchOfEvents = $validated['events'];
 
         try {
             $this->newBatchReceivedImpl($visitorId, $sessionId, $batchOfEvents);

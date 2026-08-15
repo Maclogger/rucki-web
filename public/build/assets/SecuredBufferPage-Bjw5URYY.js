@@ -1,1 +1,0 @@
-import{D as e,a as t,d as n,f as r,i,x as a}from"./runtime-core.esm-bundler-NgM7rWk2.js";import{t as o}from"./AuthLayout-eZCg_NLb.js";import{t as s}from"./BufferComponent-Cf9QpOe_.js";var c=r({__name:`SecuredBufferPage`,setup(r){return(r,c)=>(a(),t(o,null,{headline:e(()=>[...c[0]||=[i(`p`,{class:`text-2xl`},`Buffer`,-1)]]),default:e(()=>[n(s)]),_:1}))}});export{c as default};

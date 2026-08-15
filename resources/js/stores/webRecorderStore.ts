@@ -69,5 +69,4 @@ export const useWebRecorderStore = defineStore('webRecorderStore', {
         },
     }
 
-
 });

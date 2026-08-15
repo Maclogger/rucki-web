@@ -23,7 +23,7 @@ class WebRecordingBatchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'batchOfEvents' => ['required', 'array'],
+            'events' => ['required', 'array'],
             'visitorId' => ['required', 'uuid'],
             'sessionId' => ['required', 'uuid'],
         ];

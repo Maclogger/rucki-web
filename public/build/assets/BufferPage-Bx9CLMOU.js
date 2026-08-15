@@ -1,1 +1,0 @@
-import{d as e,f as t,s as n,x as r}from"./runtime-core.esm-bundler-NgM7rWk2.js";import{t as i}from"./BufferComponent-Cf9QpOe_.js";var a={class:`h-[100vh] md:container md:mx-auto`},o=t({__name:`BufferPage`,props:{code:String},setup(t){let o=t;return(t,s)=>(r(),n(`div`,a,[e(i,{code:o.code},null,8,[`code`])]))}});export{o as default};
