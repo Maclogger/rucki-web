@@ -72,6 +72,7 @@ Route::middleware('auth')->group(function () {
                 ->paginate(20)
         ),
     ]);
+    Route::get('/web-recordings-fetch-events/{idSession}', [WebRecordingsController::class, "fetchEvents"]);
 });
 
 // QR Codes

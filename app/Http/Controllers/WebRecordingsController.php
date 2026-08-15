@@ -53,5 +53,24 @@ class WebRecordingsController extends Controller
         DB::commit();
     }
 
+    public function fetchEvents(string $idSession)
+    {
+        $events = WrWebRecordingEvent::where('id_session', $idSession)->get();
+
+        if (!$events) {
+            return response()->json([
+                'events' => []
+            ]);
+        }
+
+        $rrWebEvents = $events->map(function (WrWebRecordingEvent $event) {
+            return $event->event;
+        });
+
+
+        return response()->json([
+            'events' => $rrWebEvents
+        ]);
+    }
 
 }
