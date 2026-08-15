@@ -6,20 +6,11 @@ import {Paginated} from "@/types";
 import {WrSession} from "@/Pages/Recordings/recordings.types";
 import AuthLayout from "@/Layouts/AuthLayout.vue";
 import {InfiniteScroll} from "@inertiajs/vue3";
+import WrSessionRow from "./WrSessionRow.vue";
 
-const replayer = ref<Replayer | null>(null);
-
-const props = defineProps<{
+defineProps<{
     sessions: Paginated<WrSession>
 }>();
-
-onMounted(() => {
-    // const events = props.sessions.data;
-    // replayer.value = new Replayer({})
-});
-
-
-
 
 </script>
 
@@ -29,13 +20,26 @@ onMounted(() => {
             <p class="text-2xl">Nahrávky</p>
         </template>
         <template #default>
-            <InfiniteScroll data="sessions" class="flex flex-wrap gap-4">
-                <div v-for="s in sessions.data" :key="s.id_session" class="card bg-base-200 p-4">
-                    {{ s.id_session }} — {{ s.events_count }} udalostí
+            <InfiniteScroll data="sessions">
+                <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+                    <table class="table w-full">
+                        <thead>
+                        <tr>
+                            <th>Session ID</th>
+                            <th>Visitor ID</th>
+                            <th>Počet udalostí</th>
+                            <th>Dátum vytvorenia</th>
+                            <th>Záznam</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <WrSessionRow v-for="s in sessions.data" :session="s" :key="s.id_session"/>
+                        </tbody>
+                    </table>
                 </div>
 
                 <template #loading>
-                    <span class="loading loading-spinner" />
+                    <span class="loading loading-spinner"/>
                 </template>
             </InfiniteScroll>
         </template>

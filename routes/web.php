@@ -65,11 +65,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/download-multiple', [FileDownloadController::class, "downloadFilesInZip"]);
     Route::inertia('/web-recordings', "Recordings/WebRecordingsPage", [
         'sessions' => Inertia::scroll(
-            fn () => WrSession::query()
-            ->with('visitor')
-            ->withCount('events')
-            ->latest()
-            ->paginate(20)
+            fn() => WrSession::query()
+                ->with('visitor')
+                ->withCount('events')
+                ->latest()
+                ->paginate(20)
         ),
     ]);
 });
