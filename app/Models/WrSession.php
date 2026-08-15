@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class WrSession extends Model
 {
@@ -26,6 +27,15 @@ class WrSession extends Model
             WrVisitor::class,
             'id_visitor',
             'id_visitor'
+        );
+    }
+
+    public function events(): HasMany
+    {
+        return $this->hasMany(
+            WrWebRecordingEvent::class,
+            'id_session',
+            'id_session'
         );
     }
 }

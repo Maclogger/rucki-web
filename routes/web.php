@@ -10,6 +10,7 @@ use App\Http\Controllers\GithubRecordController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\WebRecordingsController;
+use App\Models\WrSession;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -62,7 +63,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/debug-button-pressed', [FilesController::class, "debugButtonPressed"]);
     Route::get('/download/{fileId}', [FileDownloadController::class, "download"]);
     Route::post('/download-multiple', [FileDownloadController::class, "downloadFilesInZip"]);
-    Route::inertia('/web-recordings', "Recordings/WebRecordingsPage");
+    Route::inertia('/web-recordings', "Recordings/WebRecordingsPage", [
+        'sessions' => Inertia::scroll(
+            fn () => WrSession::query()
+            ->with('visitor')
+            ->withCount('events')
+            ->latest()
+            ->paginate(20)
+        ),
+    ]);
 });
 
 // QR Codes
