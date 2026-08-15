@@ -17,6 +17,7 @@ const buttons: ButtonConfig[] = [
     {label: "Súbory", icon: "fa-solid fa-image", url: "/new_files"},
     {label: "Buffer", icon: "fa-solid fa-file-arrow-up", url: "/buffer-secured"},
     {label: "Buffer kódy", icon: "fa-solid fa-key", url: "/buffer-codes"},
+    {label: "Nahrávky", icon: "fa-regular fa-camera", url: "/web-recordings"},
     {label: "WIP", wip: true},
     {label: "WIP", wip: true},
     {label: "WIP", wip: true},

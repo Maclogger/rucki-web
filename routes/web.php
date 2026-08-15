@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/debug-button-pressed', [FilesController::class, "debugButtonPressed"]);
     Route::get('/download/{fileId}', [FileDownloadController::class, "download"]);
     Route::post('/download-multiple', [FileDownloadController::class, "downloadFilesInZip"]);
+    Route::inertia('/web-recordings', "Recordings/WebRecordingsPage");
 });
 
 // QR Codes
