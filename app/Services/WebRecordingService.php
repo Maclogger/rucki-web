@@ -41,6 +41,20 @@ class WebRecordingService
     }
 
     /**
+     * Deletes a session together with all of its events. There is no foreign key
+     * between the two tables, so the events have to be removed explicitly.
+     *
+     * @throws Throwable
+     */
+    public function deleteSession(string $idSession): void
+    {
+        DB::transaction(function () use ($idSession) {
+            WrWebRecordingEvent::where('id_session', $idSession)->delete();
+            WrSession::where('id_session', $idSession)->delete();
+        });
+    }
+
+    /**
      * Events of a session in the order they were recorded - the replayer cannot handle any other.
      *
      * @return array<int, mixed>

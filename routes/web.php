@@ -75,6 +75,7 @@ Route::middleware('auth')->group(function () {
         ),
     ]);
     Route::get('/web-recordings-fetch-events/{idSession}', [WebRecordingsController::class, "fetchEvents"]);
+    Route::delete('/web-recordings-delete-session/{idSession}', [WebRecordingsController::class, "deleteSession"]);
 });
 
 // QR Codes

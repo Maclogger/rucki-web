@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Services\WebRecordingService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+use Throwable;
 
 /**
- * Reading recordings for the admin pages. Incoming batches are handled by WebRecordingBatchController.
+ * Reading and managing recordings for the admin pages.
+ * Incoming batches are handled by WebRecordingBatchController.
  */
 class WebRecordingsController extends Controller
 {
@@ -17,5 +20,15 @@ class WebRecordingsController extends Controller
         return response()->json([
             'events' => $this->webRecordings->eventsForSession($idSession),
         ]);
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function deleteSession(string $idSession): Response
+    {
+        $this->webRecordings->deleteSession($idSession);
+
+        return response()->noContent();
     }
 }
