@@ -12,6 +12,8 @@ export function useCursorParallax(target: MaybeComputedElementRef, strength = 1)
     const { width, height } = useWindowSize();
     const reducedMotion = usePreferredReducedMotion();
 
+    // Distance from the center of the viewport, as a fraction. In a 1280px-wide
+    // window: x = 0 gives "-1.000", x = 640 gives "0.000", x = 1280 gives "1.000".
     const toOffsetFromCenter = (position: number, extent: number): string =>
         (((position / extent) * 2 - 1) * strength).toFixed(3);
 
