@@ -1,29 +1,16 @@
 <script setup lang="ts">
 import { computed, useTemplateRef } from "vue";
-import { usePublicStore } from "@/stores/publicStore";
-import { usePin } from "@/composables/usePin";
-import { useCursorParallax } from "@/composables/useCursorParallax";
+import { useSectionScrollProgress } from "@/composables/useSectionScrollProgress";
+import HeroCopy from "@/Pages/PublicDomain/Hero/HeroCopy.vue";
+import HeroPortrait from "@/Pages/PublicDomain/Hero/HeroPortrait.vue";
 
-const store = usePublicStore();
-
-const fullName = computed(() => store.getFullName());
-const role = computed(() => store.getConstant("rola"));
-
-// The section is twice the viewport height, so the sticky pane inside it stays put
-// for one full screen of scrolling while `progress` runs from 0 to 1.
+// The section is twice the viewport height, so the pane inside it stays put for one
+// full screen of scrolling while the progress below runs from 0 to 1.
 const section = useTemplateRef("section");
-const portrait = useTemplateRef("portrait");
+const progress = useSectionScrollProgress(section);
 
-const progress = usePin(section);
-useCursorParallax(portrait);
-
-// The portrait shrinks and lifts as you scroll away from it; the copy lifts with it.
-const portraitScale = computed(() => 1 - 0.26 * progress.value);
+// Copy and portrait rise together, so the amount lives here rather than in both.
 const lift = computed(() => `0 ${-3 * progress.value}vh`);
-const nameTracking = computed(() => `${-0.02 * progress.value}em`);
-
-const isFirstTaglineShown = computed(() => progress.value > 0.1);
-const isSecondTaglineShown = computed(() => progress.value > 0.22);
 const isScrollCueShown = computed(() => progress.value < 0.12);
 </script>
 
@@ -33,54 +20,8 @@ const isScrollCueShown = computed(() => progress.value < 0.12);
             <div
                 class="mx-auto grid w-full max-w-350 grid-cols-1 items-center justify-items-center gap-[clamp(2rem,6vw,6rem)] px-[clamp(1rem,5vw,4rem)] text-center min-[900px]:grid-cols-2 min-[900px]:text-left"
             >
-                <div
-                    class="order-2 max-w-lg transition-[translate] duration-120 ease-linear min-[900px]:order-0 min-[900px]:justify-self-end"
-                    :style="{ translate: lift }"
-                >
-                    <p
-                        class="text-[clamp(2.25rem,5.4vw,4.25rem)] leading-[1.02] font-semibold"
-                        :style="{ letterSpacing: nameTracking }"
-                    >
-                        {{ fullName }}
-                    </p>
-                    <p class="mt-1.5 text-[clamp(1rem,1.4vw,1.25rem)] text-primary-light-ultra">{{ role }}</p>
-
-                    <div class="mt-8 flex flex-col items-center gap-[0.15rem] min-[900px]:items-start">
-                        <span
-                            class="text-[clamp(1rem,1.5vw,1.375rem)] leading-normal transition-[translate,color] duration-400 ease-in-out"
-                            :class="isFirstTaglineShown ? 'translate-y-0 text-base-content' : 'translate-y-[0.5em] text-gray-400'"
-                        >
-                            Staviam webové aplikácie od schémy databázy
-                        </span>
-                        <span
-                            class="text-[clamp(1rem,1.5vw,1.375rem)] leading-normal transition-[translate,color] duration-400 ease-in-out"
-                            :class="isSecondTaglineShown ? 'translate-y-0 text-base-content' : 'translate-y-[0.5em] text-gray-400'"
-                        >
-                            po posledný pixel rozhrania.
-                        </span>
-                    </div>
-
-                    <p class="mt-10 font-mono text-[0.8125rem] text-gray-400 italic">Žilina, Slovensko</p>
-                </div>
-
-                <div
-                    ref="portrait"
-                    class="relative order-1 aspect-square w-[min(16rem,54vw)] transition-[translate,scale] duration-200 ease-in-out min-[900px]:order-0 min-[900px]:w-[min(24rem,38vw)] min-[900px]:justify-self-start"
-                    :style="{ scale: portraitScale, translate: lift }"
-                >
-                    <!-- The rings drift against the cursor, and further than the portrait, to read as depth. -->
-                    <span
-                        class="absolute inset-0 translate-x-[calc(var(--cx,0)*-16px)] translate-y-[calc(var(--cy,0)*-16px)] scale-[1.09] rounded-full border border-base-content/20 transition-[translate] duration-300 ease-in-out"
-                    ></span>
-                    <span
-                        class="absolute inset-0 translate-x-[calc(var(--cx,0)*-30px)] translate-y-[calc(var(--cy,0)*-30px)] scale-[1.22] rounded-full border border-base-content/20 transition-[translate] duration-400 ease-in-out"
-                    ></span>
-                    <img
-                        src="/images/profile_2026.png"
-                        :alt="fullName"
-                        class="relative h-full w-full translate-x-[calc(var(--cx,0)*10px)] translate-y-[calc(var(--cy,0)*10px)] rounded-full object-cover shadow-lg transition-[translate] duration-200 ease-in-out"
-                    />
-                </div>
+                <HeroCopy :progress="progress" :lift="lift" />
+                <HeroPortrait :progress="progress" :lift="lift" />
             </div>
 
             <div

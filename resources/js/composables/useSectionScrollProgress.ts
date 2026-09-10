@@ -6,7 +6,7 @@ import type { MaybeComputedElementRef } from "@vueuse/core";
  * How far the page has scrolled through a tall section, from 0 to 1. A sticky child
  * inside that section then holds still on screen while this drives what it looks like.
  */
-export function usePin(target: MaybeComputedElementRef) {
+export function useSectionScrollProgress(target: MaybeComputedElementRef) {
     const { top, height } = useElementBounding(target);
     const { height: viewportHeight } = useWindowSize();
 
