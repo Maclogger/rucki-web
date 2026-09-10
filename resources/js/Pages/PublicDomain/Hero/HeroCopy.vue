@@ -1,16 +1,11 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { usePublicStore } from "@/stores/publicStore";
+import {computed} from "vue";
 
 const props = defineProps<{
     progress: number;
     lift: string;
 }>();
 
-const store = usePublicStore();
-
-const fullName = computed(() => store.getFullName());
-const role = computed(() => store.getConstant("rola"));
 
 // The name tightens up as the hero scrolls away, and the two tagline lines
 // settle in one after the other rather than together.
@@ -25,9 +20,9 @@ const isSecondTaglineShown = computed(() => props.progress > 0.22);
         :style="{ translate: props.lift }"
     >
         <p class="text-[clamp(2.25rem,5.4vw,4.25rem)] leading-[1.02] font-semibold" :style="{ letterSpacing: nameTracking }">
-            {{ fullName }}
+            Ing. Marek Rucki
         </p>
-        <p class="mt-1.5 text-[clamp(1rem,1.4vw,1.25rem)] text-primary-light-ultra">{{ role }}</p>
+        <p class="mt-1.5 text-[clamp(1rem,1.4vw,1.25rem)] text-primary-light-ultra">Software Developer</p>
 
         <div class="mt-8 flex flex-col items-center gap-[0.15rem] min-[900px]:items-start">
             <span
