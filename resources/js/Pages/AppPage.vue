@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import InitialScreen from "@/Pages/InitialScreen.vue";
+import HeroSection from "@/Pages/PublicDomain/Hero/HeroSection.vue";
 import GithubSection from "@/Pages/PublicDomain/Github/GithubSection.vue";
 import HistorySection from "@/Pages/PublicDomain/History/HistorySection.vue";
 import ContactSection from "@/Pages/PublicDomain/Contact/ContactSection.vue";
@@ -7,7 +7,7 @@ import ContactSection from "@/Pages/PublicDomain/Contact/ContactSection.vue";
 </script>
 
 <template>
-    <InitialScreen />
+    <HeroSection/>
     <HistorySection/>
     <GithubSection />
     <ContactSection/>
