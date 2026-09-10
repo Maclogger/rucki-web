@@ -31,10 +31,10 @@ const isScrollCueShown = computed(() => progress.value < 0.12);
     <section id="hero" ref="section" class="h-[200vh]">
         <div class="sticky top-0 flex h-screen flex-col justify-center">
             <div
-                class="mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center justify-items-center gap-[clamp(2rem,6vw,6rem)] px-[clamp(1rem,5vw,4rem)] text-center min-[900px]:grid-cols-2 min-[900px]:text-left"
+                class="mx-auto grid w-full max-w-350 grid-cols-1 items-center justify-items-center gap-[clamp(2rem,6vw,6rem)] px-[clamp(1rem,5vw,4rem)] text-center min-[900px]:grid-cols-2 min-[900px]:text-left"
             >
                 <div
-                    class="order-2 max-w-[32rem] transition-[translate] duration-[120ms] ease-linear min-[900px]:order-none min-[900px]:justify-self-end"
+                    class="order-2 max-w-lg transition-[translate] duration-120 ease-linear min-[900px]:order-0 min-[900px]:justify-self-end"
                     :style="{ translate: lift }"
                 >
                     <p
@@ -47,13 +47,13 @@ const isScrollCueShown = computed(() => progress.value < 0.12);
 
                     <div class="mt-8 flex flex-col items-center gap-[0.15rem] min-[900px]:items-start">
                         <span
-                            class="text-[clamp(1rem,1.5vw,1.375rem)] leading-normal transition-[translate,color] duration-[400ms] ease-in-out"
+                            class="text-[clamp(1rem,1.5vw,1.375rem)] leading-normal transition-[translate,color] duration-400 ease-in-out"
                             :class="isFirstTaglineShown ? 'translate-y-0 text-base-content' : 'translate-y-[0.5em] text-gray-400'"
                         >
                             Staviam webové aplikácie od schémy databázy
                         </span>
                         <span
-                            class="text-[clamp(1rem,1.5vw,1.375rem)] leading-normal transition-[translate,color] duration-[400ms] ease-in-out"
+                            class="text-[clamp(1rem,1.5vw,1.375rem)] leading-normal transition-[translate,color] duration-400 ease-in-out"
                             :class="isSecondTaglineShown ? 'translate-y-0 text-base-content' : 'translate-y-[0.5em] text-gray-400'"
                         >
                             po posledný pixel rozhrania.
@@ -65,7 +65,7 @@ const isScrollCueShown = computed(() => progress.value < 0.12);
 
                 <div
                     ref="portrait"
-                    class="relative order-1 aspect-square w-[min(16rem,54vw)] transition-[translate,scale] duration-200 ease-in-out min-[900px]:order-none min-[900px]:w-[min(24rem,38vw)] min-[900px]:justify-self-start"
+                    class="relative order-1 aspect-square w-[min(16rem,54vw)] transition-[translate,scale] duration-200 ease-in-out min-[900px]:order-0 min-[900px]:w-[min(24rem,38vw)] min-[900px]:justify-self-start"
                     :style="{ scale: portraitScale, translate: lift }"
                 >
                     <!-- The rings drift against the cursor, and further than the portrait, to read as depth. -->
@@ -73,7 +73,7 @@ const isScrollCueShown = computed(() => progress.value < 0.12);
                         class="absolute inset-0 translate-x-[calc(var(--cx,0)*-16px)] translate-y-[calc(var(--cy,0)*-16px)] scale-[1.09] rounded-full border border-base-content/20 transition-[translate] duration-300 ease-in-out"
                     ></span>
                     <span
-                        class="absolute inset-0 translate-x-[calc(var(--cx,0)*-30px)] translate-y-[calc(var(--cy,0)*-30px)] scale-[1.22] rounded-full border border-base-content/20 transition-[translate] duration-[400ms] ease-in-out"
+                        class="absolute inset-0 translate-x-[calc(var(--cx,0)*-30px)] translate-y-[calc(var(--cy,0)*-30px)] scale-[1.22] rounded-full border border-base-content/20 transition-[translate] duration-400 ease-in-out"
                     ></span>
                     <img
                         src="/images/profile_2026.png"
@@ -88,7 +88,7 @@ const isScrollCueShown = computed(() => progress.value < 0.12);
                 class="absolute bottom-10 left-[clamp(1rem,5vw,4rem)] flex items-center gap-3 font-mono text-xs tracking-[0.14em] text-gray-400 uppercase"
             >
                 <span>Skrolujte</span>
-                <i class="h-px w-12 bg-gradient-to-r from-primary to-transparent"></i>
+                <i class="h-px w-12 bg-linear-to-r from-primary to-transparent"></i>
             </div>
         </div>
     </section>
