@@ -1,11 +1,6 @@
 <script setup lang="ts">
-import { computed, useTemplateRef } from "vue";
-import { usePublicStore } from "@/stores/publicStore";
+import { useTemplateRef } from "vue";
 import { useCursorParallax } from "@/composables/useCursorParallax";
-
-const store = usePublicStore();
-
-const fullName = computed(() => store.getFullName());
 
 // The cursor is published here, so both layers below can read --cx / --cy.
 const portrait = useTemplateRef("portrait");
@@ -15,22 +10,23 @@ useCursorParallax(portrait);
 <template>
     <div
         ref="portrait"
-        class="order-1 w-[min(16rem,54vw)] perspective-[1200px] min-[900px]:order-0 min-[900px]:w-[min(24rem,38vw)] min-[900px]:justify-self-start"
+        class="order-1 w-[min(17rem,60vw)] perspective-[1000px] min-[900px]:order-0 min-[900px]:w-[min(22rem,34vw)] min-[900px]:justify-self-start"
     >
+        <!-- A rectangle, not a circle: the tilt is only legible if edges converge. -->
         <div
-            class="relative aspect-square transform-3d overflow-hidden rounded-full shadow-lg transition-transform duration-300 ease-out rotate-x-[calc(var(--cy,0)*-7deg)] rotate-y-[calc(var(--cx,0)*7deg)]"
+            class="relative aspect-4/5 transform-3d overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-white/10 transition-transform duration-300 ease-out rotate-x-[calc(var(--cy,0)*-9deg)] rotate-y-[calc(var(--cx,0)*9deg)]"
         >
-            <!-- The scene stays put and softened, so it reads as the background. -->
+            <!-- Blurred hard enough to stop reading as a second copy of me. -->
             <img
                 src="/images/profile_2026.png"
-                :alt="fullName"
-                class="absolute inset-0 h-full w-full scale-105 object-cover blur-[3px]"
+                alt=""
+                class="absolute inset-0 h-full w-full scale-125 object-cover blur-2xl brightness-75"
             />
-            <!-- The cut-out lines up exactly at rest, and only lifts off as the cursor moves. -->
+            <!-- The sharp cut-out rides above and separates as the cursor moves. -->
             <img
                 src="/images/hero3d/profile-cutout.webp"
-                alt=""
-                class="absolute inset-0 h-full w-full translate-x-[calc(var(--cx,0)*12px)] translate-y-[calc(var(--cy,0)*12px)] object-cover transition-[translate] duration-300 ease-out"
+                alt="Marek Rucki"
+                class="absolute inset-0 h-full w-full translate-x-[calc(var(--cx,0)*14px)] translate-y-[calc(var(--cy,0)*14px)] scale-105 object-cover drop-shadow-2xl transition-[translate] duration-300 ease-out"
             />
         </div>
     </div>
