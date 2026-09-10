@@ -7,14 +7,15 @@ import type { MaybeComputedElementRef } from "@vueuse/core";
  * so parallax transforms stay in CSS and mouse movement never re-renders a component.
  * Both properties are removed while no pointer is present, or reduced motion is asked for.
  */
-export function useCursorParallax(target: MaybeComputedElementRef, strength = 1): void {
+export function useCursorParallax(target: MaybeComputedElementRef, strength = 1) {
     const { x, y, sourceType } = useMouse({ type: "client", touch: false });
     const { width, height } = useWindowSize();
     const reducedMotion = usePreferredReducedMotion();
 
-    // Distance from the center of the viewport, as a fraction. In a 1280px-wide
-    // window: x = 0 gives "-1.000", x = 640 gives "0.000", x = 1280 gives "1.000".
-    const toOffsetFromCenter = (position: number, extent: number): string =>
+    // Distance from the center of the viewport as a fraction: position / extent
+    // gives 0…1, then * 2 - 1 recenters it to -1…1, and strength scales the range.
+    // e.g. x = 960 in a 1280px window: 960 / 1280 = 0.75, 0.75 * 2 - 1 = "0.500".
+    const toOffsetFromCenter = (position: number, extent: number) =>
         (((position / extent) * 2 - 1) * strength).toFixed(3);
 
     watchEffect(() => {
